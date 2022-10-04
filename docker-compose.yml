@@ -25,7 +25,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        arch: x86_64 # update to aarch64 if you want to use that arch
+        arch: aarch64 # update to aarch64 if you want to use that arch
     container_name: bdjuno
     depends_on:
       - "postgres"
