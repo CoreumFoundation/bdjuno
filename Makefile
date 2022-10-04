@@ -15,8 +15,12 @@ all: lint build test-unit
 
 LD_FLAGS = -X github.com/forbole/juno/v3/cmd.Version=$(VERSION) \
 	-X github.com/forbole/juno/v3/cmd.Commit=$(COMMIT)
-BUILD_FLAGS :=  -ldflags '$(LD_FLAGS)'
 
+ifeq ($(LINK_STATICALLY),true)
+	LD_FLAGS += -linkmode=external -extldflags "-Wl,-z,muldefs -static"
+endif
+
+BUILD_FLAGS := -tags $(BUILD_TAGS)  -ldflags '$(LD_FLAGS)'
 
 ###############################################################################
 ###                                  Build                                  ###
