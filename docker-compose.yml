@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:14.5
     container_name: bdjuno-postgres
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
@@ -37,7 +37,7 @@ services:
   hasura:
     build:
       context: .
-      dockerfile: hasura.Dockerfile
+      dockerfile: Dockerfile.hasura
     container_name: bdjuno-hasura-graphql-engine
     ports:
       - "8080:8080"

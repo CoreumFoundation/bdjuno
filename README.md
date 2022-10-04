@@ -36,7 +36,7 @@ This will:
 
 ## Local launch in docker compose
 
-* Create .bdjuno folder and copy config.toml (based on config-sample.yaml) and genesis.json of your chain.
+* Create .bdjuno folder and inside it create config.toml (for sample of config check config-sample.yaml) and genesis.json of your chain.
 
 * Build and start
 
@@ -45,7 +45,7 @@ docker-compose up
 ```
 
 * Open [hasura UI](http://localhost:8080/console) and check that it works correctly.
-The default password is the docker-compose.yaml file and is: "myadminsecretkey"
+The password is defined in docker-compose.yaml and set to "myadminsecretkey" by default.
 
 ### Remarks
 
