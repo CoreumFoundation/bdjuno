@@ -14,13 +14,10 @@ all: lint build test-unit
 ###############################################################################
 
 LD_FLAGS = -X github.com/forbole/juno/v3/cmd.Version=$(VERSION) \
-	-X github.com/forbole/juno/v3/cmd.Commit=$(COMMIT)
+	-X github.com/forbole/juno/v3/cmd.Commit=$(COMMIT) \
+	-linkmode=external -extldflags "-Wl,-z,muldefs -static" \
 
-ifeq ($(LINK_STATICALLY),true)
-	LD_FLAGS += -linkmode=external -extldflags "-Wl,-z,muldefs -static"
-endif
-
-BUILD_FLAGS := -tags $(BUILD_TAGS)  -ldflags '$(LD_FLAGS)'
+BUILD_FLAGS := -tags muslc -ldflags '$(LD_FLAGS)'
 
 ###############################################################################
 ###                                  Build                                  ###
