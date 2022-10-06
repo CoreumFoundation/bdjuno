@@ -3,9 +3,8 @@ package handlers
 import (
 	"fmt"
 
-	"github.com/forbole/callisto/v4/modules/actions/types"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/forbole/callisto/v4/modules/actions/types"
 	"github.com/rs/zerolog/log"
 )
 

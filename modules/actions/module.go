@@ -5,14 +5,13 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
+	modulestypes "github.com/forbole/callisto/v4/modules/types"
 	"github.com/forbole/juno/v6/modules"
 	"github.com/forbole/juno/v6/node"
 	"github.com/forbole/juno/v6/node/builder"
 	nodeconfig "github.com/forbole/juno/v6/node/config"
 	"github.com/forbole/juno/v6/types/config"
 	"github.com/rs/zerolog/log"
-
-	modulestypes "github.com/forbole/callisto/v4/modules/types"
 )
 
 const (

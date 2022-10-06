@@ -190,7 +190,7 @@ type ValidatorCommissionRow struct {
 
 // NewValidatorCommissionRow allows to easily build a new ValidatorCommissionRow instance
 func NewValidatorCommissionRow(
-	operatorAddress string, commission string, minSelfDelegation string, height int64,
+	operatorAddress, commission, minSelfDelegation string, height int64,
 ) ValidatorCommissionRow {
 	return ValidatorCommissionRow{
 		OperatorAddress:   operatorAddress,
@@ -218,7 +218,7 @@ type ValidatorVotingPowerRow struct {
 }
 
 // NewValidatorVotingPowerRow allows to easily build a new ValidatorVotingPowerRow instance
-func NewValidatorVotingPowerRow(address string, votingPower int64, height int64) ValidatorVotingPowerRow {
+func NewValidatorVotingPowerRow(address string, votingPower, height int64) ValidatorVotingPowerRow {
 	return ValidatorVotingPowerRow{
 		ValidatorAddress: address,
 		VotingPower:      votingPower,
@@ -320,7 +320,7 @@ type DoubleSignEvidenceRow struct {
 }
 
 // NewDoubleSignEvidenceRow allows to build a new NewDoubleSignEvidenceRow
-func NewDoubleSignEvidenceRow(height int64, voteAID int64, voteBID int64) DoubleSignEvidenceRow {
+func NewDoubleSignEvidenceRow(height, voteAID, voteBID int64) DoubleSignEvidenceRow {
 	return DoubleSignEvidenceRow{
 		Height:  height,
 		VoteAID: voteAID,

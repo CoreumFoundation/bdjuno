@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-func AreTimesEqual(first *time.Time, second *time.Time) bool {
+func AreTimesEqual(first, second *time.Time) bool {
 	if first == nil && second == nil {
 		return true
 	}

@@ -23,7 +23,7 @@ type GrantRemoval struct {
 }
 
 // NewGrantRemoval allows to build a new GrantRemoval instance
-func NewGrantRemoval(grantee string, granter string, height int64) GrantRemoval {
+func NewGrantRemoval(grantee, granter string, height int64) GrantRemoval {
 	return GrantRemoval{
 		grantee,
 		granter,

@@ -3,7 +3,6 @@ package database_test
 import (
 	feegranttypes "cosmossdk.io/x/feegrant"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	dbtypes "github.com/forbole/callisto/v4/database/types"
 	"github.com/forbole/callisto/v4/types"
 )
@@ -35,7 +34,6 @@ func (suite *DbTestSuite) TestBigDipperDb_SaveFeeGrantAllowance() {
 	suite.Require().Equal(rows[0].Granter, granter.String())
 	suite.Require().Equal(rows[0].Grantee, grantee.String())
 	suite.Require().Equal(rows[0].Height, int64(121622))
-
 }
 
 func (suite *DbTestSuite) TestBigDipperDb_RemoveFeeGrantAllowance() {

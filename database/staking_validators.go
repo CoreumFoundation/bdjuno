@@ -3,12 +3,10 @@ package database
 import (
 	"fmt"
 
-	"github.com/forbole/callisto/v4/types"
-
-	dbtypes "github.com/forbole/callisto/v4/database/types"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+	dbtypes "github.com/forbole/callisto/v4/database/types"
+	"github.com/forbole/callisto/v4/types"
 )
 
 // SaveValidatorData saves properly the information about the given validator.
@@ -116,7 +114,6 @@ func (db *Db) GetValidatorOperatorAddress(consAddr string) (sdk.ValAddress, erro
 	}
 
 	return sdk.ValAddressFromBech32(result[0])
-
 }
 
 // GetValidator returns the validator having the given address.
@@ -167,7 +164,7 @@ ORDER BY validator.consensus_address`
 		return nil, err
 	}
 
-	var data = make([]types.Validator, len(rows))
+	data := make([]types.Validator, len(rows))
 	for index, row := range rows {
 		data[index] = row
 	}
@@ -219,7 +216,7 @@ func (db *Db) SaveValidatorDescription(description types.ValidatorDescription) e
 	}
 
 	// Update the existing description with this one, if one is already present
-	var avatarURL = description.AvatarURL
+	avatarURL := description.AvatarURL
 	if existing, found := db.getValidatorDescription(consAddr); found {
 		des, err = existing.Description.UpdateDescription(des)
 		if err != nil {

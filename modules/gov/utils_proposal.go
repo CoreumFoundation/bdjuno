@@ -4,23 +4,26 @@ import (
 	"fmt"
 	"strings"
 
+	upgradetypes "cosmossdk.io/x/upgrade/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
+	gov "github.com/cosmos/cosmos-sdk/x/gov/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govtypesv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
-	"github.com/rs/zerolog/log"
-
-	upgradetypes "cosmossdk.io/x/upgrade/types"
-	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	proposaltypes "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+	"github.com/forbole/callisto/v4/types"
+	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc/codes"
 
-	"github.com/forbole/callisto/v4/types"
-
-	gov "github.com/cosmos/cosmos-sdk/x/gov/types"
+	assetfttypes "github.com/CoreumFoundation/coreum/v5/x/asset/ft/types"
+	assetnfttypes "github.com/CoreumFoundation/coreum/v5/x/asset/nft/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v5/x/customparams/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v5/x/feemodel/types"
 )
 
 // UpdateProposalStatus queries the latest details of given proposal ID, updates it's status
@@ -121,6 +124,11 @@ func (m *Module) updateDeletedProposalStatus(id uint64) error {
 // handleParamChangeProposal updates params to the corresponding modules if a ParamChangeProposal has passed
 func (m *Module) handleParamChangeProposal(height int64, moduleName string) (err error) {
 	switch moduleName {
+	case authtypes.ModuleName:
+		err = m.authModule.UpdateParams(height)
+		if err != nil {
+			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", authtypes.ModuleName, err)
+		}
 	case distrtypes.ModuleName:
 		err = m.distrModule.UpdateParams(height)
 		if err != nil {
@@ -151,6 +159,26 @@ func (m *Module) handleParamChangeProposal(height int64, moduleName string) (err
 		err = m.stakingModule.UpdateParams(height)
 		if err != nil {
 			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", stakingtypes.ModuleName, err)
+		}
+	case feemodeltypes.ModuleName:
+		err = m.feeModelModule.UpdateParams(height)
+		if err != nil {
+			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", feemodeltypes.ModuleName, err)
+		}
+	case customparamstypes.CustomParamsStaking:
+		err = m.customParamsModule.UpdateParams(height)
+		if err != nil {
+			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", customparamstypes.ModuleName, err)
+		}
+	case assetfttypes.ModuleName:
+		err = m.assetFTModule.UpdateParams(height)
+		if err != nil {
+			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", assetfttypes.ModuleName, err)
+		}
+	case assetnfttypes.ModuleName:
+		err = m.assetNFTModule.UpdateParams(height)
+		if err != nil {
+			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", assetnfttypes.ModuleName, err)
 		}
 	}
 

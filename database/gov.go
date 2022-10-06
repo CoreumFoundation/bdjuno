@@ -9,10 +9,9 @@ import (
 	upgradetypes "cosmossdk.io/x/upgrade/types"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-	"github.com/lib/pq"
-
 	dbtypes "github.com/forbole/callisto/v4/database/types"
 	"github.com/forbole/callisto/v4/types"
+	"github.com/lib/pq"
 )
 
 // SaveGovParams saves the given x/gov parameters inside the database
@@ -344,7 +343,6 @@ WHERE proposal_staking_pool_snapshot.height <= excluded.height`
 	_, err := db.SQL.Exec(stmt,
 		snapshot.ProposalID, snapshot.Pool.BondedTokens.String(),
 		snapshot.Pool.NotBondedTokens.String(), snapshot.Pool.Height)
-
 	if err != nil {
 		return fmt.Errorf("error while storing proposal staking pool snapshot for proposal %d: %s",
 			snapshot.ProposalID, err)
@@ -391,7 +389,6 @@ WHERE proposal_validator_status_snapshot.height <= excluded.height`
 
 // SaveSoftwareUpgradePlan allows to save the given software upgrade plan with its proposal id
 func (db *Db) SaveSoftwareUpgradePlan(proposalID uint64, plan upgradetypes.Plan, height int64) error {
-
 	stmt := `
 INSERT INTO software_upgrade_plan(proposal_id, plan_name, upgrade_height, info, height)
 VALUES ($1, $2, $3, $4, $5)

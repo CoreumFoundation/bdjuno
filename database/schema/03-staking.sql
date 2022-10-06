@@ -28,7 +28,7 @@ CREATE INDEX staking_pool_height_index ON staking_pool (height);
 CREATE TABLE validator_info
 (
     consensus_address     TEXT   NOT NULL UNIQUE PRIMARY KEY REFERENCES validator (consensus_address),
-    operator_address      TEXT   NOT NULL UNIQUE,
+    operator_address      TEXT   NOT NULL,
     self_delegate_address TEXT REFERENCES account (address),
     max_change_rate       TEXT   NOT NULL,
     max_rate              TEXT   NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE validator_voting_power
 (
     validator_address TEXT   NOT NULL REFERENCES validator (consensus_address) PRIMARY KEY,
     voting_power      BIGINT NOT NULL,
-    height            BIGINT NOT NULL REFERENCES block (height)
+    height            BIGINT NULL REFERENCES block (height)
 );
 CREATE INDEX validator_voting_power_height_index ON validator_voting_power (height);
 

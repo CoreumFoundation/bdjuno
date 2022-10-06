@@ -5,28 +5,22 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/rs/zerolog/log"
-
-	modulestypes "github.com/forbole/callisto/v4/modules/types"
-
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govtypesv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
+	"github.com/forbole/callisto/v4/database"
+	"github.com/forbole/callisto/v4/modules/gov"
+	modulestypes "github.com/forbole/callisto/v4/modules/types"
+	"github.com/forbole/callisto/v4/utils"
 	parsecmdtypes "github.com/forbole/juno/v6/cmd/parse/types"
+	"github.com/forbole/juno/v6/modules/messages"
 	"github.com/forbole/juno/v6/parser"
 	"github.com/forbole/juno/v6/types/config"
+	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
-
-	"github.com/forbole/callisto/v4/database"
-	"github.com/forbole/callisto/v4/modules/distribution"
-	"github.com/forbole/callisto/v4/modules/gov"
-	"github.com/forbole/callisto/v4/modules/mint"
-	"github.com/forbole/callisto/v4/modules/slashing"
-	"github.com/forbole/callisto/v4/modules/staking"
-	"github.com/forbole/callisto/v4/utils"
 )
 
 // proposalCmd returns the Cobra command allowing to fix all things related to a proposal
-func proposalCmd(parseConfig *parsecmdtypes.Config) *cobra.Command {
+func proposalCmd(parseConfig *parsecmdtypes.Config, messageAddressParser messages.MessageAddressesParser) *cobra.Command {
 	return &cobra.Command{
 		Use:   "proposal [id]",
 		Short: "Get the description, votes and everything related to a proposal given its id",
@@ -49,15 +43,7 @@ func proposalCmd(parseConfig *parsecmdtypes.Config) *cobra.Command {
 
 			// Get the database
 			db := database.Cast(parseCtx.Database)
-
-			// Build expected modules of gov modules for handleParamChangeProposal
-			distrModule := distribution.NewModule(sources.DistrSource, cdc, db)
-			mintModule := mint.NewModule(sources.MintSource, cdc, db)
-			slashingModule := slashing.NewModule(sources.SlashingSource, cdc, db)
-			stakingModule := staking.NewModule(sources.StakingSource, cdc, db)
-
-			// Build the gov module
-			govModule := gov.NewModule(sources.GovSource, distrModule, mintModule, slashingModule, stakingModule, cdc, db)
+			govModule := buildGovModule(sources, messageAddressParser, cdc, db)
 
 			err = refreshProposalDetails(parseCtx, proposalID, govModule)
 			if err != nil {
@@ -126,7 +112,6 @@ func refreshProposalDetails(parseCtx *parser.Context, proposalID uint64, govModu
 
 	// Handle the MsgSubmitProposal messages
 	for index, msg := range tx.GetMsgs() {
-
 		switch msg.(type) {
 		case *govtypesv1.MsgSubmitProposal, *govtypesv1beta1.MsgSubmitProposal:
 			err = govModule.HandleMsg(index, tx.Body.Messages[index], tx)

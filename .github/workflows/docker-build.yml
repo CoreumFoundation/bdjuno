@@ -8,7 +8,7 @@ on:
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
@@ -24,22 +24,13 @@ jobs:
       - name: Prepare tags 🏷️
         id: prep
         run: |
-          DOCKER_IMAGE=${{ secrets.DOCKERHUB_BDJUNO_REPO }}
+          DOCKER_IMAGE=${{ secrets.DOCKERHUB_CALLISTO_REPO }}
           CHAIN_NAME="${{env.CHAIN_NAME}}"
           VERSION="${{env.GITHUB_VERSION}}"
           TAGS="${DOCKER_IMAGE}:${CHAIN_NAME}-${VERSION}"
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-
-      - name: Determine Dockerfile to use 🔍
-        run: |
-          if [[ -f Dockerfile.cosmwasm ]]; then
-            export DOCKERFILE=Dockerfile.cosmwasm
-          else
-            export DOCKERFILE=Dockerfile.default
-          fi
-          echo "DOCKERFILE=${DOCKERFILE}" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx 🧰
         uses: docker/setup-buildx-action@v3
@@ -54,6 +45,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: "./${{ env.DOCKERFILE }}"
+          file: Dockerfile
           push: true
           tags: ${{ steps.prep.outputs.tags }}

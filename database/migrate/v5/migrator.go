@@ -1,10 +1,9 @@
 package v5
 
 import (
-	"github.com/jmoiron/sqlx"
-
 	"github.com/forbole/juno/v6/database"
 	"github.com/forbole/juno/v6/database/postgresql"
+	"github.com/jmoiron/sqlx"
 )
 
 var _ database.Migrator = &Migrator{}

@@ -5,10 +5,8 @@ import (
 	"fmt"
 
 	tmtypes "github.com/cometbft/cometbft/types"
-
-	"github.com/forbole/callisto/v4/types"
-
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
+	"github.com/forbole/callisto/v4/types"
 	"github.com/rs/zerolog/log"
 )
 

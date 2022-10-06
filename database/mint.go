@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"cosmossdk.io/math"
-
 	"github.com/forbole/callisto/v4/types"
 )
 

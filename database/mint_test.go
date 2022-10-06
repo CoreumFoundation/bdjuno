@@ -5,14 +5,11 @@ import (
 
 	"cosmossdk.io/math"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
-
-	"github.com/forbole/callisto/v4/types"
-
 	dbtypes "github.com/forbole/callisto/v4/database/types"
+	"github.com/forbole/callisto/v4/types"
 )
 
 func (suite *DbTestSuite) TestBigDipperDb_SaveInflation() {
-
 	// Save the data
 	err := suite.database.SaveInflation(math.LegacyNewDecWithPrec(10050, 2), 100)
 	suite.Require().NoError(err)

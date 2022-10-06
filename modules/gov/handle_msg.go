@@ -5,20 +5,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/rs/zerolog/log"
-	"google.golang.org/grpc/codes"
-
-	"github.com/forbole/callisto/v4/types"
-	"github.com/forbole/callisto/v4/utils"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govtypesv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
-
-	juno "github.com/forbole/juno/v6/types"
-
+	"github.com/forbole/callisto/v4/types"
+	"github.com/forbole/callisto/v4/utils"
 	eventutils "github.com/forbole/callisto/v4/utils/events"
+	juno "github.com/forbole/juno/v6/types"
+	"github.com/rs/zerolog/log"
+	"google.golang.org/grpc/codes"
 )
 
 var msgFilter = map[string]bool{
@@ -34,7 +30,7 @@ var msgFilter = map[string]bool{
 }
 
 // HandleMsgExec implements modules.AuthzMessageModule
-func (m *Module) HandleMsgExec(index int, _ int, executedMsg juno.Message, tx *juno.Transaction) error {
+func (m *Module) HandleMsgExec(index, _ int, executedMsg juno.Message, tx *juno.Transaction) error {
 	return m.HandleMsg(index, executedMsg, tx)
 }
 

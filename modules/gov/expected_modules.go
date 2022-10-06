@@ -4,6 +4,10 @@ import (
 	"github.com/forbole/callisto/v4/types"
 )
 
+type AuthModule interface {
+	UpdateParams(height int64) error
+}
+
 type DistrModule interface {
 	UpdateParams(height int64) error
 }
@@ -19,5 +23,21 @@ type SlashingModule interface {
 
 type StakingModule interface {
 	GetStakingPoolSnapshot(height int64) (*types.PoolSnapshot, error)
+	UpdateParams(height int64) error
+}
+
+type FeeModelModule interface {
+	UpdateParams(height int64) error
+}
+
+type CustomParamsModule interface {
+	UpdateParams(height int64) error
+}
+
+type AssetFTModule interface {
+	UpdateParams(height int64) error
+}
+
+type AssetNFTModule interface {
 	UpdateParams(height int64) error
 }

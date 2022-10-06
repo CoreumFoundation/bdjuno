@@ -6,19 +6,15 @@ import (
 
 	"cosmossdk.io/math"
 	upgradetypes "cosmossdk.io/x/upgrade/types"
-	gov "github.com/cosmos/cosmos-sdk/x/gov/types"
-	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-
-	"github.com/forbole/callisto/v4/testutils"
-	"github.com/forbole/callisto/v4/types"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	gov "github.com/cosmos/cosmos-sdk/x/gov/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	dbtypes "github.com/forbole/callisto/v4/database/types"
+	"github.com/forbole/callisto/v4/testutils"
+	"github.com/forbole/callisto/v4/types"
 )
 
 func (suite *DbTestSuite) TestBigDipperDb_SaveGovParams() {
@@ -709,7 +705,7 @@ func (suite *DbTestSuite) TestBigDipperDb_SaveProposalValidatorsStatusesSnapshot
 	// ----------------------------------------------------------------------------------------------------------------
 	// Save snapshots
 
-	var snapshots = []types.ProposalValidatorStatusSnapshot{
+	snapshots := []types.ProposalValidatorStatusSnapshot{
 		types.NewProposalValidatorStatusSnapshot(
 			1,
 			validator1.GetConsAddr(),
@@ -908,7 +904,7 @@ func (suite *DbTestSuite) TestBigDipperDb_SaveSoftwareUpgradePlan() {
 
 	// ----------------------------------------------------------------------------------------------------------------
 	// Save software upgrade plan at height 10 with upgrade height at 100
-	var plan = upgradetypes.Plan{
+	plan := upgradetypes.Plan{
 		Name:   "name",
 		Height: 100,
 		Info:   "info",
@@ -987,7 +983,7 @@ func (suite *DbTestSuite) TestBigDipperDb_DeleteSoftwareUpgradePlan() {
 	_ = suite.getProposalRow(1)
 
 	// Save software upgrade plan at height 10 with upgrade height at 100
-	var plan = upgradetypes.Plan{
+	plan := upgradetypes.Plan{
 		Name:   "name",
 		Height: 100,
 		Info:   "info",
@@ -1004,14 +1000,13 @@ func (suite *DbTestSuite) TestBigDipperDb_DeleteSoftwareUpgradePlan() {
 	err = suite.database.Sqlx.Select(&rows, `SELECT * FROM software_upgrade_plan`)
 	suite.Require().NoError(err)
 	suite.Require().Len(rows, 0)
-
 }
 
 func (suite *DbTestSuite) TestBigDipperDb_CheckSoftwareUpgradePlan() {
 	_ = suite.getProposalRow(1)
 
 	// Save software upgrade plan at height 10 with upgrade height at 100
-	var plan = upgradetypes.Plan{
+	plan := upgradetypes.Plan{
 		Name: "name",
 		// the Height here is the upgrade height
 		Height: 100,

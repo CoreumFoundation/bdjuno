@@ -6,7 +6,6 @@ import (
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-
 	"github.com/forbole/callisto/v4/modules/staking/keybase"
 	"github.com/forbole/callisto/v4/types"
 )

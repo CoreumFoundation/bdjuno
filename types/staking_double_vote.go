@@ -8,7 +8,7 @@ type DoubleSignEvidence struct {
 }
 
 // NewDoubleSignEvidence return a new DoubleSignEvidence object
-func NewDoubleSignEvidence(height int64, voteA DoubleSignVote, voteB DoubleSignVote) DoubleSignEvidence {
+func NewDoubleSignEvidence(height int64, voteA, voteB DoubleSignVote) DoubleSignEvidence {
 	return DoubleSignEvidence{
 		VoteA:  voteA,
 		VoteB:  voteB,

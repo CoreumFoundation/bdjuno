@@ -4,13 +4,10 @@ import (
 	"fmt"
 	"strconv"
 
-	juno "github.com/forbole/juno/v6/types"
-
-	tmctypes "github.com/cometbft/cometbft/rpc/core/types"
-
 	abci "github.com/cometbft/cometbft/abci/types"
+	tmctypes "github.com/cometbft/cometbft/rpc/core/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-
+	juno "github.com/forbole/juno/v6/types"
 	"github.com/rs/zerolog/log"
 )
 

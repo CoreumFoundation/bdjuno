@@ -1,9 +1,8 @@
 package pricefeed
 
 import (
-	"gopkg.in/yaml.v3"
-
 	"github.com/forbole/callisto/v4/types"
+	"gopkg.in/yaml.v3"
 )
 
 // Config contains the configuration about the pricefeed module

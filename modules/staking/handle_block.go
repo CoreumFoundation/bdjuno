@@ -4,12 +4,10 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/forbole/callisto/v4/types"
-
-	juno "github.com/forbole/juno/v6/types"
-
 	tmctypes "github.com/cometbft/cometbft/rpc/core/types"
 	tmtypes "github.com/cometbft/cometbft/types"
+	"github.com/forbole/callisto/v4/types"
+	juno "github.com/forbole/juno/v6/types"
 	"github.com/rs/zerolog/log"
 )
 
@@ -71,5 +69,4 @@ func (m *Module) updateDoubleSignEvidence(height int64, evidenceList tmtypes.Evi
 			Msg("error while saving double sign evidence")
 		return
 	}
-
 }

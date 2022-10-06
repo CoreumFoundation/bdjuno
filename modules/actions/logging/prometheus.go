@@ -27,19 +27,70 @@ var ActionErrorCounter = prometheus.NewCounterVec(
 	}, []string{"path", "http_status_code"},
 )
 
+// BlockTimeGauge represents the Telemetry gauge used to track chain block time
+var BlockTimeGauge = prometheus.NewGaugeVec(
+	prometheus.GaugeOpts{
+		Name: "callisto_block_time",
+		Help: "The current callisto block time.",
+	}, []string{
+		"period",
+	},
+)
+
+// ProposalSummary represents the Telemetry summary used to track proposals
+var ProposalSummary = prometheus.NewSummaryVec(
+	prometheus.SummaryOpts{
+		Name: "callisto_proposal",
+		Help: "Counts successful proposals.",
+	}, []string{
+		"validator",
+	},
+)
+
+// ValidatorBlockMismatchCounter represents the Telemetry counter used to track cases when height in processed block
+// differs from the one in returned validator set.
+var ValidatorBlockMismatchCounter = prometheus.NewCounter(
+	prometheus.CounterOpts{
+		Name: "callisto_validator_block_mismatch",
+		Help: "Total number of mismatched block heights in validator set.",
+	},
+)
+
+// BlockRoundSummary represents the Telemetry summary used to track block proposal rounds
+var BlockRoundSummary = prometheus.NewSummaryVec(
+	prometheus.SummaryOpts{
+		Name: "callisto_block_round",
+		Help: "Counts block rounds.",
+	}, []string{
+		"round",
+	},
+)
+
+// VoteTimeHistogram represents the Telemetry histogram used to track voting times
+var VoteTimeHistogram = prometheus.NewHistogramVec(
+	prometheus.HistogramOpts{
+		Name:    "callisto_vote_time",
+		Help:    "Measures time required to vote.",
+		Buckets: []float64{250, 500, 750, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 6000, 7000},
+	}, []string{
+		"proposer",
+		"voter",
+	},
+)
+
 func init() {
-	err := prometheus.Register(ActionResponseTime)
-	if err != nil {
-		panic(err)
-	}
-
-	err = prometheus.Register(ActionCounter)
-	if err != nil {
-		panic(err)
-	}
-
-	err = prometheus.Register(ActionErrorCounter)
-	if err != nil {
-		panic(err)
+	for _, c := range []prometheus.Collector{
+		ActionResponseTime,
+		ActionCounter,
+		ActionErrorCounter,
+		BlockTimeGauge,
+		ProposalSummary,
+		ValidatorBlockMismatchCounter,
+		BlockRoundSummary,
+		VoteTimeHistogram,
+	} {
+		if err := prometheus.Register(c); err != nil {
+			panic(err)
+		}
 	}
 }

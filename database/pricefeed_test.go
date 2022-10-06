@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/forbole/callisto/v4/types"
-
 	dbtypes "github.com/forbole/callisto/v4/database/types"
+	"github.com/forbole/callisto/v4/types"
 )
 
 func (suite *DbTestSuite) insertToken(name string) {
@@ -29,7 +28,7 @@ func (suite *DbTestSuite) Test_GetTokensPriceID() {
 	units, err := suite.database.GetTokensPriceID()
 	suite.Require().NoError(err)
 
-	var expected = []string{"udesmos", "mdesmos", "desmos", "udaric", "mdaric", "daric"}
+	expected := []string{"udesmos", "mdesmos", "desmos", "udaric", "mdaric", "daric"}
 
 	suite.Require().Len(units, len(expected))
 	for _, name := range expected {

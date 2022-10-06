@@ -10,25 +10,19 @@ import (
 	"time"
 
 	"cosmossdk.io/math"
-	dbconfig "github.com/forbole/juno/v6/database/config"
-	"github.com/forbole/juno/v6/logging"
-
-	junodb "github.com/forbole/juno/v6/database"
-
-	"github.com/forbole/callisto/v4/database"
-	"github.com/forbole/callisto/v4/types"
-	"github.com/forbole/callisto/v4/utils"
-
-	juno "github.com/forbole/juno/v6/types"
-
 	tmversion "github.com/cometbft/cometbft/proto/tendermint/version"
 	tmctypes "github.com/cometbft/cometbft/rpc/core/types"
 	tmtypes "github.com/cometbft/cometbft/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
-	"github.com/stretchr/testify/suite"
-
+	"github.com/forbole/callisto/v4/database"
+	"github.com/forbole/callisto/v4/types"
+	"github.com/forbole/callisto/v4/utils"
+	junodb "github.com/forbole/juno/v6/database"
+	dbconfig "github.com/forbole/juno/v6/database/config"
+	"github.com/forbole/juno/v6/logging"
+	juno "github.com/forbole/juno/v6/types"
 	_ "github.com/proullon/ramsql/driver"
+	"github.com/stretchr/testify/suite"
 )
 
 func TestDatabaseTestSuite(t *testing.T) {

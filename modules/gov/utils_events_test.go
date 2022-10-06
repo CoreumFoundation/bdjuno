@@ -6,9 +6,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-	"github.com/stretchr/testify/require"
-
 	"github.com/forbole/callisto/v4/modules/gov"
+	"github.com/stretchr/testify/require"
 )
 
 func TestWeightVoteOptionFromEvents(t *testing.T) {

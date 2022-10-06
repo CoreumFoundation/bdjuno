@@ -7,12 +7,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/vesting/exported"
 	vestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 	"github.com/cosmos/gogoproto/proto"
-	"github.com/lib/pq"
-
 	dbtypes "github.com/forbole/callisto/v4/database/types"
 	dbutils "github.com/forbole/callisto/v4/database/utils"
-
 	"github.com/forbole/callisto/v4/types"
+	"github.com/lib/pq"
 )
 
 // SaveAccounts saves the given accounts inside the database

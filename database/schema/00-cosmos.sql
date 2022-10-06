@@ -109,7 +109,7 @@ SELECT * FROM message
 WHERE (cardinality(types) = 0 OR type = ANY (types))
   AND addresses && involved_accounts_addresses
 ORDER BY height DESC LIMIT "limit" OFFSET "offset"
-$$ LANGUAGE sql STABLE;
+    $$ LANGUAGE sql STABLE;
 
 CREATE FUNCTION messages_by_type(
   types text [],

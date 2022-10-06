@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/forbole/callisto/v4/modules/actions/types"
-
 	"github.com/rs/zerolog/log"
 )
 

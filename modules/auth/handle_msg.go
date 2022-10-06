@@ -5,15 +5,13 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	juno "github.com/forbole/juno/v6/types"
-	"github.com/rs/zerolog/log"
-
 	authttypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	vestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
-
 	moduleutils "github.com/forbole/callisto/v4/modules/utils"
 	"github.com/forbole/callisto/v4/types"
 	"github.com/forbole/callisto/v4/utils"
+	juno "github.com/forbole/juno/v6/types"
+	"github.com/rs/zerolog/log"
 )
 
 var msgFilter = map[string]bool{
@@ -21,7 +19,7 @@ var msgFilter = map[string]bool{
 }
 
 // HandleMsgExec implements modules.AuthzMessageModule
-func (m *Module) HandleMsgExec(index int, _ int, executedMsg juno.Message, tx *juno.Transaction) error {
+func (m *Module) HandleMsgExec(index, _ int, executedMsg juno.Message, tx *juno.Transaction) error {
 	return m.HandleMsg(index, executedMsg, tx)
 }
 
@@ -58,7 +56,6 @@ func (m *Module) HandleMsg(_ int, msg juno.Message, tx *juno.Transaction) error 
 }
 
 func (m *Module) handleMsgCreateVestingAccount(msg *vestingtypes.MsgCreateVestingAccount, txTimestamp time.Time) error {
-
 	accAddress, err := sdk.AccAddressFromBech32(msg.ToAddress)
 	if err != nil {
 		return fmt.Errorf("error while converting account address %s", err)

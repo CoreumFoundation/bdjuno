@@ -3,10 +3,9 @@ package gov
 import (
 	"fmt"
 
+	"github.com/forbole/callisto/v4/modules/utils"
 	"github.com/go-co-op/gocron"
 	"github.com/rs/zerolog/log"
-
-	"github.com/forbole/callisto/v4/modules/utils"
 )
 
 // RegisterPeriodicOperations implements modules.PeriodicOperationsModule

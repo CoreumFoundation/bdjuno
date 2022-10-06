@@ -5,14 +5,11 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
-	"github.com/forbole/juno/v6/node/local"
-
 	distrsource "github.com/forbole/callisto/v4/modules/distribution/source"
+	"github.com/forbole/juno/v6/node/local"
 )
 
-var (
-	_ distrsource.Source = &Source{}
-)
+var _ distrsource.Source = &Source{}
 
 // Source implements distrsource.Source reading the data from a local node
 type Source struct {

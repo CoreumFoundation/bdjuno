@@ -31,7 +31,7 @@ type validator struct {
 
 // NewValidator allows to build a new Validator implementation having the given data
 func NewValidator(
-	consAddr string, opAddr string, consPubKey string,
+	consAddr, opAddr, consPubKey string,
 	selfDelegateAddress string, maxChangeRate *math.LegacyDec,
 	maxRate *math.LegacyDec, height int64,
 ) Validator {
@@ -131,7 +131,7 @@ type ValidatorVotingPower struct {
 }
 
 // NewValidatorVotingPower creates a new ValidatorVotingPower
-func NewValidatorVotingPower(address string, votingPower int64, height int64) ValidatorVotingPower {
+func NewValidatorVotingPower(address string, votingPower, height int64) ValidatorVotingPower {
 	return ValidatorVotingPower{
 		ConsensusAddress: address,
 		VotingPower:      votingPower,

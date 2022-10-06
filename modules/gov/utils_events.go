@@ -9,7 +9,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
-
 	eventsutil "github.com/forbole/callisto/v4/utils/events"
 )
 
@@ -39,12 +38,23 @@ func WeightVoteOptionFromEvents(events sdk.StringEvents) (govtypesv1.WeightedVot
 
 // parseWeightVoteOption returns the vote option from the given string
 // option value in string has 2 cases, for example:
-// 1. "{\"option\":1,\"weight\":\"1.000000000000000000\"}"
-// 2. "option:VOTE_OPTION_NO weight:\"1.000000000000000000\""
+// 1. "[{\"option\":1,\"weight\":\"1.000000000000000000\"}]"
+// 2. "{\"option\":1,\"weight\":\"1.000000000000000000\"}"
+// 3. "option:VOTE_OPTION_NO weight:\"1.000000000000000000\""
 func parseWeightVoteOption(optionValue string) (govtypesv1.WeightedVoteOption, error) {
+	// try parse json options value
+	var weightedVoteOptions []govtypesv1.WeightedVoteOption
+	err := json.Unmarshal([]byte(optionValue), &weightedVoteOptions)
+	if err == nil {
+		if len(weightedVoteOptions) > 1 {
+			return govtypesv1.WeightedVoteOption{}, fmt.Errorf("failed to parse vote option %s: too many options", optionValue)
+		}
+		return weightedVoteOptions[0], nil
+	}
+
 	// try parse json option value
 	var weightedVoteOption govtypesv1.WeightedVoteOption
-	err := json.Unmarshal([]byte(optionValue), &weightedVoteOption)
+	err = json.Unmarshal([]byte(optionValue), &weightedVoteOption)
 	if err == nil {
 		return weightedVoteOption, nil
 	}
