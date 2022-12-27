@@ -11,7 +11,6 @@ import (
 
 // SaveCustomParamsParams saves the given x/customparams parameters inside the database
 func (db *Db) SaveCustomParamsParams(params *types.CustomParamsParams) error {
-
 	stakingParamsBz, err := json.Marshal(&params.StakingParams)
 	if err != nil {
 		return fmt.Errorf("error while marshaling staking params: %s", err)
