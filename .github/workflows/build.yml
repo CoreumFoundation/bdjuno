@@ -61,3 +61,4 @@ jobs:
             ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:latest
             ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:${{ env.SHA8 }}
             ${{ env.HASURA_FULL_TAG_NAME }}
+
