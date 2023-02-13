@@ -2,8 +2,8 @@ name: Build and Push to DockerHub
 
 on:
   push:
-#    branches:
-#      - chains/coreum
+    branches:
+      - chains/coreum
 
 env:
   BDJUNO_IMAGE_NAME: bdjuno
@@ -22,6 +22,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set variables
+        # if git tag is present, set it to BDJUNO_FULL_TAG_NAME and HASURA_FULL_TAG_NAME, else put empty string
         run: |
           echo "SHA8=${GITHUB_SHA::8}" >> $GITHUB_ENV
           
@@ -45,6 +46,7 @@ jobs:
         with:
           file: Dockerfile
           push: true
+          # if tag is an empty string, plugin will skip that tag.
           tags: |
             ${{ env.ORG }}/${{ env.BDJUNO_IMAGE_NAME }}:latest
             ${{ env.ORG }}/${{ env.BDJUNO_IMAGE_NAME }}:${{ env.SHA8 }}
