@@ -38,3 +38,11 @@ type FeeModelModule interface {
 type CustomParamsModule interface {
 	UpdateParams(height int64) error
 }
+
+type AsserFTModule interface {
+	UpdateParams(height int64) error
+}
+
+type AsserNFTModule interface {
+	UpdateParams(height int64) error
+}
