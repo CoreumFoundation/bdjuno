@@ -29,8 +29,8 @@ type Module struct {
 	stakingModule      StakingModule
 	feeModelModule     FeeModelModule
 	customParamsModule CustomParamsModule
-	assetFTModule  AssetFTModule
-	assetNFTModule AssetNFTModule
+	assetFTModule      AssetFTModule
+	assetNFTModule     AssetNFTModule
 }
 
 // NewModule returns a new Module instance
