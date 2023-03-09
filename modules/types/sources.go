@@ -62,8 +62,8 @@ type Sources struct {
 	StakingSource      stakingsource.Source
 	FeeModelSource     feemodelsource.Source
 	CustomParamsSource customparamssource.Source
-	AssetFTSource  assetftsource.Source
-	AssetNFTSource assetnftsource.Source
+	AssetFTSource      assetftsource.Source
+	AssetNFTSource     assetnftsource.Source
 }
 
 func BuildSources(nodeCfg nodeconfig.Config, encodingConfig *params.EncodingConfig) (*Sources, error) {
