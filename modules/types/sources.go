@@ -137,7 +137,7 @@ func buildRemoteSources(cfg *remote.Details) (*Sources, error) {
 		StakingSource:      remotestakingsource.NewSource(source, stakingtypes.NewQueryClient(source.GrpcConn)),
 		FeeModelSource:     remotefeemodelsource.NewSource(source, feemodeltypes.NewQueryClient(source.GrpcConn)),
 		CustomParamsSource: remotecustomparamssource.NewSource(source, customparamstypes.NewQueryClient(source.GrpcConn)),
-		AsserFTSource:  remoteassetftsource.NewSource(source, assetfttypes.NewQueryClient(source.GrpcConn)),
-		AsserNFTSource: remoteassetnftsource.NewSource(source, assetnfttypes.NewQueryClient(source.GrpcConn)),
+		AsserFTSource:      remoteassetftsource.NewSource(source, assetfttypes.NewQueryClient(source.GrpcConn)),
+		AsserNFTSource:     remoteassetnftsource.NewSource(source, assetnfttypes.NewQueryClient(source.GrpcConn)),
 	}, nil
 }
