@@ -142,12 +142,12 @@ func (m *Module) handleParamChangeProposal(height int64, proposal govtypes.Propo
 				return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", customparamstypes.ModuleName, err)
 			}
 		case assetfttypes.ModuleName:
-			err = m.asserFTModule.UpdateParams(height)
+			err = m.assetFTModule.UpdateParams(height)
 			if err != nil {
 				return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", assetfttypes.ModuleName, err)
 			}
 		case assetnfttypes.ModuleName:
-			err = m.asserNFTModule.UpdateParams(height)
+			err = m.assetNFTModule.UpdateParams(height)
 			if err != nil {
 				return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", assetnfttypes.ModuleName, err)
 			}

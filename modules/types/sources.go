@@ -62,8 +62,8 @@ type Sources struct {
 	StakingSource      stakingsource.Source
 	FeeModelSource     feemodelsource.Source
 	CustomParamsSource customparamssource.Source
-	AsserFTSource      assetftsource.Source
-	AsserNFTSource     assetnftsource.Source
+	AssetFTSource  assetftsource.Source
+	AssetNFTSource assetnftsource.Source
 }
 
 func BuildSources(nodeCfg nodeconfig.Config, encodingConfig *params.EncodingConfig) (*Sources, error) {
@@ -137,7 +137,7 @@ func buildRemoteSources(cfg *remote.Details) (*Sources, error) {
 		StakingSource:      remotestakingsource.NewSource(source, stakingtypes.NewQueryClient(source.GrpcConn)),
 		FeeModelSource:     remotefeemodelsource.NewSource(source, feemodeltypes.NewQueryClient(source.GrpcConn)),
 		CustomParamsSource: remotecustomparamssource.NewSource(source, customparamstypes.NewQueryClient(source.GrpcConn)),
-		AsserFTSource:      remoteassetftsource.NewSource(source, assetfttypes.NewQueryClient(source.GrpcConn)),
-		AsserNFTSource:     remoteassetnftsource.NewSource(source, assetnfttypes.NewQueryClient(source.GrpcConn)),
+		AssetFTSource:      remoteassetftsource.NewSource(source, assetfttypes.NewQueryClient(source.GrpcConn)),
+		AssetNFTSource:     remoteassetnftsource.NewSource(source, assetnfttypes.NewQueryClient(source.GrpcConn)),
 	}, nil
 }

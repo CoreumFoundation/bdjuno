@@ -29,8 +29,8 @@ type Module struct {
 	stakingModule      StakingModule
 	feeModelModule     FeeModelModule
 	customParamsModule CustomParamsModule
-	asserFTModule      AsserFTModule
-	asserNFTModule     AsserNFTModule
+	assetFTModule  AssetFTModule
+	assetNFTModule AssetNFTModule
 }
 
 // NewModule returns a new Module instance
@@ -43,8 +43,8 @@ func NewModule(
 	stakingModule StakingModule,
 	feeModelModule FeeModelModule,
 	customParamsModule CustomParamsModule,
-	asserFTModule AsserNFTModule,
-	asserNFTModule AsserNFTModule,
+	assetFTModule AssetNFTModule,
+	assetNFTModule AssetNFTModule,
 	cdc codec.Codec,
 	db *database.Db,
 ) *Module {
@@ -58,8 +58,8 @@ func NewModule(
 		stakingModule:      stakingModule,
 		feeModelModule:     feeModelModule,
 		customParamsModule: customParamsModule,
-		asserFTModule:      asserFTModule,
-		asserNFTModule:     asserNFTModule,
+		assetFTModule:      assetFTModule,
+		assetNFTModule:     assetNFTModule,
 		db:                 db,
 	}
 }

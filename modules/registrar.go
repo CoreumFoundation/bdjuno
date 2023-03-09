@@ -85,8 +85,8 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 	stakingModule := staking.NewModule(sources.StakingSource, slashingModule, cdc, db)
 	feeModelModule := feemodel.NewModule(sources.FeeModelSource, cdc, db)
 	customParamsModule := customparams.NewModule(sources.CustomParamsSource, cdc, db)
-	asserFTModule := assetft.NewModule(sources.AsserFTSource, cdc, db)
-	asserNFTModule := assetnft.NewModule(sources.AsserNFTSource, cdc, db)
+	assetFTModule := assetft.NewModule(sources.AssetFTSource, cdc, db)
+	assetNFTModule := assetnft.NewModule(sources.AssetNFTSource, cdc, db)
 
 	govModule := gov.NewModule(
 		sources.GovSource,
@@ -97,8 +97,8 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		stakingModule,
 		feeModelModule,
 		customParamsModule,
-		asserFTModule,
-		asserNFTModule,
+		assetFTModule,
+		assetNFTModule,
 		cdc,
 		db,
 	)
@@ -122,7 +122,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		stakingModule,
 		feeModelModule,
 		customParamsModule,
-		asserFTModule,
-		asserNFTModule,
+		assetFTModule,
+		assetNFTModule,
 	}
 }

@@ -39,10 +39,10 @@ type CustomParamsModule interface {
 	UpdateParams(height int64) error
 }
 
-type AsserFTModule interface {
+type AssetFTModule interface {
 	UpdateParams(height int64) error
 }
 
-type AsserNFTModule interface {
+type AssetNFTModule interface {
 	UpdateParams(height int64) error
 }
