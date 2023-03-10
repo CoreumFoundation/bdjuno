@@ -73,3 +73,63 @@ This is expected since the node doesn't store all staking pool for all heights.
 In case you want to integrate the indexing if the custom types, for example parameters,
 that [PR](https://github.com/CoreumFoundation/bdjuno/pull/4)
 can be taken as a reference implementation.
+
+## Hasura API
+
+### Endpoints
+
+The primary hasura API is GraphQL API. All GraphQL Query endpoints are public and available for the usage.
+
+| Chain               | Endpoint                                       |           
+|---------------------|------------------------------------------------| 
+| **testnet**         | https://hasura.testnet-1.coreum.dev/v1/graphql | 
+| **devnet**          | https://hasura.devnet-1.coreum.dev/v1/graphql  |   
+| **znet (localnet)** | http://localhost:8080/v1/graphql               |  
+
+### GraphQL Schema
+
+The GraphQL schema is located [here](./hasura/api/schema.graphql). It describes all supported queries.
+
+In order to export it you can run the hasura locally and execute script
+
+```
+npm install -g graphqurl # install the gq
+gq http://localhost:8080/v1/graphql -H "X-Hasura-Admin-Secret: myadminsecretkey" --introspect > schema.graphql  # export schema
+```
+
+Pay attention that `myadminsecretkey` is the secret set for this repo local environment, and can be different for other.
+
+### GraphQL Playground
+
+You can install run the [playground](https://github.com/graphql/graphql-playground) locally to test the queries.
+Use [api](./hasura/api) as data source. Pay attention that [.graphqlconfig](./hasura/api/.graphqlconfig) file contains
+settings for the `znet(localnet)`, so if
+you want to use different you need to update it.
+
+### Examples
+
+#### Get transactions by address
+
+Pay attention that example is for the `znet(localnet)`, so if you want to use different you need the address and
+endpoint for the corresponding chain.
+
+* Example for the playground
+
+```graphql
+{
+    messages_by_address(args: {addresses: "{devcore1gafptgc4vmemklgzxg0d9acmj7p2lv55w7nfxj}", limit: "50", offset: "0", types: "{}"}) {
+        value
+        type
+        transaction_hash
+    }
+}
+```
+
+* Raw request example
+
+```bash
+curl --location 'http://localhost:8080/v1/graphql' \
+--header 'Content-Type: text/plain' \
+--data '{"operationName":"GetMessagesByAddress","variables":{"limit":50,"offset":0,"types":"{}","address":"{devcore1gafptgc4vmemklgzxg0d9acmj7p2lv55w7nfxj}"},"query":"query GetMessagesByAddress($address: _text, $limit: bigint = 50, $offset: bigint = 0, $types: _text = \"{}\") {\n  messagesByAddress: messages_by_address(\n    args: {addresses: $address, types: $types, limit: $limit, offset: $offset}\n  ) {\n    transaction {\n      height\n      hash\n      success\n      messages\n      logs\n      block {\n        height\n        timestamp\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n"}'
+```
+
