@@ -8,7 +8,7 @@ ADD https://github.com/CosmWasm/wasmvm/releases/download/v1.1.1/libwasmvm_muslc.
 RUN cp /lib/libwasmvm_muslc.${arch}.a /lib/libwasmvm_muslc.a
 RUN make build
 
-FROM alpine:latest
+FROM --platform=$TARGETPLATFORM alpine:latest
 WORKDIR /bdjuno
 RUN apk update
 RUN apk add postgresql
