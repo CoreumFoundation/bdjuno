@@ -2,8 +2,8 @@ package consensus
 
 import (
 	"fmt"
-	"github.com/forbole/bdjuno/v3/modules/actions/logging"
 
+	"github.com/forbole/bdjuno/v3/modules/actions/logging"
 	"github.com/go-co-op/gocron"
 	"github.com/rs/zerolog/log"
 
