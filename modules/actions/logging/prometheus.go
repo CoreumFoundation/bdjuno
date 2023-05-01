@@ -27,13 +27,23 @@ var ActionErrorCounter = prometheus.NewCounterVec(
 	}, []string{"path", "http_status_code"},
 )
 
-// BlockTimeGage represents the Telemetry gauge used to track chain block time
-var BlockTimeGage = prometheus.NewGaugeVec(
+// BlockTimeGauge represents the Telemetry gauge used to track chain block time
+var BlockTimeGauge = prometheus.NewGaugeVec(
 	prometheus.GaugeOpts{
 		Name: "bdjuno_block_time",
 		Help: "The current bdjuno block time.",
 	}, []string{
 		"period",
+	},
+)
+
+// MissedProposerCounter represents the Telemetry counter used to track missed proposals
+var MissedProposerCounter = prometheus.NewCounterVec(
+	prometheus.CounterOpts{
+		Name: "bdjuno_missed_proposer",
+		Help: "How many times each validator missed to propose the block.",
+	}, []string{
+		"validator",
 	},
 )
 
@@ -53,7 +63,12 @@ func init() {
 		panic(err)
 	}
 
-	err = prometheus.Register(BlockTimeGage)
+	err = prometheus.Register(BlockTimeGauge)
+	if err != nil {
+		panic(err)
+	}
+
+	err = prometheus.Register(MissedProposerCounter)
 	if err != nil {
 		panic(err)
 	}

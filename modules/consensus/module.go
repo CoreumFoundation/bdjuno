@@ -2,8 +2,8 @@ package consensus
 
 import (
 	"github.com/forbole/bdjuno/v3/database"
-
 	"github.com/forbole/juno/v3/modules"
+	tmtypes "github.com/tendermint/tendermint/types"
 )
 
 var (
@@ -15,7 +15,8 @@ var (
 
 // Module implements the consensus utils
 type Module struct {
-	db *database.Db
+	db               *database.Db
+	expectedProposer tmtypes.Address
 }
 
 // NewModule builds a new Module instance
