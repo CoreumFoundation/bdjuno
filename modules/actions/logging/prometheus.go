@@ -37,11 +37,11 @@ var BlockTimeGauge = prometheus.NewGaugeVec(
 	},
 )
 
-// MissedProposerCounter represents the Telemetry counter used to track missed proposals
-var MissedProposerCounter = prometheus.NewCounterVec(
-	prometheus.CounterOpts{
-		Name: "bdjuno_missed_proposer",
-		Help: "How many times each validator missed to propose the block.",
+// ProposalCounter represents the Telemetry counter used to track proposals
+var ProposalCounter = prometheus.NewSummaryVec(
+	prometheus.SummaryOpts{
+		Name: "bdjuno_proposal",
+		Help: "Counts successful proposals.",
 	}, []string{
 		"validator",
 	},
@@ -68,7 +68,7 @@ func init() {
 		panic(err)
 	}
 
-	err = prometheus.Register(MissedProposerCounter)
+	err = prometheus.Register(ProposalCounter)
 	if err != nil {
 		panic(err)
 	}

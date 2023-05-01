@@ -22,7 +22,7 @@ func (m *Module) HandleBlock(
 			Err(err).Msg("error while updating block time from genesis")
 	}
 
-	m.updateBlockTimeByValidator(b, vals)
+	m.countProposalsByValidator(b, vals)
 
 	return nil
 }
@@ -49,9 +49,13 @@ func (m *Module) updateBlockTimeFromGenesis(block *tmctypes.ResultBlock) error {
 	return m.db.SaveAverageBlockTimeGenesis(newBlockTime, block.Block.Height)
 }
 
-func (m *Module) updateBlockTimeByValidator(block *tmctypes.ResultBlock, vals *tmctypes.ResultValidators) {
-	if m.expectedProposer != nil && !bytes.Equal(block.Block.ProposerAddress, m.expectedProposer) {
-		logging.MissedProposerCounter.WithLabelValues(sdk.ConsAddress(m.expectedProposer).String()).Inc()
+func (m *Module) countProposalsByValidator(block *tmctypes.ResultBlock, vals *tmctypes.ResultValidators) {
+	if m.expectedProposer != nil {
+		var value float64
+		if bytes.Equal(block.Block.ProposerAddress, m.expectedProposer) {
+			value = 1.0
+		}
+		logging.ProposalCounter.WithLabelValues(sdk.ConsAddress(m.expectedProposer).String()).Observe(value)
 	}
 
 	expectedNextProposer := vals.Validators[0]
