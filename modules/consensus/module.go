@@ -13,16 +13,23 @@ var (
 	_ modules.BlockModule              = &Module{}
 )
 
+type proposer struct {
+	Height          int64
+	CurrentProposer tmtypes.Address
+	NextProposer    tmtypes.Address
+}
+
 // Module implements the consensus utils
 type Module struct {
-	db               *database.Db
-	expectedProposer tmtypes.Address
+	db            *database.Db
+	proposerQueue chan proposer
 }
 
 // NewModule builds a new Module instance
 func NewModule(db *database.Db) *Module {
 	return &Module{
-		db: db,
+		db:            db,
+		proposerQueue: make(chan proposer),
 	}
 }
 

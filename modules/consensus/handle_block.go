@@ -1,15 +1,10 @@
 package consensus
 
 import (
-	"bytes"
 	"fmt"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/forbole/bdjuno/v3/modules/actions/logging"
 	"github.com/forbole/juno/v3/types"
-
 	"github.com/rs/zerolog/log"
-
 	tmctypes "github.com/tendermint/tendermint/rpc/core/types"
 )
 
@@ -50,14 +45,6 @@ func (m *Module) updateBlockTimeFromGenesis(block *tmctypes.ResultBlock) error {
 }
 
 func (m *Module) countProposalsByValidator(block *tmctypes.ResultBlock, vals *tmctypes.ResultValidators) {
-	if m.expectedProposer != nil {
-		var value float64
-		if bytes.Equal(block.Block.ProposerAddress, m.expectedProposer) {
-			value = 1.0
-		}
-		logging.ProposalCounter.WithLabelValues(sdk.ConsAddress(m.expectedProposer).String()).Observe(value)
-	}
-
 	expectedNextProposer := vals.Validators[0]
 	if len(vals.Validators) > 1 {
 		for _, v := range vals.Validators[1:] {
@@ -66,5 +53,9 @@ func (m *Module) countProposalsByValidator(block *tmctypes.ResultBlock, vals *tm
 			}
 		}
 	}
-	m.expectedProposer = expectedNextProposer.Address
+	m.proposerQueue <- proposer{
+		Height:          block.Block.Height,
+		CurrentProposer: block.Block.ProposerAddress,
+		NextProposer:    expectedNextProposer.Address,
+	}
 }
