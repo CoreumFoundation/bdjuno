@@ -10,10 +10,13 @@ RUN cp /lib/libwasmvm_muslc.${arch}.a /lib/libwasmvm_muslc.a
 RUN make build
 
 FROM --platform=$TARGETPLATFORM alpine:latest
+COPY --from=builder /go/src/github.com/forbole/bdjuno/build/bdjuno /usr/bin/bdjuno
 WORKDIR /bdjuno
 RUN apk update
-RUN apk add postgresql
-COPY --from=builder /go/src/github.com/forbole/bdjuno/build/bdjuno /usr/bin/bdjuno
-COPY database/schema /var/lib/postgresql/schema
+RUN apk add postgresql sudo
+RUN adduser -DG wheel bdjuno
+RUN sed -e 's;^# \(%wheel.*NOPASSWD.*\);\1;g' -i /etc/sudoers
+USER bdjuno
+COPY --chown=bdjuno database/schema /var/lib/postgresql/schema
 
 CMD [ "bdjuno", "start" ]
