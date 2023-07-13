@@ -69,8 +69,8 @@ github.com/CloudyKit/jet/v3 v3.0.0/go.mod h1:HKQPgSJmdK8hdoAbKUUWajkHyHo4RaU5rMd
 github.com/CoreumFoundation/coreum v1.0.1-0.20230711133753-654711397082 h1:09D03rnAAz58k1H2UgFlaZP0ad/42vwUg0Aw7q+CuqU=
 github.com/CoreumFoundation/coreum v1.0.1-0.20230711133753-654711397082/go.mod h1:g4P0LvUuqn9+k59Q+DMvGJ5NOZKGiLBxI0rfhVJdlOM=
 github.com/CoreumFoundation/coreum-tools v0.4.1-0.20230627094203-821c6a4eebab h1:XPcSzlQ06tor/py1LkEM9FX70LIeDWB++vLuAO6eAYI=
-github.com/CoreumFoundation/juno/v3 v3.0.0-20230712073115-fc5dee35770f h1:uZbrz8BfMKHcEaRvE9UFWGgOmXBFXLWgVF9bRgcycQg=
-github.com/CoreumFoundation/juno/v3 v3.0.0-20230712073115-fc5dee35770f/go.mod h1:knE0Thxr8OZriCorKOiQSFu2H0pOoJzH7omm9RO5w5k=
+github.com/CoreumFoundation/juno/v3 v3.0.0-20230713125944-2bfed6c54096 h1:OsSHcGodRrobiaiKoAr90XQ+DG5JdJYeyDBiEBMh2kk=
+github.com/CoreumFoundation/juno/v3 v3.0.0-20230713125944-2bfed6c54096/go.mod h1:knE0Thxr8OZriCorKOiQSFu2H0pOoJzH7omm9RO5w5k=
 github.com/CosmWasm/wasmd v0.30.0 h1:oUVz3TgO/+24JZQdoTOlOv+IK7N9hEa/s3M4eR9i4FQ=
 github.com/CosmWasm/wasmd v0.30.0/go.mod h1:umLGeYyowAMMEdOYfDOf8jsDrQ75Qkm1+ogBXT/w01c=
 github.com/CosmWasm/wasmvm v1.1.2 h1:uvMk0iIJcFFUvdElmV9KQeeqRx7ESspxUrPjfCGki3M=

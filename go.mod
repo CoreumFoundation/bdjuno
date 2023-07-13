@@ -156,7 +156,7 @@ require (
 )
 
 replace (
-	github.com/forbole/juno/v3 => github.com/CoreumFoundation/juno/v3 v3.0.0-20230712073115-fc5dee35770f
+	github.com/forbole/juno/v3 => github.com/CoreumFoundation/juno/v3 v3.0.0-20230713125944-2bfed6c54096
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.27
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
