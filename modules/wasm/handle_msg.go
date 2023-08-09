@@ -17,7 +17,7 @@ func (m *Module) HandleMsg(index int, msg sdk.Msg, tx *juno.Tx) error {
 		return nil
 	}
 
-	switch cosmosMsg := msg.(type) { //nolint:gocritic //bdjuno style
+	switch cosmosMsg := msg.(type) {
 	case *wasmtypes.MsgInstantiateContract,
 		*wasmtypes.MsgInstantiateContract2,
 		*wasmtypes.MsgMigrateContract,
@@ -36,7 +36,7 @@ func (m *Module) handleWasmRelatedAddress(index int, msg sdk.Msg, tx *juno.Tx) e
 	}
 
 	addresses := make(map[string]struct{})
-	for _, address := range messageAddresses{
+	for _, address := range messageAddresses {
 		addresses[address] = struct{}{}
 	}
 	// add address from event values
