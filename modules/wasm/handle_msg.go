@@ -29,21 +29,20 @@ func (m *Module) HandleMsg(index int, msg sdk.Msg, tx *juno.Tx) error {
 }
 
 func (m *Module) handleWasmRelatedAddress(index int, msg sdk.Msg, tx *juno.Tx) error {
-	eventsAddresses := m.findBech32EventValues(tx.Events)
-	if len(eventsAddresses) == 0 {
-		return nil
-	}
-
 	// get the involved addresses with general parser first
-	addresses, err := m.messageParser(m.cdc, msg)
+	messageAddresses, err := m.messageParser(m.cdc, msg)
 	if err != nil {
 		return err
 	}
 
-	// we join and then do the Uniq since the receivers might be duplicated
-	addresses = lo.Uniq(append(addresses, eventsAddresses...))
+	addresses := make(map[string]struct{})
+	for _, address := range messageAddresses{
+		addresses[address] = struct{}{}
+	}
+	// add address from event values
+	m.addBech32EventValues(addresses, tx.Events)
 
-	// Marshal the value properly
+	// marshal the value properly
 	bz, err := m.cdc.MarshalJSON(msg)
 	if err != nil {
 		return err
@@ -54,24 +53,21 @@ func (m *Module) handleWasmRelatedAddress(index int, msg sdk.Msg, tx *juno.Tx) e
 		index,
 		proto.MessageName(msg),
 		string(bz),
-		addresses,
+		lo.Keys(addresses),
 		tx.Height,
 	))
 }
 
-func (m *Module) findBech32EventValues(events []tmtypes.Event) []string {
-	values := make([]string, 0)
+func (m *Module) addBech32EventValues(addressSet map[string]struct{}, events []tmtypes.Event) {
 	for _, ev := range sdk.StringifyEvents(events) {
 		for _, attrItem := range ev.Attributes {
 			address := strings.Trim(strings.TrimSpace(attrItem.Value), `"`)
 			if !m.isBech32Address(address) {
 				continue
 			}
-			values = append(values, address)
+			addressSet[address] = struct{}{}
 		}
 	}
-
-	return values
 }
 
 func (m *Module) isBech32Address(address string) bool {
