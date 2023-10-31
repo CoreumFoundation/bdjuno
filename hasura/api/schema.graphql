@@ -19625,9 +19625,6 @@ unique or primary key constraints on table "validator_info"
 """
 enum validator_info_constraint {
   """unique or primary key constraint"""
-  validator_info_operator_address_key
-
-  """unique or primary key constraint"""
   validator_info_pkey
 }
 
