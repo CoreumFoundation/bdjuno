@@ -5,6 +5,10 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/forbole/bdjuno/v4/modules/assetft"
+	"github.com/forbole/bdjuno/v4/modules/assetnft"
+	"github.com/forbole/bdjuno/v4/modules/customparams"
+	"github.com/forbole/bdjuno/v4/modules/feemodel"
 	"github.com/rs/zerolog/log"
 
 	modulestypes "github.com/forbole/bdjuno/v4/modules/types"
@@ -53,9 +57,25 @@ func proposalCmd(parseConfig *parsecmdtypes.Config) *cobra.Command {
 			mintModule := mint.NewModule(sources.MintSource, parseCtx.EncodingConfig.Codec, db)
 			slashingModule := slashing.NewModule(sources.SlashingSource, parseCtx.EncodingConfig.Codec, db)
 			stakingModule := staking.NewModule(sources.StakingSource, parseCtx.EncodingConfig.Codec, db)
+			feeModelModule := feemodel.NewModule(sources.FeeModelSource, parseCtx.EncodingConfig.Codec, db)
+			customParamsModule := customparams.NewModule(sources.CustomParamsSource, parseCtx.EncodingConfig.Codec, db)
+			assetFTModule := assetft.NewModule(sources.AssetFTSource, parseCtx.EncodingConfig.Codec, db)
+			assetNFTModule := assetnft.NewModule(sources.AssetNFTSource, parseCtx.EncodingConfig.Codec, db)
 
 			// Build the gov module
-			govModule := gov.NewModule(sources.GovSource, distrModule, mintModule, slashingModule, stakingModule, parseCtx.EncodingConfig.Codec, db)
+			govModule := gov.NewModule(
+				sources.GovSource,
+				distrModule,
+				mintModule,
+				slashingModule,
+				stakingModule,
+				feeModelModule,
+				customParamsModule,
+				assetFTModule,
+				assetNFTModule,
+				parseCtx.EncodingConfig.Codec,
+				db,
+			)
 
 			err = refreshProposalDetails(parseCtx, proposalID, govModule)
 			if err != nil {

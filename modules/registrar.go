@@ -24,10 +24,10 @@ import (
 	"github.com/forbole/bdjuno/v4/modules/bank"
 	"github.com/forbole/bdjuno/v4/modules/consensus"
 	"github.com/forbole/bdjuno/v4/modules/customparams"
+	dailyrefetch "github.com/forbole/bdjuno/v4/modules/daily_refetch"
 	"github.com/forbole/bdjuno/v4/modules/distribution"
 	"github.com/forbole/bdjuno/v4/modules/feegrant"
 	"github.com/forbole/bdjuno/v4/modules/feemodel"
-	dailyrefetch "github.com/forbole/bdjuno/v4/modules/daily_refetch"
 	"github.com/forbole/bdjuno/v4/modules/gov"
 	"github.com/forbole/bdjuno/v4/modules/mint"
 	"github.com/forbole/bdjuno/v4/modules/modules"
@@ -92,7 +92,19 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 	assetFTModule := assetft.NewModule(sources.AssetFTSource, cdc, db)
 	assetNFTModule := assetnft.NewModule(sources.AssetNFTSource, cdc, db)
 	wasmModule := wasm.NewModule(r.parser, cdc, db)
-	govModule := gov.NewModule(sources.GovSource, authModule, distrModule, mintModule, slashingModule, stakingModule, feeModelModule, customParamsModule, assetFTModule, assetNFTModule, cdc, db)
+	govModule := gov.NewModule(
+		sources.GovSource,
+		distrModule,
+		mintModule,
+		slashingModule,
+		stakingModule,
+		feeModelModule,
+		customParamsModule,
+		assetFTModule,
+		assetNFTModule,
+		cdc,
+		db,
+	)
 	upgradeModule := upgrade.NewModule(db, stakingModule)
 
 	return []jmodules.Module{

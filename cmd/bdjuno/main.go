@@ -13,8 +13,6 @@ import (
 
 	"github.com/forbole/bdjuno/v4/types/config"
 
-	"cosmossdk.io/simapp"
-
 	"github.com/forbole/bdjuno/v4/database"
 	"github.com/forbole/bdjuno/v4/modules"
 	"github.com/forbole/bdjuno/v4/modules/assetft"
@@ -22,7 +20,7 @@ import (
 	"github.com/forbole/bdjuno/v4/modules/nft"
 	"github.com/forbole/bdjuno/v4/modules/wasm"
 
-	coreumapp "github.com/CoreumFoundation/coreum/v2/app"
+	coreumapp "github.com/CoreumFoundation/coreum/v3/app"
 )
 
 func main() {

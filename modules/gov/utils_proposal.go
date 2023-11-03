@@ -4,10 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	assetfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/ft/types"
-	assetnfttypes "github.com/CoreumFoundation/coreum/v2/x/asset/nft/types"
-	customparamstypes "github.com/CoreumFoundation/coreum/v2/x/customparams/types"
-	feemodeltypes "github.com/CoreumFoundation/coreum/v2/x/feemodel/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	govtypesv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
@@ -15,12 +11,16 @@ import (
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	"github.com/rs/zerolog/log"
 
+	assetfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/ft/types"
+	assetnfttypes "github.com/CoreumFoundation/coreum/v3/x/asset/nft/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v3/x/customparams/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v3/x/feemodel/types"
+
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	proposaltypes "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	tmctypes "github.com/cometbft/cometbft/rpc/core/types"
 
 	"google.golang.org/grpc/codes"
 
