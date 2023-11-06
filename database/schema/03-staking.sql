@@ -26,12 +26,14 @@ CREATE INDEX staking_pool_height_index ON staking_pool (height);
 CREATE TABLE validator_info
 (
     consensus_address     TEXT   NOT NULL UNIQUE PRIMARY KEY REFERENCES validator (consensus_address),
-    operator_address      TEXT   NOT NULL UNIQUE,
+    operator_address      TEXT   NOT NULL,
     self_delegate_address TEXT REFERENCES account (address),
     max_change_rate       TEXT   NOT NULL,
     max_rate              TEXT   NOT NULL,
     height                BIGINT NOT NULL
 );
+CREATE INDEX validator_info_operator_address_index ON validator_info (operator_address);
+CREATE INDEX validator_info_self_delegate_address_index ON validator_info (self_delegate_address);
 
 CREATE TABLE validator_description
 (
