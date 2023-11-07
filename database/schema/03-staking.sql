@@ -26,6 +26,7 @@ CREATE INDEX staking_pool_height_index ON staking_pool (height);
 CREATE TABLE validator_info
 (
     consensus_address     TEXT   NOT NULL UNIQUE PRIMARY KEY REFERENCES validator (consensus_address),
+    --  TODO check that removal of operator_address UNIQUE modifier doesn't break new migration
     operator_address      TEXT   NOT NULL,
     self_delegate_address TEXT REFERENCES account (address),
     max_change_rate       TEXT   NOT NULL,
