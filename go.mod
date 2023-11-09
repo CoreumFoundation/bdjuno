@@ -2,11 +2,9 @@ module github.com/forbole/bdjuno/v4
 
 go 1.20
 
-replace github.com/cosmos/cosmos-sdk => github.com/cosmos/cosmos-sdk v0.47.2
-
 require (
 	cosmossdk.io/math v1.1.2
-	cosmossdk.io/simapp v0.0.0-20230224204036-a6adb0821462
+	cosmossdk.io/simapp v0.0.0-20230831152633-2e9e5d6eea24
 	github.com/CoreumFoundation/coreum/v3 v3.0.0-20231102084816-3f621c7b16c0
 	github.com/CosmWasm/wasmd v0.41.0
 	github.com/cometbft/cometbft v0.37.2
@@ -41,6 +39,7 @@ require (
 	cosmossdk.io/core v0.6.1 // indirect
 	cosmossdk.io/depinject v1.0.0-alpha.4 // indirect
 	cosmossdk.io/errors v1.0.0 // indirect
+	cosmossdk.io/log v1.2.1 // indirect
 	cosmossdk.io/tools/rosetta v0.2.1 // indirect
 	filippo.io/edwards25519 v1.0.0 // indirect
 	github.com/4meepo/tagalign v1.3.2 // indirect
