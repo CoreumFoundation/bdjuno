@@ -44,7 +44,7 @@ jobs:
         run: make build
 
       - name: Test & Coverage report creation 🧪
-        run: make install test-unit stop-docker-test
+        run: make test-unit stop-docker-test
 
       - name: Upload coverage 📤
         if: "env.GIT_DIFF != ''"
