@@ -28,7 +28,7 @@ ifeq ($(OS),Windows_NT)
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bdjuno.exe ./cmd/bdjuno
 else
 	@echo "building bdjuno binary..."
-	@wget https://github.com/CosmWasm/wasmvm/releases/download/v1.5.0/libwasmvm_muslc.x86_64.a -O /lib/libwasmvm_muslc.a
+	@wget https://github.com/CosmWasm/wasmvm/releases/download/v1.5.0/libwasmvm_muslc.x86_64.a -O /lib64/libwasmvm_muslc.a
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bdjuno ./cmd/bdjuno
 endif
 .PHONY: build
