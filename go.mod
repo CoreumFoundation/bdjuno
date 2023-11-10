@@ -2,6 +2,8 @@ module github.com/forbole/bdjuno/v4
 
 go 1.20
 
+replace github.com/forbole/juno/v5 => github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20231110094554-b0ce2d473cd4
+
 require (
 	cosmossdk.io/math v1.1.2
 	cosmossdk.io/simapp v0.0.0-20230831152633-2e9e5d6eea24
