@@ -23,7 +23,7 @@ BUILD_FLAGS := -tags muslc -ldflags '$(LD_FLAGS)'
 ###############################################################################
 
 build: go.sum
-@wget https://github.com/CosmWasm/wasmvm/releases/download/v1.5.0/libwasmvm_muslc.x86_64.a -O /lib/libwasmvm_muslc.a
+    @wget https://github.com/CosmWasm/wasmvm/releases/download/v1.5.0/libwasmvm_muslc.x86_64.a -O /lib/libwasmvm_muslc.a
 ifeq ($(OS),Windows_NT)
 	@echo "building bdjuno binary..."
 	@go build -mod=readonly $(BUILD_FLAGS) -o build/bdjuno.exe ./cmd/bdjuno
