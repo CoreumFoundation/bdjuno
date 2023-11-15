@@ -14,7 +14,7 @@ func MessagesParser(_ codec.Codec, cosmosMsg sdk.Msg) ([]string, error) {
 	case *assetnfttypes.MsgIssueClass:
 		return []string{msg.Issuer}, nil
 	case *assetnfttypes.MsgMint:
-		return []string{msg.Sender}, nil
+		return []string{msg.Sender, msg.Recipient}, nil
 	case *assetnfttypes.MsgBurn:
 		return []string{msg.Sender}, nil
 	case *assetnfttypes.MsgAddToWhitelist:
