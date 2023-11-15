@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/forbole/bdjuno/v4/modules/group"
 	"github.com/forbole/juno/v5/cmd"
 	initcmd "github.com/forbole/juno/v5/cmd/init"
 	parsetypes "github.com/forbole/juno/v5/cmd/parse/types"
@@ -68,6 +69,7 @@ func getBasicManagers() []module.BasicManager {
 // This should be edited by custom implementations if needed.
 func getAddressesParser() messages.MessageAddressesParser {
 	return messages.JoinMessageParsers(
+		group.MessagesParser,
 		assetft.MessagesParser,
 		assetnft.MessagesParser,
 		nft.MessagesParser,

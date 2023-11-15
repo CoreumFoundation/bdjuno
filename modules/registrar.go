@@ -2,6 +2,7 @@ package modules
 
 import (
 	"github.com/forbole/bdjuno/v4/modules/actions"
+	"github.com/forbole/bdjuno/v4/modules/group"
 	"github.com/forbole/bdjuno/v4/modules/types"
 
 	"github.com/forbole/juno/v5/modules/pruning"
@@ -125,6 +126,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		pricefeed.NewModule(ctx.JunoConfig, cdc, db),
 		slashingModule,
 		stakingModule,
+		group.NewModule(cdc, db),
 		upgradeModule,
 		feeModelModule,
 		customParamsModule,
