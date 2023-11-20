@@ -2,7 +2,7 @@ package modules
 
 import (
 	"github.com/forbole/bdjuno/v4/modules/actions"
-	"github.com/forbole/bdjuno/v4/modules/group"
+	"github.com/forbole/bdjuno/v4/modules/addresses"
 	"github.com/forbole/bdjuno/v4/modules/types"
 
 	"github.com/forbole/juno/v5/modules/pruning"
@@ -35,7 +35,6 @@ import (
 	"github.com/forbole/bdjuno/v4/modules/pricefeed"
 	"github.com/forbole/bdjuno/v4/modules/staking"
 	"github.com/forbole/bdjuno/v4/modules/upgrade"
-	"github.com/forbole/bdjuno/v4/modules/wasm"
 )
 
 // UniqueAddressesParser returns a wrapper around the given parser that removes all duplicated addresses
@@ -92,7 +91,6 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 	customParamsModule := customparams.NewModule(sources.CustomParamsSource, cdc, db)
 	assetFTModule := assetft.NewModule(sources.AssetFTSource, cdc, db)
 	assetNFTModule := assetnft.NewModule(sources.AssetNFTSource, cdc, db)
-	wasmModule := wasm.NewModule(r.parser, cdc, db)
 	govModule := gov.NewModule(
 		sources.GovSource,
 		distrModule,
@@ -126,12 +124,12 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		pricefeed.NewModule(ctx.JunoConfig, cdc, db),
 		slashingModule,
 		stakingModule,
-		group.NewModule(r.parser, cdc, db),
 		upgradeModule,
 		feeModelModule,
 		customParamsModule,
 		assetFTModule,
 		assetNFTModule,
-		wasmModule,
+		// This must be the last item.
+		addresses.NewModule(r.parser, cdc, db),
 	}
 }

@@ -1,38 +1,33 @@
-package utils
+package addresses
 
 import (
 	"strings"
 
 	tmtypes "github.com/cometbft/cometbft/abci/types"
-	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/forbole/bdjuno/v4/database"
-	junomessages "github.com/forbole/juno/v5/modules/messages"
+	"github.com/cosmos/gogoproto/proto"
 	juno "github.com/forbole/juno/v5/types"
-	"github.com/gogo/protobuf/proto"
 	"github.com/samber/lo"
 )
 
-// HandleMessageWithAddresses handle messages and takes addresses from events.
-func HandleMessageWithAddresses(
-	index int,
-	msg sdk.Msg,
-	tx *juno.Tx,
-	messageParser junomessages.MessageAddressesParser,
-	cdc codec.Codec, db *database.Db,
-) error {
-	addresses, err := collectAddresses(cdc, messageParser, msg, tx)
+// HandleMsg implements MessageModule
+func (m *Module) HandleMsg(index int, msg sdk.Msg, tx *juno.Tx) error {
+	if len(tx.Events) == 0 {
+		return nil
+	}
+
+	addresses, err := m.collectAddresses(msg, tx)
 	if err != nil {
 		return err
 	}
 
 	// marshal the value properly
-	bz, err := cdc.MarshalJSON(msg)
+	bz, err := m.cdc.MarshalJSON(msg)
 	if err != nil {
 		return err
 	}
 
-	return db.SaveMessage(juno.NewMessage(
+	return m.db.SaveMessage(juno.NewMessage(
 		tx.TxHash,
 		index,
 		proto.MessageName(msg),
@@ -42,13 +37,9 @@ func HandleMessageWithAddresses(
 	))
 }
 
-func collectAddresses(
-	cdc codec.Codec,
-	messageParser junomessages.MessageAddressesParser,
-	msg sdk.Msg, tx *juno.Tx,
-) ([]string, error) {
+func (m *Module) collectAddresses(msg sdk.Msg, tx *juno.Tx) ([]string, error) {
 	// get the involved addresses with general parser first
-	messageAddresses, err := messageParser(cdc, msg)
+	messageAddresses, err := m.messageParser(m.cdc, msg)
 	if err != nil {
 		return nil, err
 	}
