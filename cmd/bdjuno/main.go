@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/forbole/bdjuno/v4/modules/group"
 	"github.com/forbole/juno/v5/cmd"
 	initcmd "github.com/forbole/juno/v5/cmd/init"
 	parsetypes "github.com/forbole/juno/v5/cmd/parse/types"
@@ -19,7 +18,6 @@ import (
 	"github.com/forbole/bdjuno/v4/modules/assetft"
 	"github.com/forbole/bdjuno/v4/modules/assetnft"
 	"github.com/forbole/bdjuno/v4/modules/nft"
-	"github.com/forbole/bdjuno/v4/modules/wasm"
 
 	coreumapp "github.com/CoreumFoundation/coreum/v3/app"
 )
@@ -69,11 +67,9 @@ func getBasicManagers() []module.BasicManager {
 // This should be edited by custom implementations if needed.
 func getAddressesParser() messages.MessageAddressesParser {
 	return messages.JoinMessageParsers(
-		group.MessagesParser,
 		assetft.MessagesParser,
 		assetnft.MessagesParser,
 		nft.MessagesParser,
-		wasm.MessagesParser,
 		// the order is important since the CosmosMessageAddressesParser contains the default parser which takes the
 		// signer and which stops the execution
 		messages.CosmosMessageAddressesParser,

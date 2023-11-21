@@ -1,9 +1,11 @@
 package addresses
 
 import (
+	"encoding/json"
 	"strings"
 
 	tmtypes "github.com/cometbft/cometbft/abci/types"
+	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/gogoproto/proto"
 	juno "github.com/forbole/juno/v5/types"
@@ -50,8 +52,43 @@ func (m *Module) collectAddresses(msg sdk.Msg, tx *juno.Tx) ([]string, error) {
 	}
 	// add address from event values
 	addBech32EventValues(addresses, tx.Events)
+	if err := addBech32MsgValues(addresses, m.cdc, msg); err != nil {
+		return nil, err
+	}
 
 	return lo.Keys(addresses), nil
+}
+
+func addBech32MsgValues(addressSet map[string]struct{}, cdc codec.Codec, msg sdk.Msg) error {
+	msgJSON, err := cdc.MarshalJSON(msg)
+	if err != nil {
+		return err
+	}
+
+	objects := []interface{}{map[string]interface{}{}}
+	if err := json.Unmarshal(msgJSON, &objects[0]); err != nil {
+		return err
+	}
+
+	for len(objects) > 0 {
+		object := objects[len(objects)-1]
+		objects = objects[:len(objects)-1]
+
+		switch v := object.(type) {
+		case map[string]interface{}:
+			for _, o := range v {
+				objects = append(objects, o)
+			}
+		case []interface{}:
+			objects = append(objects, v...)
+		case string:
+			if isBech32Address(v) {
+				addressSet[v] = struct{}{}
+			}
+		}
+	}
+
+	return nil
 }
 
 func addBech32EventValues(addressSet map[string]struct{}, events []tmtypes.Event) {
