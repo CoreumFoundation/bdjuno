@@ -21,3 +21,15 @@ func (s Source) GetAccountBalance(address string, height int64) ([]sdk.Coin, err
 
 	return balRes.Balances, nil
 }
+
+// GetAccountBalances implements bankkeeper.Source
+func (s Source) GetAccountDenomBalance(address string, denom string) (*sdk.Coin, error) {
+
+	// Get account balance at certain height
+	balRes, err := s.bankClient.Balance(s.Ctx, &banktypes.QueryBalanceRequest{Address: address, Denom: denom})
+	if err != nil {
+		return nil, fmt.Errorf("error while getting all balances: %s", err)
+	}
+
+	return balRes.GetBalance(), nil
+}
