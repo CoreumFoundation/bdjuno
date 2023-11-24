@@ -1,9 +1,10 @@
 CREATE TABLE account_denom_balance
 (
-    account         TEXT        NOT NULL,
+    address         TEXT        NOT NULL,
     denom           TEXT        NOT NULL,
     amount          TEXT        NOT NULL,
-    PRIMARY KEY(account, denom)
+    height          BIGINT  NOT NULL,
+    PRIMARY KEY(address, denom)
 );
 
 CREATE VIEW token_holder_count AS

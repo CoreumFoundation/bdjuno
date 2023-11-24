@@ -5,8 +5,9 @@ select_permissions:
 - permission:
     allow_aggregations: true
     columns:
-    - account
+    - address
     - denom
     - amount
+    - height
     filter: {}
   role: anonymous

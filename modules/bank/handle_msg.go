@@ -36,7 +36,17 @@ func (m *Module) updateBalanceForEventType(index int, tx *juno.Tx, eventType str
 		accountAttribute = banktypes.AttributeKeyReceiver
 	}
 
+	block, err := m.db.GetLastBlockHeightAndTimestamp()
+	if err != nil {
+		return fmt.Errorf("error while getting latest block height: %s", err)
+	}
+
 	events := FindAllEventsByType(index, tx, eventType)
+	type addressDenom struct {
+		address string
+		denom   string
+	}
+	addressDenomMap := make(map[addressDenom]interface{})
 	for _, event := range events {
 		account, err := tx.FindAttributeByKey(event, accountAttribute)
 		if err != nil {
@@ -53,21 +63,30 @@ func (m *Module) updateBalanceForEventType(index int, tx *juno.Tx, eventType str
 			return err
 		}
 
-		quriedBalance, err := m.keeper.GetAccountDenomBalance(account, coin.Denom)
+		addressDenomMap[addressDenom{address: account, denom: coin.Denom}] = true
+	}
+
+	for ad := range addressDenomMap {
+		storedBalance, found, err := m.db.GetAccountDenomBalance(ad.address, ad.denom)
+		if found && storedBalance.Height >= block.Height {
+			continue
+		}
+
+		quriedBalance, err := m.keeper.GetAccountDenomBalance(ad.address, ad.denom, block.Height)
 		if err != nil {
 			return err
 		}
 
 		if quriedBalance == nil {
-			return fmt.Errorf("query balance return nil, account: %s, denom:%s", account, coin.Denom)
+			return fmt.Errorf("query balance return nil, account: %s, denom:%s", ad.address, ad.denom)
 		}
 
 		if quriedBalance.Amount.IsZero() {
-			if err := m.db.DeleteAccountDenomBalance(account, *quriedBalance); err != nil {
+			if err := m.db.DeleteAccountDenomBalance(ad.address, *quriedBalance); err != nil {
 				return err
 			}
 		} else {
-			if err := m.db.SaveAccountDenomBalance(account, *quriedBalance); err != nil {
+			if err := m.db.SaveAccountDenomBalance(ad.address, *quriedBalance, block.Height); err != nil {
 				return err
 			}
 		}

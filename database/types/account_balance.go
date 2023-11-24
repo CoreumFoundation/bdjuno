@@ -4,21 +4,23 @@ import sdk "github.com/cosmos/cosmos-sdk/types"
 
 // AccountBalance represents a single row inside the "accound_denom_balancee" table
 type AccountBalance struct {
-	Account string `db:"account"`
+	Address string `db:"address"`
 	Denom   string `db:"denom"`
-	Aalance string `db:"amount"`
+	Amount  string `db:"amount"`
+	Height  int64  `db:"height"`
 }
 
-// NewSupplyRow allows to easily create a new NewSupplyRow
-func NewAccountBalance(account string, coin sdk.Coin) AccountBalance {
+// NewAccountBalance allows to easily create a new NewAccountBalance
+func NewAccountBalance(address string, coin sdk.Coin, height int64) AccountBalance {
 	return AccountBalance{
-		Account: account,
+		Address: address,
 		Denom:   coin.Denom,
-		Aalance: coin.Amount.String(),
+		Amount:  coin.Amount.String(),
+		Height:  height,
 	}
 }
 
-// Equals return true if one totalSupplyRow representing the same row as the original one
+// Equals return true if one row represents the same row as the original one
 func (v AccountBalance) Equals(w AccountBalance) bool {
-	return v == w
+	return v.Address == w.Address && v.Denom == v.Denom && v.Amount == v.Amount
 }

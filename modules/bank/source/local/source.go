@@ -97,9 +97,9 @@ func (s Source) GetAccountBalance(address string, height int64) ([]sdk.Coin, err
 	return balRes.Balances, nil
 }
 
-// GetAccountBalances implements bankkeeper.Source
-func (s Source) GetAccountDenomBalance(address string, denom string) (*sdk.Coin, error) {
-	ctx, err := s.LoadHeight(0)
+// GetAccountDenomBalance implements bankkeeper.Source
+func (s Source) GetAccountDenomBalance(address string, denom string, height int64) (*sdk.Coin, error) {
+	ctx, err := s.LoadHeight(height)
 	if err != nil {
 		return nil, fmt.Errorf("error while loading height: %s", err)
 	}
