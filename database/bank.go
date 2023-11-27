@@ -32,7 +32,7 @@ WHERE supply.height <= excluded.height`
 func (db *Db) GetAccountDenomBalance(account string, denom string) (types.AccountBalance, bool, error) {
 	var vals []types.AccountBalance
 	query := `
-SELECT (address, denom, amount, height) FROM account_denom_balance  
+SELECT address, denom, amount, height FROM account_denom_balance  
 WHERE account_denom_balance.address=$1 AND account_denom_balance.denom=$2`
 
 	err := db.SQL.Select(&vals, query, account, denom)
