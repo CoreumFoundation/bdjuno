@@ -91,6 +91,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 	wasmModule := wasm.NewModule(r.parser, cdc, db)
 
 	govModule := gov.NewModule(
+		ctx.JunoConfig,
 		sources.GovSource,
 		authModule,
 		distrModule,

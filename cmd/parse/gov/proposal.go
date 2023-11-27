@@ -40,7 +40,10 @@ func proposalCmd(parseConfig *parsecmdtypes.Config) *cobra.Command {
 			db := database.Cast(parseCtx.Database)
 
 			// Build the gov module
-			govModule := gov.NewModule(sources.GovSource, nil, nil, nil, nil, nil, nil, nil, nil, nil, parseCtx.EncodingConfig.Marshaler, db)
+			govModule := gov.NewModule(config.Cfg, sources.GovSource, nil, nil, nil, nil, nil, nil, nil, nil, nil, parseCtx.EncodingConfig.Marshaler, db)
+			if err != nil {
+				return err
+			}
 
 			err = refreshProposalDetails(parseCtx, proposalID, govModule)
 			if err != nil {

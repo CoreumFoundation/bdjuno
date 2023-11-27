@@ -4,6 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	"github.com/forbole/bdjuno/v3/database"
+	"github.com/forbole/juno/v3/types/config"
 
 	govsource "github.com/forbole/bdjuno/v3/modules/gov/source"
 
@@ -19,6 +20,7 @@ var (
 
 // Module represent x/gov module
 type Module struct {
+	cfg                config.Config
 	cdc                codec.Codec
 	db                 *database.Db
 	source             govsource.Source
@@ -35,6 +37,7 @@ type Module struct {
 
 // NewModule returns a new Module instance
 func NewModule(
+	cfg config.Config,
 	source govsource.Source,
 	authModule AuthModule,
 	distrModule DistrModule,
@@ -49,6 +52,7 @@ func NewModule(
 	db *database.Db,
 ) *Module {
 	return &Module{
+		cfg:                cfg,
 		cdc:                cdc,
 		source:             source,
 		authModule:         authModule,
