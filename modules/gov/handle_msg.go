@@ -55,7 +55,6 @@ func (m *Module) handleMsgSubmitProposal(tx *juno.Tx, index int, msg *govtypes.M
 		return fmt.Errorf("error while parsing proposal id: %s", err)
 	}
 
-	// Get the proposal
 	height, err := m.getLatestHeight(tx.Height, proposalID)
 	if err != nil {
 		return err
