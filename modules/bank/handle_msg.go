@@ -63,7 +63,7 @@ func (m *Module) updateBalanceForEventType(index int, tx *juno.Tx, eventType str
 			return err
 		}
 
-		if coin.Denom == m.govDenom {
+		if coin.Denom == m.baseDenom {
 			continue
 		}
 

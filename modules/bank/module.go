@@ -9,6 +9,8 @@ import (
 	junomessages "github.com/forbole/juno/v5/modules/messages"
 
 	"github.com/forbole/juno/v5/modules"
+
+	"github.com/CoreumFoundation/coreum/v3/pkg/config/constant"
 )
 
 var (
@@ -23,7 +25,7 @@ type Module struct {
 
 	messageParser junomessages.MessageAddressesParser
 	keeper        source.Source
-	govDenom      string
+	baseDenom     string
 }
 
 // NewModule returns a new Module instance
@@ -39,7 +41,7 @@ func NewModule(
 		db:            db,
 		messageParser: messageParser,
 		keeper:        keeper,
-		govDenom:      getGovTokenFromAddressPrefix(addressPrefix),
+		baseDenom:     getBaseTokenFromAddressPrefix(addressPrefix),
 	}
 }
 
@@ -48,14 +50,14 @@ func (m *Module) Name() string {
 	return "bank"
 }
 
-func getGovTokenFromAddressPrefix(addressPrefix string) string {
+func getBaseTokenFromAddressPrefix(addressPrefix string) string {
 	switch addressPrefix {
-	case "core":
-		return "ucore"
-	case "testcore":
-		return "utestcore"
-	case "devcore":
-		return "udevcore"
+	case constant.AddressPrefixMain:
+		return constant.DenomMain
+	case constant.AddressPrefixTest:
+		return constant.DenomTest
+	case constant.AddressPrefixDev:
+		return constant.DenomDev
 	default:
 		return ""
 	}
