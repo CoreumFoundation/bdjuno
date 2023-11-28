@@ -23,21 +23,40 @@ type Module struct {
 
 	messageParser junomessages.MessageAddressesParser
 	keeper        source.Source
+	govDenom      string
 }
 
 // NewModule returns a new Module instance
 func NewModule(
-	messageParser junomessages.MessageAddressesParser, keeper source.Source, cdc codec.Codec, db *database.Db,
+	messageParser junomessages.MessageAddressesParser,
+	keeper source.Source,
+	cdc codec.Codec,
+	db *database.Db,
+	addressPrefix string,
 ) *Module {
 	return &Module{
 		cdc:           cdc,
 		db:            db,
 		messageParser: messageParser,
 		keeper:        keeper,
+		govDenom:      getGovTokenFromAddressPrefix(addressPrefix),
 	}
 }
 
 // Name implements modules.Module
 func (m *Module) Name() string {
 	return "bank"
+}
+
+func getGovTokenFromAddressPrefix(addressPrefix string) string {
+	switch addressPrefix {
+	case "core":
+		return "ucore"
+	case "testcore":
+		return "utestcore"
+	case "devcore":
+		return "udevcore"
+	default:
+		return ""
+	}
 }

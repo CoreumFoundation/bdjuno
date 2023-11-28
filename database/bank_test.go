@@ -114,15 +114,4 @@ func (suite *DbTestSuite) TestBigDipperDb_AccoundDenomBalances() {
 	suite.Require().NoError(err)
 	suite.Require().Len(rows, 1, "supply table should contain only one row")
 	suite.Require().True(expected.Equals(rows[0]))
-
-	// ----------------------------------------------------------------------------------------------------------------
-
-	// Try deleting the value
-	err = suite.database.DeleteAccountDenomBalance(account, coin)
-	suite.Require().NoError(err)
-
-	rows = []bddbtypes.AccountBalance{}
-	err = suite.database.Sqlx.Select(&rows, `SELECT * FROM account_denom_balance`)
-	suite.Require().NoError(err)
-	suite.Require().Len(rows, 0, "supply table should no rows")
 }

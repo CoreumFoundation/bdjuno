@@ -51,24 +51,13 @@ func (db *Db) SaveAccountDenomBalance(account string, coin sdk.Coin, height int6
 INSERT INTO account_denom_balance (address, denom, amount, height) 
 VALUES ($1, $2, $3, $4) 
 ON CONFLICT (address,denom) DO UPDATE 
-    SET amount=$3, height=$4
-WHERE account_denom_balance.address=$1 AND account_denom_balance.denom=$2`
+    SET amount = $3, height = $4
+WHERE 
+	account_denom_balance.address = $1 
+	AND account_denom_balance.denom = $2 
+	AND account_denom_balance.height < $4`
 
 	_, err := db.SQL.Exec(query, account, coin.Denom, coin.Amount.String(), height)
-	if err != nil {
-		return fmt.Errorf("error while storing account balance: %s", err)
-	}
-
-	return nil
-}
-
-// DeleteAccountDenomBalance allows to delete the balance of an account for a given denom.
-func (db *Db) DeleteAccountDenomBalance(account string, coin sdk.Coin) error {
-	query := `
-DELETE FROM account_denom_balance  
-WHERE address=$1 AND account_denom_balance.denom=$2`
-
-	_, err := db.SQL.Exec(query, account, coin.Denom)
 	if err != nil {
 		return fmt.Errorf("error while storing account balance: %s", err)
 	}

@@ -63,6 +63,10 @@ func (m *Module) updateBalanceForEventType(index int, tx *juno.Tx, eventType str
 			return err
 		}
 
+		if coin.Denom == m.govDenom {
+			continue
+		}
+
 		addressDenomMap[addressDenom{address: account, denom: coin.Denom}] = true
 	}
 
@@ -81,14 +85,8 @@ func (m *Module) updateBalanceForEventType(index int, tx *juno.Tx, eventType str
 			return fmt.Errorf("query balance return nil, account: %s, denom:%s", ad.address, ad.denom)
 		}
 
-		if quriedBalance.Amount.IsZero() {
-			if err := m.db.DeleteAccountDenomBalance(ad.address, *quriedBalance); err != nil {
-				return err
-			}
-		} else {
-			if err := m.db.SaveAccountDenomBalance(ad.address, *quriedBalance, block.Height); err != nil {
-				return err
-			}
+		if err := m.db.SaveAccountDenomBalance(ad.address, *quriedBalance, block.Height); err != nil {
+			return err
 		}
 	}
 
