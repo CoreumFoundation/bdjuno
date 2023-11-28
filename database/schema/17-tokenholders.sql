@@ -10,5 +10,5 @@ CREATE TABLE account_denom_balance
 CREATE VIEW token_holder_count AS
     SELECT denom, COUNT(*) AS holders
     FROM account_denom_balance
-    where amount != '0'
+    WHERE amount != '0'
     GROUP BY denom;

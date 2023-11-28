@@ -63,6 +63,8 @@ func (m *Module) updateBalanceForEventType(index int, tx *juno.Tx, eventType str
 			return err
 		}
 
+		// since the main governance token exists in every transaction, we have decided to skip processing
+		// that token.
 		if coin.Denom == m.baseDenom {
 			continue
 		}
