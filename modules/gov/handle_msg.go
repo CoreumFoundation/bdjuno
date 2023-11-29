@@ -159,6 +159,7 @@ func (m *Module) getLatestHeight(targetHeight int64, proposalID uint64) (int64, 
 	if err == nil {
 		return targetHeight, nil
 	}
+	// check if error is caused by the missing state
 	if strings.Contains(err.Error(), "version mismatch on immutable IAVL tree") {
 		// zero is equal to latest in terms of the client
 		return 0, nil
