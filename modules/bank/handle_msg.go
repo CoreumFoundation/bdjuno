@@ -74,6 +74,9 @@ func (m *Module) updateBalanceForEventType(index int, tx *juno.Tx, eventType str
 
 	for ad := range addressDenomMap {
 		storedBalance, found, err := m.db.GetAccountDenomBalance(ad.address, ad.denom)
+		if err != nil {
+			return err
+		}
 		if found && storedBalance.Height >= block.Height {
 			continue
 		}

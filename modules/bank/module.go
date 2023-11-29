@@ -59,6 +59,6 @@ func getBaseTokenFromAddressPrefix(addressPrefix string) string {
 	case constant.AddressPrefixDev:
 		return constant.DenomDev
 	default:
-		return ""
+		panic("unknown address prefix: " + addressPrefix)
 	}
 }
