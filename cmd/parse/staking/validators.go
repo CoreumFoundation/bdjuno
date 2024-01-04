@@ -46,6 +46,11 @@ func validatorsCmd(parseConfig *parsecmdtypes.Config) *cobra.Command {
 				return fmt.Errorf("error while refreshing all validators infos: %s", err)
 			}
 
+			err = stakingModule.UpdateValidatorStatuses()
+			if err != nil {
+				return fmt.Errorf("error while updating all validators statuses: %s", err)
+			}
+
 			return nil
 		},
 	}
