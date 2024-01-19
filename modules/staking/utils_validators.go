@@ -109,7 +109,7 @@ func (m *Module) RefreshValidatorInfos(height int64, valOper string) error {
 				return fmt.Errorf("error while getting validator from db: %s", err)
 			}
 
-			err = m.db.SaveValidatorsStatuses([]types.ValidatorStatus{types.NewValidatorStatus(validator.GetConsAddr(), validator.GetConsPubKey(), 1, true, height)})
+			err = m.db.SaveValidatorsStatuses([]types.ValidatorStatus{types.NewValidatorStatus(validator.GetConsAddr(), validator.GetConsPubKey(), int(stakingtypes.Unbonded), true, height)})
 			if err != nil {
 				return fmt.Errorf("error while saving validator status to db: %s", err)
 			}
