@@ -82,9 +82,36 @@ func (m *Module) convertValidatorDescription(
 // RefreshAllValidatorInfos refreshes the info of all the validators at the given height
 func (m *Module) RefreshAllValidatorInfos(height int64) error {
 	// Get all validators
-	validators, err := m.db.GetValidators()
+	validatorsFromDb, err := m.db.GetValidators()
 	if err != nil {
 		return fmt.Errorf("error while getting validators from db: %s", err)
+	}
+
+	validatorsFromHeight, err := m.source.GetValidatorsWithStatus(height, "")
+	if err != nil {
+		return fmt.Errorf("error while getting validators from db: %s", err)
+	}
+
+	// Merge validatorsFromDb and validatorsFromHeight arrays
+	validators := make([]types.Validator, 0, len(validatorsFromDb)+len(validatorsFromHeight))
+	validatorsMap := make(map[string]bool)
+
+	for _, validator := range validatorsFromDb {
+		validators = append(validators, validator)
+		validatorsMap[validator.GetOperator()] = true
+	}
+
+	for _, validator := range validatorsFromHeight {
+		// Check if the validator already exists in validatorsFromDb
+		if _, exists := validatorsMap[validator.OperatorAddress]; !exists {
+			// Convert and append the validator if it doesn't exist in validatorsFromDb
+			convertedValidator, err := m.convertValidator(height, validator)
+			if err != nil {
+				return fmt.Errorf("error while converting validator: %s", err)
+			}
+			validators = append(validators, convertedValidator)
+			validatorsMap[validator.OperatorAddress] = true
+		}
 	}
 
 	// Refresh each validator
