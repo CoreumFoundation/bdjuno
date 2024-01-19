@@ -40,7 +40,7 @@ func (m *Module) HandleGenesis(doc *tmtypes.GenesisDoc, appState map[string]json
 
 	err = m.db.SaveAuthParams(types.NewAuthParams(genState.Params, doc.InitialHeight))
 	if err != nil {
-		return fmt.Errorf("error while storing genesis assetft params: %s", err)
+		return fmt.Errorf("error while storing genesis auth params: %s", err)
 	}
 
 	return nil
