@@ -92,8 +92,7 @@ func (m *Module) RefreshAllValidatorInfos(height int64) error {
 		return fmt.Errorf("error while getting validators from db: %s", err)
 	}
 
-	// Merge validatorsFromDb and validatorsFromHeight arrays
-	validators := make([]types.Validator, 0, len(validatorsFromDb))
+	validators := make([]types.Validator, 0)
 	validatorsMap := make(map[string]bool)
 
 	for _, validator := range validatorsFromDb {
