@@ -14,16 +14,10 @@ import (
 
 func DelegationHandler(ctx *types.Context, payload *types.Payload) (interface{}, error) {
 	log.Debug().Str("action", "delegations").
-		Str("address", payload.GetAddress()).
 		Msg("executing delegations action")
 
-	height, err := ctx.GetHeight(payload)
-	if err != nil {
-		return nil, err
-	}
-
 	// Get delegator's total rewards
-	res, err := ctx.Sources.StakingSource.GetDelegationsWithPagination(height, payload.GetAddress(), payload.GetPagination())
+	res, err := ctx.Sources.StakingSource.GetDelegationsWithPagination(payload.GetAddress(), payload.GetPagination())
 	if err != nil {
 		// For stargate only, returns without throwing error if delegator delegations are not found on the chain
 		if strings.Contains(err.Error(), codes.NotFound.String()) {

@@ -3,16 +3,15 @@ package remote
 import (
 	"github.com/cosmos/cosmos-sdk/types/query"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/forbole/juno/v5/node/remote"
 
 	"github.com/forbole/bdjuno/v4/utils"
 )
 
 // GetDelegationsWithPagination implements stakingsource.Source
 func (s Source) GetDelegationsWithPagination(
-	height int64, delegator string, pagination *query.PageRequest,
+	delegator string, pagination *query.PageRequest,
 ) (*stakingtypes.QueryDelegatorDelegationsResponse, error) {
-	ctx := utils.GetHeightRequestContext(s.Ctx, height)
+	ctx := utils.GetHeightRequestContext(s.Ctx)
 	res, err := s.stakingClient.DelegatorDelegations(
 		ctx,
 		&stakingtypes.QueryDelegatorDelegationsRequest{
@@ -28,8 +27,8 @@ func (s Source) GetDelegationsWithPagination(
 }
 
 // GetUnbondingDelegations implements stakingsource.Source
-func (s Source) GetUnbondingDelegations(height int64, delegator string, pagination *query.PageRequest) (*stakingtypes.QueryDelegatorUnbondingDelegationsResponse, error) {
-	ctx := utils.GetHeightRequestContext(s.Ctx, height)
+func (s Source) GetUnbondingDelegations(delegator string, pagination *query.PageRequest) (*stakingtypes.QueryDelegatorUnbondingDelegationsResponse, error) {
+	ctx := utils.GetHeightRequestContext(s.Ctx)
 
 	unbondingDelegations, err := s.stakingClient.DelegatorUnbondingDelegations(
 		ctx,
@@ -46,8 +45,8 @@ func (s Source) GetUnbondingDelegations(height int64, delegator string, paginati
 }
 
 // GetRedelegations implements stakingsource.Source
-func (s Source) GetRedelegations(height int64, request *stakingtypes.QueryRedelegationsRequest) (*stakingtypes.QueryRedelegationsResponse, error) {
-	ctx := utils.GetHeightRequestContext(s.Ctx, height)
+func (s Source) GetRedelegations(request *stakingtypes.QueryRedelegationsRequest) (*stakingtypes.QueryRedelegationsResponse, error) {
+	ctx := utils.GetHeightRequestContext(s.Ctx)
 
 	redelegations, err := s.stakingClient.Redelegations(ctx, request)
 	if err != nil {
@@ -58,11 +57,12 @@ func (s Source) GetRedelegations(height int64, request *stakingtypes.QueryRedele
 
 // GetValidatorDelegationsWithPagination implements stakingsource.Source
 func (s Source) GetValidatorDelegationsWithPagination(
-	height int64, validator string, pagination *query.PageRequest,
+	validator string, pagination *query.PageRequest,
 ) (*stakingtypes.QueryValidatorDelegationsResponse, error) {
+	ctx := utils.GetHeightRequestContext(s.Ctx)
 
 	res, err := s.stakingClient.ValidatorDelegations(
-		remote.GetHeightRequestContext(s.Ctx, height),
+		ctx,
 		&stakingtypes.QueryValidatorDelegationsRequest{
 			ValidatorAddr: validator,
 			Pagination:    pagination,
@@ -77,11 +77,12 @@ func (s Source) GetValidatorDelegationsWithPagination(
 
 // GetUnbondingDelegationsFromValidator implements stakingsource.Source
 func (s Source) GetUnbondingDelegationsFromValidator(
-	height int64, validator string, pagination *query.PageRequest,
+	validator string, pagination *query.PageRequest,
 ) (*stakingtypes.QueryValidatorUnbondingDelegationsResponse, error) {
+	ctx := utils.GetHeightRequestContext(s.Ctx)
 
 	unbondingDelegations, err := s.stakingClient.ValidatorUnbondingDelegations(
-		remote.GetHeightRequestContext(s.Ctx, height),
+		ctx,
 		&stakingtypes.QueryValidatorUnbondingDelegationsRequest{
 			ValidatorAddr: validator,
 			Pagination:    pagination,

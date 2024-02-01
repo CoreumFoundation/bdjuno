@@ -12,14 +12,8 @@ func DelegatorWithdrawAddressHandler(ctx *types.Context, payload *types.Payload)
 	log.Debug().Str("address", payload.GetAddress()).
 		Msg("executing delegator withdraw address action")
 
-	// Get latest node height
-	height, err := ctx.GetHeight(nil)
-	if err != nil {
-		return nil, err
-	}
-
 	// Get delegator's total rewards
-	withdrawAddress, err := ctx.Sources.DistrSource.DelegatorWithdrawAddress(payload.GetAddress(), height)
+	withdrawAddress, err := ctx.Sources.DistrSource.DelegatorWithdrawAddress(payload.GetAddress())
 	if err != nil {
 		return nil, fmt.Errorf("error while getting delegator withdraw address: %s", err)
 	}

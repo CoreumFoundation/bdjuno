@@ -11,16 +11,10 @@ import (
 
 func ValidatorRedelegationsFromHandler(ctx *types.Context, payload *types.Payload) (interface{}, error) {
 	log.Debug().Str("address", payload.GetAddress()).
-		Int64("height", payload.Input.Height).
 		Msg("executing validator redelegation action")
 
-	height, err := ctx.GetHeight(payload)
-	if err != nil {
-		return nil, err
-	}
-
 	// Get redelegations from a source validator address
-	redelegations, err := ctx.Sources.StakingSource.GetRedelegations(height, &stakingtypes.QueryRedelegationsRequest{
+	redelegations, err := ctx.Sources.StakingSource.GetRedelegations(&stakingtypes.QueryRedelegationsRequest{
 		SrcValidatorAddr: payload.GetAddress(),
 		Pagination:       payload.GetPagination(),
 	})

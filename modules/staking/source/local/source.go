@@ -8,6 +8,7 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/forbole/juno/v5/node/local"
 
+	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	stakingsource "github.com/forbole/bdjuno/v4/modules/staking/source"
 )
 
@@ -45,11 +46,15 @@ func (s Source) GetValidator(height int64, valOper string) (stakingtypes.Validat
 }
 
 // GetDelegationsWithPagination implements stakingsource.Source
-func (s Source) GetDelegationsWithPagination(height int64, delegator string, pagination *query.PageRequest) (*stakingtypes.QueryDelegatorDelegationsResponse, error) {
-	ctx, err := s.LoadHeight(height)
+func (s Source) GetDelegationsWithPagination(delegator string, pagination *query.PageRequest) (*stakingtypes.QueryDelegatorDelegationsResponse, error) {
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return nil, fmt.Errorf("error while loading height: %s", err)
+		return nil, fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	res, err := s.q.DelegatorDelegations(
 		sdk.WrapSDKContext(ctx),
@@ -70,11 +75,15 @@ func (s Source) GetDelegationsWithPagination(height int64, delegator string, pag
 }
 
 // GetRedelegations implements stakingsource.Source
-func (s Source) GetRedelegations(height int64, request *stakingtypes.QueryRedelegationsRequest) (*stakingtypes.QueryRedelegationsResponse, error) {
-	ctx, err := s.LoadHeight(height)
+func (s Source) GetRedelegations(request *stakingtypes.QueryRedelegationsRequest) (*stakingtypes.QueryRedelegationsResponse, error) {
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return nil, fmt.Errorf("error while loading height: %s", err)
+		return nil, fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	redelegations, err := s.q.Redelegations(sdk.WrapSDKContext(ctx), request)
 	if err != nil {
@@ -136,11 +145,15 @@ func (s Source) GetPool(height int64) (stakingtypes.Pool, error) {
 }
 
 // GetParams implements stakingsource.Source
-func (s Source) GetParams(height int64) (stakingtypes.Params, error) {
-	ctx, err := s.LoadHeight(height)
+func (s Source) GetParams() (stakingtypes.Params, error) {
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return stakingtypes.Params{}, fmt.Errorf("error while loading height: %s", err)
+		return stakingtypes.Params{}, fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	res, err := s.q.Params(
 		sdk.WrapSDKContext(ctx),
@@ -154,12 +167,15 @@ func (s Source) GetParams(height int64) (stakingtypes.Params, error) {
 }
 
 // GetUnbondingDelegations implements stakingsource.Source
-func (s Source) GetUnbondingDelegations(height int64, delegator string, pagination *query.PageRequest) (*stakingtypes.QueryDelegatorUnbondingDelegationsResponse, error) {
-
-	ctx, err := s.LoadHeight(height)
+func (s Source) GetUnbondingDelegations(delegator string, pagination *query.PageRequest) (*stakingtypes.QueryDelegatorUnbondingDelegationsResponse, error) {
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return nil, fmt.Errorf("error while loading height: %s", err)
+		return nil, fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	unbondingDelegations, err := s.q.DelegatorUnbondingDelegations(
 		sdk.WrapSDKContext(ctx),
@@ -182,12 +198,16 @@ func (s Source) GetUnbondingDelegations(height int64, delegator string, paginati
 
 // GetValidatorDelegationsWithPagination implements stakingsource.Source
 func (s Source) GetValidatorDelegationsWithPagination(
-	height int64, validator string, pagination *query.PageRequest,
+	validator string, pagination *query.PageRequest,
 ) (*stakingtypes.QueryValidatorDelegationsResponse, error) {
-	ctx, err := s.LoadHeight(height)
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return nil, fmt.Errorf("error while loading height: %s", err)
+		return nil, fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	res, err := s.q.ValidatorDelegations(
 		sdk.WrapSDKContext(ctx),
@@ -205,12 +225,16 @@ func (s Source) GetValidatorDelegationsWithPagination(
 
 // GetUnbondingDelegationsFromValidator implements stakingsource.Source
 func (s Source) GetUnbondingDelegationsFromValidator(
-	height int64, validator string, pagination *query.PageRequest,
+	validator string, pagination *query.PageRequest,
 ) (*stakingtypes.QueryValidatorUnbondingDelegationsResponse, error) {
-	ctx, err := s.LoadHeight(height)
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return nil, fmt.Errorf("error while loading height: %s", err)
+		return nil, fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	unbondingDelegations, err := s.q.ValidatorUnbondingDelegations(
 		sdk.WrapSDKContext(ctx),

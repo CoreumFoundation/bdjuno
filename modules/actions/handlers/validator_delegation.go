@@ -11,17 +11,10 @@ import (
 
 func ValidatorDelegation(ctx *types.Context, payload *types.Payload) (interface{}, error) {
 	log.Debug().Str("address", payload.GetAddress()).
-		Int64("height", payload.Input.Height).
 		Msg("executing validator delegation action")
 
-	// Get latest node height
-	height, err := ctx.GetHeight(payload)
-	if err != nil {
-		return nil, err
-	}
-
 	// Get validator's total delegations
-	res, err := ctx.Sources.StakingSource.GetValidatorDelegationsWithPagination(height, payload.GetAddress(), payload.GetPagination())
+	res, err := ctx.Sources.StakingSource.GetValidatorDelegationsWithPagination(payload.GetAddress(), payload.GetPagination())
 	if err != nil {
 		return nil, fmt.Errorf("error while getting validator delegations: %s", err)
 	}

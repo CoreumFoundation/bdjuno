@@ -10,18 +10,10 @@ import (
 
 func ValidatorUnbondingDelegationsHandler(ctx *types.Context, payload *types.Payload) (interface{}, error) {
 	log.Debug().Str("address", payload.GetAddress()).
-		Int64("height", payload.Input.Height).
 		Msg("executing validator unbonding delegations action")
-
-	// Get latest node height
-	height, err := ctx.GetHeight(payload)
-	if err != nil {
-		return nil, err
-	}
 
 	// Get all unbonding delegations from the given validator opr address
 	unbondingDelegations, err := ctx.Sources.StakingSource.GetUnbondingDelegationsFromValidator(
-		height,
 		payload.GetAddress(),
 		payload.GetPagination(),
 	)

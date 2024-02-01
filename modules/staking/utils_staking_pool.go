@@ -57,7 +57,7 @@ func (m *Module) getTotalUnbondingDelegationsFromValidator(height int64, valOper
 	var nextKey []byte
 	var stop = false
 	for !stop {
-		res, err := m.source.GetUnbondingDelegationsFromValidator(height,
+		res, err := m.source.GetUnbondingDelegationsFromValidator(
 			valOperatorAddress,
 			&query.PageRequest{Key: nextKey},
 		)

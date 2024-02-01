@@ -29,6 +29,7 @@ func (c *Context) GetHeight(payload *Payload) (int64, error) {
 		if err != nil {
 			return 0, fmt.Errorf("error while getting chain latest block height: %s", err)
 		}
+
 		return latestHeight, nil
 	}
 

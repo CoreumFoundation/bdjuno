@@ -10,16 +10,10 @@ import (
 
 func UnbondingDelegationsHandler(ctx *types.Context, payload *types.Payload) (interface{}, error) {
 	log.Debug().Str("address", payload.GetAddress()).
-		Int64("height", payload.Input.Height).
 		Msg("executing unbonding delegations action")
 
-	height, err := ctx.GetHeight(payload)
-	if err != nil {
-		return nil, err
-	}
-
 	// Get all unbonding delegations for given delegator address
-	unbondingDelegations, err := ctx.Sources.StakingSource.GetUnbondingDelegations(height, payload.GetAddress(), payload.GetPagination())
+	unbondingDelegations, err := ctx.Sources.StakingSource.GetUnbondingDelegations(payload.GetAddress(), payload.GetPagination())
 	if err != nil {
 		return nil, fmt.Errorf("error while getting delegator unbonding delegations: %s", err)
 	}
