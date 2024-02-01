@@ -12,5 +12,5 @@ type Source interface {
 	GetAccountDenomBalance(address string, denom string, height int64) (*sdk.Coin, error)
 
 	// -- For hasura action --
-	GetAccountBalance(address string, height int64) ([]sdk.Coin, error)
+	GetAccountBalance(address string) ([]sdk.Coin, error)
 }

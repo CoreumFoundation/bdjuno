@@ -13,16 +13,10 @@ import (
 
 func TotalDelegationAmountHandler(ctx *types.Context, payload *types.Payload) (interface{}, error) {
 	log.Debug().Str("address", payload.GetAddress()).
-		Int64("height", payload.Input.Height).
 		Msg("executing total delegation amount action")
 
-	height, err := ctx.GetHeight(payload)
-	if err != nil {
-		return nil, err
-	}
-
 	// Get all  delegations for given delegator address
-	delegationList, err := ctx.Sources.StakingSource.GetDelegationsWithPagination(height, payload.GetAddress(), nil)
+	delegationList, err := ctx.Sources.StakingSource.GetDelegationsWithPagination(payload.GetAddress(), nil)
 	if err != nil {
 		// For stargate only, returns without throwing error if delegator delegations are not found on the chain
 		if strings.Contains(err.Error(), codes.NotFound.String()) {

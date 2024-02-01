@@ -11,22 +11,16 @@ import (
 
 func UnbondingDelegationsTotal(ctx *types.Context, payload *types.Payload) (interface{}, error) {
 	log.Debug().Str("address", payload.GetAddress()).
-		Int64("height", payload.Input.Height).
 		Msg("executing unbonding delegation total action")
 
-	height, err := ctx.GetHeight(payload)
-	if err != nil {
-		return nil, err
-	}
-
 	// Get all unbonding delegations for given delegator address
-	unbondingDelegations, err := ctx.Sources.StakingSource.GetUnbondingDelegations(height, payload.GetAddress(), nil)
+	unbondingDelegations, err := ctx.Sources.StakingSource.GetUnbondingDelegations(payload.GetAddress(), nil)
 	if err != nil {
 		return nil, fmt.Errorf("error while getting delegator unbonding delegations: %s", err)
 	}
 
 	// Get the bond denom type
-	params, err := ctx.Sources.StakingSource.GetParams(height)
+	params, err := ctx.Sources.StakingSource.GetParams()
 	if err != nil {
 		return nil, fmt.Errorf("error while getting bond denom type: %s", err)
 	}

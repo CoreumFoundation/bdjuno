@@ -7,6 +7,7 @@ import (
 	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	"github.com/forbole/juno/v5/node/local"
 
+	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	distrsource "github.com/forbole/bdjuno/v4/modules/distribution/source"
 )
 
@@ -28,11 +29,15 @@ func NewSource(source *local.Source, keeper distrtypes.QueryServer) *Source {
 }
 
 // ValidatorCommission implements distrsource.Source
-func (s Source) ValidatorCommission(valOperAddr string, height int64) (sdk.DecCoins, error) {
-	ctx, err := s.LoadHeight(height)
+func (s Source) ValidatorCommission(valOperAddr string) (sdk.DecCoins, error) {
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return nil, fmt.Errorf("error while loading height: %s", err)
+		return nil, fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	res, err := s.q.ValidatorCommission(
 		sdk.WrapSDKContext(ctx),
@@ -46,11 +51,15 @@ func (s Source) ValidatorCommission(valOperAddr string, height int64) (sdk.DecCo
 }
 
 // DelegatorTotalRewards implements distrsource.Source
-func (s Source) DelegatorTotalRewards(delegator string, height int64) ([]distrtypes.DelegationDelegatorReward, error) {
-	ctx, err := s.LoadHeight(height)
+func (s Source) DelegatorTotalRewards(delegator string) ([]distrtypes.DelegationDelegatorReward, error) {
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return nil, fmt.Errorf("error while loading height: %s", err)
+		return nil, fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	res, err := s.q.DelegationTotalRewards(
 		sdk.WrapSDKContext(ctx),
@@ -64,11 +73,15 @@ func (s Source) DelegatorTotalRewards(delegator string, height int64) ([]distrty
 }
 
 // DelegatorWithdrawAddress implements distrsource.Source
-func (s Source) DelegatorWithdrawAddress(delegator string, height int64) (string, error) {
-	ctx, err := s.LoadHeight(height)
+func (s Source) DelegatorWithdrawAddress(delegator string) (string, error) {
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return "", fmt.Errorf("error while loading height: %s", err)
+		return "", fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	res, err := s.q.DelegatorWithdrawAddress(
 		sdk.WrapSDKContext(ctx),

@@ -9,6 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/forbole/juno/v5/node/local"
 
+	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/forbole/bdjuno/v4/modules/bank/source"
 	"github.com/forbole/bdjuno/v4/types"
 )
@@ -83,11 +84,15 @@ func (s Source) GetSupply(height int64) (sdk.Coins, error) {
 }
 
 // GetAccountBalances implements bankkeeper.Source
-func (s Source) GetAccountBalance(address string, height int64) ([]sdk.Coin, error) {
-	ctx, err := s.LoadHeight(height)
+func (s Source) GetAccountBalance(address string) ([]sdk.Coin, error) {
+	var err error
+	var cms sdk.CacheMultiStore
+	cms, err = s.Cms.CacheMultiStoreWithVersion(s.BlockStore.Height())
 	if err != nil {
-		return nil, fmt.Errorf("error while loading height: %s", err)
+		return nil, fmt.Errorf("error while getting the context: %s", err)
 	}
+
+	ctx := sdk.NewContext(cms, tmproto.Header{}, false, s.Logger)
 
 	balRes, err := s.q.AllBalances(sdk.WrapSDKContext(ctx), &banktypes.QueryAllBalancesRequest{Address: address})
 	if err != nil {

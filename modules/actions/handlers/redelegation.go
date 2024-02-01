@@ -11,16 +11,10 @@ import (
 
 func RedelegationHandler(ctx *types.Context, payload *types.Payload) (interface{}, error) {
 	log.Debug().Str("address", payload.GetAddress()).
-		Int64("height", payload.Input.Height).
 		Msg("executing redelegations action")
 
-	height, err := ctx.GetHeight(payload)
-	if err != nil {
-		return nil, err
-	}
-
 	// Get delegator's redelegations
-	redelegations, err := ctx.Sources.StakingSource.GetRedelegations(height, &stakingtypes.QueryRedelegationsRequest{
+	redelegations, err := ctx.Sources.StakingSource.GetRedelegations(&stakingtypes.QueryRedelegationsRequest{
 		DelegatorAddr: payload.GetAddress(),
 		Pagination:    payload.GetPagination(),
 	})

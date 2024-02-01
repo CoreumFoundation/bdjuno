@@ -8,6 +8,7 @@ import (
 	"github.com/forbole/juno/v5/node/remote"
 
 	stakingsource "github.com/forbole/bdjuno/v4/modules/staking/source"
+	"github.com/forbole/bdjuno/v4/utils"
 )
 
 var (
@@ -82,8 +83,13 @@ func (s Source) GetPool(height int64) (stakingtypes.Pool, error) {
 }
 
 // GetParams implements stakingsource.Source
-func (s Source) GetParams(height int64) (stakingtypes.Params, error) {
-	res, err := s.stakingClient.Params(remote.GetHeightRequestContext(s.Ctx, height), &stakingtypes.QueryParamsRequest{})
+func (s Source) GetParams() (stakingtypes.Params, error) {
+	ctx := utils.GetHeightRequestContext(s.Ctx)
+
+	res, err := s.stakingClient.Params(
+		ctx,
+		&stakingtypes.QueryParamsRequest{},
+	)
 	if err != nil {
 		return stakingtypes.Params{}, err
 	}

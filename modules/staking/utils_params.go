@@ -13,7 +13,7 @@ func (m *Module) UpdateParams(height int64) error {
 	log.Debug().Str("module", "staking").Int64("height", height).
 		Msg("updating params")
 
-	params, err := m.source.GetParams(height)
+	params, err := m.source.GetParams()
 	if err != nil {
 		return fmt.Errorf("error while getting params: %s", err)
 	}
