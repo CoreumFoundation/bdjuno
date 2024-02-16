@@ -131,20 +131,3 @@ func (m *Module) measureVotingTimes(block *tmctypes.ResultBlock) {
 			Observe(float64(s.Timestamp.Sub(proposerVoteTime)) / float64(time.Millisecond))
 	}
 }
-
-func (m *Module) measureVotedVotingPower(block *tmctypes.ResultBlock, vals *tmctypes.ResultValidators) {
-	proposerAddr := block.Block.ProposerAddress.Bytes()
-
-	var proposerVoteTime time.Time
-	for _, s := range block.Block.LastCommit.Signatures {
-		if bytes.Equal(s.ValidatorAddress.Bytes(), proposerAddr) {
-			proposerVoteTime = s.Timestamp
-			break
-		}
-	}
-	proposer := sdk.ConsAddress(block.Block.ProposerAddress).String()
-	for _, s := range block.Block.LastCommit.Signatures {
-		logging.VoteTimeHistogram.WithLabelValues(proposer, sdk.ConsAddress(s.ValidatorAddress).String()).
-			Observe(float64(s.Timestamp.Sub(proposerVoteTime)) / float64(time.Millisecond))
-	}
-}
