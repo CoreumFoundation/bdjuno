@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	repoPath   = "../bdjuno"
+	repoPath   = "."
 	binaryName = "bdjuno"
 	binaryPath = "bin/" + binaryName
 )
