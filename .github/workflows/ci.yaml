@@ -1,9 +1,9 @@
 name: ci
 on:
   push:
-    branches: [ master ]
+    branches: [ chains/coreum ]
   pull_request:
-    branches: [ master ]
+    branches: [ chains/coreum ]
   schedule:
     - cron: '0 1 * * 1' # At 01:00 on Monday
   workflow_dispatch:
