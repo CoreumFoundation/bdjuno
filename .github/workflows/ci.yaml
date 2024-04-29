@@ -18,7 +18,9 @@ jobs:
         ]
         include:
           - ci_step: "test"
-            command: "bdjuno-builder test"
+            command: |
+              docker run --name bdjuno-test-db -e POSTGRES_USER=bdjuno -e POSTGRES_PASSWORD=password -e POSTGRES_DB=bdjuno -d -p 6433:5432 postgres
+              bdjuno-builder test
             linter-cache: false
             codecov: true
             codecov-name: coreum
