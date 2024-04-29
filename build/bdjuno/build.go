@@ -10,10 +10,9 @@ import (
 )
 
 const (
-	repoPath         = "."
-	binaryName       = "bdjuno"
-	binaryPath       = "bin/" + binaryName
-	binaryOutputFlag = "-o"
+	repoPath   = "."
+	binaryName = "bdjuno"
+	binaryPath = "bin/" + binaryName
 )
 
 // Build builds faucet in docker.
@@ -37,12 +36,9 @@ func Test(ctx context.Context, deps build.DepsFunc) error {
 }
 
 func buildBDJuno(ctx context.Context, deps build.DepsFunc, targetPlatform tools.TargetPlatform) error {
-	binOutputPath := filepath.Join("bin", ".cache", binaryName, targetPlatform.String(), "bin", binaryName)
 	return golang.Build(ctx, deps, golang.BinaryBuildConfig{
 		TargetPlatform: targetPlatform,
 		PackagePath:    filepath.Join(repoPath, "cmd", "bdjuno"),
-		Flags: []string{
-			binaryOutputFlag + "=" + binOutputPath,
-		},
+		BinOutputPath:  filepath.Join("bin", ".cache", binaryName, targetPlatform.String(), "bin", binaryName),
 	})
 }

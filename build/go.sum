@@ -1,7 +1,7 @@
 github.com/CoreumFoundation/coreum-tools v0.4.1-0.20240321120602-0a9c50facc68 h1:Tb9avuSQW3smVGrUnDh/Y+ML4eK802UsvJNZHsBgOGg=
 github.com/CoreumFoundation/coreum-tools v0.4.1-0.20240321120602-0a9c50facc68/go.mod h1:VD93vCHkxYaT/RhOesXTFgd/GQDW54tr0BqGi5JU1c0=
-github.com/CoreumFoundation/crust/build v0.0.0-20240409095900-0a67f05983fd h1:xjKPh93D/nrLxksfmpj6jwNCGtCdwn/MQ53Kvyd4IzY=
-github.com/CoreumFoundation/crust/build v0.0.0-20240409095900-0a67f05983fd/go.mod h1:ZUxc7Pskj95EYmPMp8kU6yyeyZ5PcWuixfbVfIlGTVs=
+github.com/CoreumFoundation/crust/build v0.0.0-20240426160154-ef0a4b5d93ea h1:Rk0szAREKByOwg8M+yfg8snu6C2OdP7KjIznrIEk38o=
+github.com/CoreumFoundation/crust/build v0.0.0-20240426160154-ef0a4b5d93ea/go.mod h1:nS+zNTGtsK9ComEW/McsAK4XnPLhTsf0wIN5o1grD98=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/benbjohnson/clock v1.3.5 h1:VvXlSJBzZpA/zum6Sj74hxwYI2DIxRWuNIoXAzHZz5o=
 github.com/benbjohnson/clock v1.3.5/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
