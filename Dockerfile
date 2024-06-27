@@ -1,5 +1,5 @@
-FROM --platform=$BUILDPLATFORM golang:1.21-alpine AS builder
-RUN apk update && apk add --no-cache make git gcc libc-dev
+FROM --platform=$BUILDPLATFORM golang:1.21-bullseye AS builder
+RUN apt update && apt install make git gcc libc-dev
 WORKDIR /go/src/github.com/forbole/bdjuno
 COPY . ./
 RUN go mod download
