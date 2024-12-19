@@ -4,9 +4,6 @@ go 1.21
 
 replace (
 	github.com/forbole/juno/v5 => github.com/CoreumFoundation/junov5/v5 v5.2.1-0.20240126121118-d3d301084ce7
-	// Pin the x/exp dependency version because consmos-sdk breaking change is not compatible
-    // with cosmos-sdk v0.47.
-    // Details: https://github.com/cosmos/cosmos-sdk/issues/18415
 	golang.org/x/exp => golang.org/x/exp v0.0.0-20230711153332-06a737ee72cb
 )
 
@@ -314,7 +311,6 @@ require (
 	go.opentelemetry.io/otel v1.21.0 // indirect
 	go.opentelemetry.io/otel/metric v1.21.0 // indirect
 	go.opentelemetry.io/otel/trace v1.21.0 // indirect
-	go.tmz.dev/musttag v0.7.2 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
@@ -351,3 +347,5 @@ require (
 // This is to avoid warnings while running the binary
 // See here: https://github.com/desmos-labs/desmos/pull/1131#discussion_r1194090419
 replace github.com/cosmos/gogoproto => github.com/cosmos/gogoproto v1.4.8
+
+replace google.golang.org/grpc => google.golang.org/grpc v1.33.2

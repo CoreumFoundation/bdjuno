@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - chains/coreum
+      - fix_inflation
 
 env:
   BDJUNO_IMAGE_NAME: bdjuno
