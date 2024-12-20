@@ -1,17 +1,14 @@
 package database_test
 
 import (
-	tmtypes "github.com/cometbft/cometbft/proto/tendermint/types"
-
-	"github.com/forbole/callisto/v4/types"
-
 	"cosmossdk.io/math"
+	tmtypes "github.com/cometbft/cometbft/proto/tendermint/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-
 	dbtypes "github.com/forbole/callisto/v4/database/types"
+	"github.com/forbole/callisto/v4/types"
 )
 
-func newDecPts(value int64, prec int64) *math.LegacyDec {
+func newDecPts(value, prec int64) *math.LegacyDec {
 	dec := math.LegacyNewDecWithPrec(value, prec)
 	return &dec
 }
@@ -240,7 +237,6 @@ VALUES ('cosmosvalcons1qqqqrezrl53hujmpdch6d805ac75n220ku09rl',
 	suite.Require().Equal("cosmos184ma3twcfjqef6k95ne8w2hk80x2kah7vcwy4a", validator.GetSelfDelegateAddress())
 	suite.Require().True(validator.GetMaxChangeRate().Equal(maxChangeRate))
 	suite.Require().True(validator.GetMaxRate().Equal(maxRate))
-
 }
 
 func (suite *DbTestSuite) TestGetValidators() {

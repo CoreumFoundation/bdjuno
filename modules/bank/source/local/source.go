@@ -3,19 +3,15 @@ package local
 import (
 	"fmt"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/forbole/juno/v6/node/local"
-
 	"github.com/forbole/callisto/v4/modules/bank/source"
 	"github.com/forbole/callisto/v4/types"
+	"github.com/forbole/juno/v6/node/local"
 )
 
-var (
-	_ source.Source = &Source{}
-)
+var _ source.Source = &Source{}
 
 // Source represents the implementation of the bank keeper that works on a local node
 type Source struct {
@@ -60,7 +56,7 @@ func (s Source) GetSupply(height int64) (sdk.Coins, error) {
 
 	var coins []sdk.Coin
 	var nextKey []byte
-	var stop = false
+	stop := false
 	for !stop {
 		res, err := s.q.TotalSupply(
 			sdk.WrapSDKContext(ctx),
@@ -95,4 +91,18 @@ func (s Source) GetAccountBalance(address string, height int64) ([]sdk.Coin, err
 	}
 
 	return balRes.Balances, nil
+}
+
+// GetAccountDenomBalance implements bankkeeper.Source
+func (s Source) GetAccountDenomBalance(address, denom string, height int64) (*sdk.Coin, error) {
+	ctx, err := s.LoadHeight(height)
+	if err != nil {
+		return nil, fmt.Errorf("error while loading height: %s", err)
+	}
+	balRes, err := s.q.Balance(sdk.WrapSDKContext(ctx), &banktypes.QueryBalanceRequest{Address: address, Denom: denom})
+	if err != nil {
+		return nil, fmt.Errorf("error while getting all balances: %s", err)
+	}
+
+	return balRes.Balance, nil
 }

@@ -1,8 +1,10 @@
 package consensus
 
 import (
-	"github.com/forbole/callisto/v4/database"
+	"sync"
 
+	tmtypes "github.com/cometbft/cometbft/types"
+	"github.com/forbole/callisto/v4/database"
 	"github.com/forbole/juno/v6/modules"
 )
 
@@ -16,12 +18,18 @@ var (
 // Module implements the consensus utils
 type Module struct {
 	db *database.Db
+
+	mu                sync.Mutex
+	realProposers     map[int64]tmtypes.Address
+	expectedProposers map[int64]tmtypes.Address
 }
 
 // NewModule builds a new Module instance
 func NewModule(db *database.Db) *Module {
 	return &Module{
-		db: db,
+		db:                db,
+		realProposers:     map[int64]tmtypes.Address{},
+		expectedProposers: map[int64]tmtypes.Address{},
 	}
 }
 

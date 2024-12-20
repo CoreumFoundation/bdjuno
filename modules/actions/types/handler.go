@@ -1,11 +1,8 @@
 package types
 
 import (
-	"fmt"
-
-	"github.com/forbole/juno/v6/node"
-
 	modulestypes "github.com/forbole/callisto/v4/modules/types"
+	"github.com/forbole/juno/v6/node"
 )
 
 // Context contains the data about a Hasura actions worker execution
@@ -25,11 +22,7 @@ func NewContext(node node.Node, sources *modulestypes.Sources) *Context {
 // GetHeight uses the latest height when the input height is empty from graphql request
 func (c *Context) GetHeight(payload *Payload) (int64, error) {
 	if payload == nil || payload.Input.Height == 0 {
-		latestHeight, err := c.node.LatestHeight()
-		if err != nil {
-			return 0, fmt.Errorf("error while getting chain latest block height: %s", err)
-		}
-		return latestHeight, nil
+		return 0, nil
 	}
 
 	return payload.Input.Height, nil

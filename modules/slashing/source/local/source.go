@@ -6,14 +6,11 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
-	"github.com/forbole/juno/v6/node/local"
-
 	slashingsource "github.com/forbole/callisto/v4/modules/slashing/source"
+	"github.com/forbole/juno/v6/node/local"
 )
 
-var (
-	_ slashingsource.Source = &Source{}
-)
+var _ slashingsource.Source = &Source{}
 
 // Source implements slashingsource.Source using a local node
 type Source struct {
@@ -38,7 +35,7 @@ func (s Source) GetSigningInfos(height int64) ([]slashingtypes.ValidatorSigningI
 
 	var signingInfos []slashingtypes.ValidatorSigningInfo
 	var nextKey []byte
-	var stop = false
+	stop := false
 	for !stop {
 		res, err := s.querier.SigningInfos(
 			sdk.WrapSDKContext(ctx),
@@ -89,7 +86,6 @@ func (s Source) GetSigningInfo(height int64, consAddr sdk.ConsAddress) (slashing
 			ConsAddress: consAddr.String(),
 		},
 	)
-
 	if err != nil {
 		return slashingtypes.ValidatorSigningInfo{}, err
 	}

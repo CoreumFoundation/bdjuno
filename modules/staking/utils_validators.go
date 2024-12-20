@@ -3,14 +3,12 @@ package staking
 import (
 	"fmt"
 
-	"github.com/forbole/callisto/v4/modules/staking/keybase"
-	"github.com/forbole/callisto/v4/types"
-
-	"github.com/rs/zerolog/log"
-
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+	"github.com/forbole/callisto/v4/modules/staking/keybase"
+	"github.com/forbole/callisto/v4/types"
+	"github.com/rs/zerolog/log"
 )
 
 // getValidatorConsPubKey returns the consensus public key of the given validator
@@ -138,7 +136,7 @@ func (m *Module) GetValidatorsWithStatus(height int64, status string) ([]staking
 		return nil, nil, err
 	}
 
-	var vals = make([]types.Validator, len(validators))
+	vals := make([]types.Validator, len(validators))
 	for index, val := range validators {
 		validator, err := m.convertValidator(height, val)
 		if err != nil {
@@ -243,7 +241,8 @@ func (m *Module) UpdateValidatorStatuses() error {
 // updateProposalValidatorStatusSnapshot updates validators snapshot for
 // the proposal having the given id
 func (m *Module) updateProposalValidatorStatusSnapshot(
-	height int64, proposalID uint64, validators []stakingtypes.Validator) error {
+	height int64, proposalID uint64, validators []stakingtypes.Validator,
+) error {
 	snapshots := make([]types.ProposalValidatorStatusSnapshot, len(validators))
 
 	for index, validator := range validators {

@@ -12,7 +12,7 @@ var msgFilter = map[string]bool{
 }
 
 // HandleMsgExec implements modules.AuthzMessageModule
-func (m *Module) HandleMsgExec(index int, _ int, executedMsg juno.Message, tx *juno.Transaction) error {
+func (m *Module) HandleMsgExec(index, _ int, executedMsg juno.Message, tx *juno.Transaction) error {
 	return m.HandleMsg(index, executedMsg, tx)
 }
 

@@ -9,7 +9,7 @@ type MessageType struct {
 }
 
 // NewMessageType allows to build a new MessageType instance
-func NewMessageType(msgType string, module string, label string, height int64) *MessageType {
+func NewMessageType(msgType, module, label string, height int64) *MessageType {
 	return &MessageType{
 		Type:   msgType,
 		Module: module,

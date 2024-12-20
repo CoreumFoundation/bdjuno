@@ -5,11 +5,10 @@ import (
 
 	feegranttypes "cosmossdk.io/x/feegrant"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	juno "github.com/forbole/juno/v6/types"
-	"github.com/rs/zerolog/log"
-
 	"github.com/forbole/callisto/v4/types"
 	"github.com/forbole/callisto/v4/utils"
+	juno "github.com/forbole/juno/v6/types"
+	"github.com/rs/zerolog/log"
 )
 
 var msgFilter = map[string]bool{
@@ -18,7 +17,7 @@ var msgFilter = map[string]bool{
 }
 
 // HandleMsgExec implements modules.AuthzMessageModule
-func (m *Module) HandleMsgExec(index int, _ int, executedMsg juno.Message, tx *juno.Transaction) error {
+func (m *Module) HandleMsgExec(index, _ int, executedMsg juno.Message, tx *juno.Transaction) error {
 	return m.HandleMsg(index, executedMsg, tx)
 }
 

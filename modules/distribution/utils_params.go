@@ -3,9 +3,8 @@ package distribution
 import (
 	"fmt"
 
-	"github.com/rs/zerolog/log"
-
 	"github.com/forbole/callisto/v4/types"
+	"github.com/rs/zerolog/log"
 )
 
 // UpdateParams gets the updated params and stores them inside the database
@@ -19,5 +18,4 @@ func (m *Module) UpdateParams(height int64) error {
 	}
 
 	return m.db.SaveDistributionParams(types.NewDistributionParams(params, height))
-
 }

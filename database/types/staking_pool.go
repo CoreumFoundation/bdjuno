@@ -11,7 +11,7 @@ type StakingPoolRow struct {
 }
 
 // NewStakingPoolRow allows to easily create a new StakingPoolRow
-func NewStakingPoolRow(bondedTokens, notBondedTokens, unbondingTokens, stakedNotBondedTokens int64, height int64) StakingPoolRow {
+func NewStakingPoolRow(bondedTokens, notBondedTokens, unbondingTokens, stakedNotBondedTokens, height int64) StakingPoolRow {
 	return StakingPoolRow{
 		OneRowID:              true,
 		BondedTokens:          bondedTokens,

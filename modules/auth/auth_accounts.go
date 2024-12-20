@@ -5,9 +5,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	authttypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/rs/zerolog/log"
-
 	"github.com/forbole/callisto/v4/types"
+	"github.com/rs/zerolog/log"
 )
 
 // GetGenesisAccounts parses the given appState and returns the genesis accounts
@@ -39,7 +38,7 @@ func GetAccounts(height int64, addresses []string) []types.Account {
 	log.Debug().Str("module", "auth").Str("operation", "accounts").Msg("getting accounts data")
 
 	// Get all the accounts information
-	var accounts = make([]types.Account, len(addresses))
+	accounts := make([]types.Account, len(addresses))
 	for index, address := range addresses {
 		accounts[index] = types.NewAccount(address)
 	}

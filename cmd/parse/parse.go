@@ -1,15 +1,6 @@
 package parse
 
 import (
-	parse "github.com/forbole/juno/v6/cmd/parse/types"
-	"github.com/spf13/cobra"
-
-	parseblocks "github.com/forbole/juno/v6/cmd/parse/blocks"
-
-	parsegenesis "github.com/forbole/juno/v6/cmd/parse/genesis"
-
-	parsetransaction "github.com/forbole/juno/v6/cmd/parse/transactions"
-
 	parseauth "github.com/forbole/callisto/v4/cmd/parse/auth"
 	parsebank "github.com/forbole/callisto/v4/cmd/parse/bank"
 	parsedistribution "github.com/forbole/callisto/v4/cmd/parse/distribution"
@@ -18,10 +9,16 @@ import (
 	parsemint "github.com/forbole/callisto/v4/cmd/parse/mint"
 	parsepricefeed "github.com/forbole/callisto/v4/cmd/parse/pricefeed"
 	parsestaking "github.com/forbole/callisto/v4/cmd/parse/staking"
+	parseblocks "github.com/forbole/juno/v6/cmd/parse/blocks"
+	parsegenesis "github.com/forbole/juno/v6/cmd/parse/genesis"
+	parsetransaction "github.com/forbole/juno/v6/cmd/parse/transactions"
+	parse "github.com/forbole/juno/v6/cmd/parse/types"
+	"github.com/forbole/juno/v6/modules/messages"
+	"github.com/spf13/cobra"
 )
 
 // NewParseCmd returns the Cobra command allowing to parse some chain data without having to re-sync the whole database
-func NewParseCmd(parseCfg *parse.Config) *cobra.Command {
+func NewParseCmd(parseCfg *parse.Config, parser messages.MessageAddressesParser) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:               "parse",
 		Short:             "Parse some data without the need to re-syncing the whole database from scratch",
@@ -35,7 +32,7 @@ func NewParseCmd(parseCfg *parse.Config) *cobra.Command {
 		parsedistribution.NewDistributionCmd(parseCfg),
 		parsefeegrant.NewFeegrantCmd(parseCfg),
 		parsegenesis.NewGenesisCmd(parseCfg),
-		parsegov.NewGovCmd(parseCfg),
+		parsegov.NewGovCmd(parseCfg, parser),
 		parsemint.NewMintCmd(parseCfg),
 		parsepricefeed.NewPricefeedCmd(parseCfg),
 		parsestaking.NewStakingCmd(parseCfg),

@@ -6,14 +6,11 @@ import (
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
-	"github.com/forbole/juno/v6/node/local"
-
 	mintsource "github.com/forbole/callisto/v4/modules/mint/source"
+	"github.com/forbole/juno/v6/node/local"
 )
 
-var (
-	_ mintsource.Source = &Source{}
-)
+var _ mintsource.Source = &Source{}
 
 // Source implements mintsource.Source using a local node
 type Source struct {

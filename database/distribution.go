@@ -4,11 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	dbtypes "github.com/forbole/callisto/v4/database/types"
-
-	"github.com/forbole/callisto/v4/types"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	dbtypes "github.com/forbole/callisto/v4/database/types"
+	"github.com/forbole/callisto/v4/types"
 	"github.com/lib/pq"
 )
 

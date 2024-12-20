@@ -221,7 +221,7 @@ type ProposalValidatorVotingPowerSnapshotRow struct {
 }
 
 func NewProposalValidatorVotingPowerSnapshotRow(
-	id int64, proposalID int64, validatorAddr string, votingPower int64, status int, jailed bool, height int64,
+	id, proposalID int64, validatorAddr string, votingPower int64, status int, jailed bool, height int64,
 ) ProposalValidatorVotingPowerSnapshotRow {
 	return ProposalValidatorVotingPowerSnapshotRow{
 		ID:               id,

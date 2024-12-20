@@ -4,9 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/forbole/callisto/v4/modules/pricefeed/coingecko"
+	"github.com/stretchr/testify/require"
 )
 
 func TestConvertCoingeckoPrices(t *testing.T) {

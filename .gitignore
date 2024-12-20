@@ -1,11 +1,12 @@
 .idea/
-build/
 vendor/
+/bin
 
 # Configuration
 *.toml
 *.json
 config.yaml
+.callisto
 
 # Coverage
 coverage.*

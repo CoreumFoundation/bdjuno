@@ -62,6 +62,6 @@ func NullTimeToTime(t sql.NullTime) *time.Time {
 	return &t.Time
 }
 
-func AreNullTimesEqual(first sql.NullTime, second sql.NullTime) bool {
+func AreNullTimesEqual(first, second sql.NullTime) bool {
 	return first.Valid == second.Valid && first.Time.Equal(second.Time)
 }

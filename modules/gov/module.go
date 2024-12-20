@@ -2,11 +2,8 @@ package gov
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
-
 	"github.com/forbole/callisto/v4/database"
-
 	govsource "github.com/forbole/callisto/v4/modules/gov/source"
-
 	"github.com/forbole/juno/v6/modules"
 )
 
@@ -20,33 +17,48 @@ var (
 
 // Module represent x/gov module
 type Module struct {
-	cdc            codec.Codec
-	db             *database.Db
-	source         govsource.Source
-	distrModule    DistrModule
-	mintModule     MintModule
-	slashingModule SlashingModule
-	stakingModule  StakingModule
+	cdc                codec.Codec
+	db                 *database.Db
+	source             govsource.Source
+	authModule         AuthModule
+	distrModule        DistrModule
+	mintModule         MintModule
+	slashingModule     SlashingModule
+	stakingModule      StakingModule
+	feeModelModule     FeeModelModule
+	customParamsModule CustomParamsModule
+	assetFTModule      AssetFTModule
+	assetNFTModule     AssetNFTModule
 }
 
 // NewModule returns a new Module instance
 func NewModule(
 	source govsource.Source,
+	authModule AuthModule,
 	distrModule DistrModule,
 	mintModule MintModule,
 	slashingModule SlashingModule,
 	stakingModule StakingModule,
+	feeModelModule FeeModelModule,
+	customParamsModule CustomParamsModule,
+	assetFTModule AssetNFTModule,
+	assetNFTModule AssetNFTModule,
 	cdc codec.Codec,
 	db *database.Db,
 ) *Module {
 	return &Module{
-		cdc:            cdc,
-		source:         source,
-		distrModule:    distrModule,
-		mintModule:     mintModule,
-		slashingModule: slashingModule,
-		stakingModule:  stakingModule,
-		db:             db,
+		cdc:                cdc,
+		source:             source,
+		authModule:         authModule,
+		distrModule:        distrModule,
+		mintModule:         mintModule,
+		slashingModule:     slashingModule,
+		stakingModule:      stakingModule,
+		feeModelModule:     feeModelModule,
+		customParamsModule: customParamsModule,
+		assetFTModule:      assetFTModule,
+		assetNFTModule:     assetNFTModule,
+		db:                 db,
 	}
 }
 

@@ -4,28 +4,26 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-co-op/gocron"
-	"github.com/rs/zerolog/log"
-
-	"github.com/forbole/callisto/v4/types"
-
 	"github.com/forbole/callisto/v4/modules/pricefeed/coingecko"
 	"github.com/forbole/callisto/v4/modules/utils"
+	"github.com/forbole/callisto/v4/types"
+	"github.com/go-co-op/gocron"
+	"github.com/rs/zerolog/log"
 )
 
 // RegisterPeriodicOperations implements modules.PeriodicOperationsModule
 func (m *Module) RegisterPeriodicOperations(scheduler *gocron.Scheduler) error {
 	log.Debug().Str("module", "pricefeed").Msg("setting up periodic tasks")
 
-	// Fetch the token prices every 2 mins
-	if _, err := scheduler.Every(2).Minutes().Do(func() {
+	// Fetch the token prices every minute
+	if _, err := scheduler.Every(1).Minutes().Do(func() {
 		utils.WatchMethod(m.UpdatePrice)
 	}); err != nil {
 		return fmt.Errorf("error while setting up pricefeed period operations: %s", err)
 	}
 
-	// Update the historical token prices every 1 hour
-	if _, err := scheduler.Every(1).Hour().Do(func() {
+	// Update the historical token prices every 10 minutes
+	if _, err := scheduler.Every(10).Minutes().Do(func() {
 		utils.WatchMethod(m.UpdatePricesHistory)
 	}); err != nil {
 		return fmt.Errorf("error while setting up history period operations: %s", err)
@@ -75,7 +73,6 @@ func (m *Module) UpdatePrice() error {
 	}
 
 	return nil
-
 }
 
 // UpdatePricesHistory fetches total amount of coins in the system from RPC

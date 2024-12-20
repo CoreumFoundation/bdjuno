@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/forbole/callisto/v4/types"
-
 	"github.com/rs/zerolog/log"
 )
 

@@ -3,9 +3,8 @@ package remote
 import (
 	"github.com/cosmos/cosmos-sdk/types/query"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/forbole/juno/v6/node/remote"
-
 	"github.com/forbole/callisto/v4/utils"
+	"github.com/forbole/juno/v6/node/remote"
 )
 
 // GetDelegationsWithPagination implements stakingsource.Source
@@ -60,7 +59,6 @@ func (s Source) GetRedelegations(height int64, request *stakingtypes.QueryRedele
 func (s Source) GetValidatorDelegationsWithPagination(
 	height int64, validator string, pagination *query.PageRequest,
 ) (*stakingtypes.QueryValidatorDelegationsResponse, error) {
-
 	res, err := s.stakingClient.ValidatorDelegations(
 		remote.GetHeightRequestContext(s.Ctx, height),
 		&stakingtypes.QueryValidatorDelegationsRequest{
@@ -79,7 +77,6 @@ func (s Source) GetValidatorDelegationsWithPagination(
 func (s Source) GetUnbondingDelegationsFromValidator(
 	height int64, validator string, pagination *query.PageRequest,
 ) (*stakingtypes.QueryValidatorUnbondingDelegationsResponse, error) {
-
 	unbondingDelegations, err := s.stakingClient.ValidatorUnbondingDelegations(
 		remote.GetHeightRequestContext(s.Ctx, height),
 		&stakingtypes.QueryValidatorUnbondingDelegationsRequest{
