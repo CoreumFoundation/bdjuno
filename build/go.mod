@@ -5,6 +5,11 @@ go 1.23.3
 // Crust replacements
 replace github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 
+// Coreum replacements
+// TODO(https://github.com/cosmos/rosetta/issues/76): Rosetta requires cosmossdk.io/core v0.12.0 erroneously but
+// should use v0.11.0. The Cosmos build fails with types/context.go:65:29: undefined: comet.BlockInfo otherwise.
+replace cosmossdk.io/core => cosmossdk.io/core v0.11.0
+
 require github.com/CoreumFoundation/crust v0.0.0-20241206080514-16aacae70905
 
 require (

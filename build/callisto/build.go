@@ -33,6 +33,6 @@ func buildCallisto(ctx context.Context, deps types.DepsFunc, targetPlatform tool
 		TargetPlatform: targetPlatform,
 		PackagePath:    filepath.Join(repoPath, "cmd", "callisto"),
 		BinOutputPath:  filepath.Join("bin", ".cache", binaryName, targetPlatform.String(), "bin", binaryName),
-		CGOEnabled:     true,
+		CGOEnabled:     false,
 	})
 }
