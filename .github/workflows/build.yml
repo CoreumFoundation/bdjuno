@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - chains/coreum-v0.50.x
-  pull_request: # FIXME remove !!!
-    branches:
-      - chains/coreum-v0.50.x
 
 env:
   CALLISTO_IMAGE_NAME: callisto
@@ -51,7 +48,7 @@ jobs:
         with:
           file: Dockerfile
           context: .
-          push: false # FIXME restore to true
+          push: true
           platforms: linux/amd64,linux/arm64
           # if tag is an empty string, plugin will skip that tag.
           tags: |
@@ -63,7 +60,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           file: Dockerfile.hasura
-          push: false # FIXME restore to true
+          push: true
           platforms: linux/amd64,linux/arm64
           tags: |
             ${{ env.ORG }}/${{ env.HASURA_IMAGE_NAME }}:latest
