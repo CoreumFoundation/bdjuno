@@ -7,6 +7,7 @@ import (
 	"github.com/forbole/callisto/v4/modules/assetnft"
 	"github.com/forbole/callisto/v4/modules/auth"
 	"github.com/forbole/callisto/v4/modules/customparams"
+	"github.com/forbole/callisto/v4/modules/dex"
 	"github.com/forbole/callisto/v4/modules/distribution"
 	"github.com/forbole/callisto/v4/modules/feemodel"
 	"github.com/forbole/callisto/v4/modules/gov"
@@ -66,6 +67,7 @@ func buildGovModule(
 	customParamsModule := customparams.NewModule(sources.CustomParamsSource, cdc, db)
 	assetFTModule := assetft.NewModule(sources.AssetFTSource, cdc, db)
 	assetNFTModule := assetnft.NewModule(sources.AssetNFTSource, cdc, db)
+	dexModule := dex.NewModule(sources.DEXSource, cdc, db)
 
 	// Build the gov module
 	govModule := gov.NewModule(
@@ -79,6 +81,7 @@ func buildGovModule(
 		customParamsModule,
 		assetFTModule,
 		assetNFTModule,
+		dexModule,
 		cdc,
 		db,
 	)

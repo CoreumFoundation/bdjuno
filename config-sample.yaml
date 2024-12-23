@@ -9,6 +9,7 @@ chain:
     - consensus
     - customparams
     - daily refetch
+    - dex
     - distribution
     - feegrant
     - feemodel

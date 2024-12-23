@@ -41,3 +41,7 @@ type AssetFTModule interface {
 type AssetNFTModule interface {
 	UpdateParams(height int64) error
 }
+
+type DEXModule interface {
+	UpdateParams(height int64) error
+}

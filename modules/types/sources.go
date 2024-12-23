@@ -26,6 +26,8 @@ import (
 	remotebanksource "github.com/forbole/callisto/v4/modules/bank/source/remote"
 	customparamssource "github.com/forbole/callisto/v4/modules/customparams/source"
 	remotecustomparamssource "github.com/forbole/callisto/v4/modules/customparams/source/remote"
+	dexsource "github.com/forbole/callisto/v4/modules/dex/source"
+	remotedexsource "github.com/forbole/callisto/v4/modules/dex/source/remote"
 	distrsource "github.com/forbole/callisto/v4/modules/distribution/source"
 	localdistrsource "github.com/forbole/callisto/v4/modules/distribution/source/local"
 	remotedistrsource "github.com/forbole/callisto/v4/modules/distribution/source/remote"
@@ -51,6 +53,7 @@ import (
 	assetfttypes "github.com/CoreumFoundation/coreum/v5/x/asset/ft/types"
 	assetnfttypes "github.com/CoreumFoundation/coreum/v5/x/asset/nft/types"
 	customparamstypes "github.com/CoreumFoundation/coreum/v5/x/customparams/types"
+	dextypes "github.com/CoreumFoundation/coreum/v5/x/dex/types"
 	feemodeltypes "github.com/CoreumFoundation/coreum/v5/x/feemodel/types"
 )
 
@@ -66,6 +69,7 @@ type Sources struct {
 	CustomParamsSource customparamssource.Source
 	AssetFTSource      assetftsource.Source
 	AssetNFTSource     assetnftsource.Source
+	DEXSource          dexsource.Source
 }
 
 func BuildSources(nodeCfg nodeconfig.Config, cdc codec.Codec) (*Sources, error) {
@@ -129,5 +133,6 @@ func buildRemoteSources(cfg *remote.Details) (*Sources, error) {
 		CustomParamsSource: remotecustomparamssource.NewSource(source, customparamstypes.NewQueryClient(source.GrpcConn)),
 		AssetFTSource:      remoteassetftsource.NewSource(source, assetfttypes.NewQueryClient(source.GrpcConn)),
 		AssetNFTSource:     remoteassetnftsource.NewSource(source, assetnfttypes.NewQueryClient(source.GrpcConn)),
+		DEXSource:          remotedexsource.NewSource(source, dextypes.NewQueryClient(source.GrpcConn)),
 	}, nil
 }
