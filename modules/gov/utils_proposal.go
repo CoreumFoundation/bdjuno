@@ -161,6 +161,7 @@ func (m *Module) handleParamChangeProposal(height int64, moduleName string) (err
 		if err != nil {
 			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", stakingtypes.ModuleName, err)
 		}
+
 	case feemodeltypes.ModuleName:
 		err = m.feeModelModule.UpdateParams(height)
 		if err != nil {
@@ -300,6 +301,8 @@ func (m *Module) handlePassedV1Proposal(proposal *govtypesv1.Proposal, msg sdk.M
 // If the message is not a param change proposal, it returns false
 func getParamChangeSubspace(msg sdk.Msg) (string, bool) {
 	switch msg.(type) {
+	case *authtypes.MsgUpdateParams:
+		return authtypes.ModuleName, true
 	case *distrtypes.MsgUpdateParams:
 		return distrtypes.ModuleName, true
 	case *govtypesv1.MsgUpdateParams:
@@ -310,6 +313,14 @@ func getParamChangeSubspace(msg sdk.Msg) (string, bool) {
 		return slashingtypes.ModuleName, true
 	case *stakingtypes.MsgUpdateParams:
 		return stakingtypes.ModuleName, true
+	case *feemodeltypes.MsgUpdateParams:
+		return feemodeltypes.ModuleName, true
+	case *customparamstypes.MsgUpdateStakingParams:
+		return customparamstypes.ModuleName, true
+	case *assetfttypes.MsgUpdateParams:
+		return assetfttypes.ModuleName, true
+	case *assetnfttypes.MsgUpdateParams:
+		return assetnfttypes.ModuleName, true
 	case *dextypes.MsgUpdateParams:
 		return dextypes.ModuleName, true
 
