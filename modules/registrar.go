@@ -12,6 +12,7 @@ import (
 	"github.com/forbole/callisto/v4/modules/consensus"
 	"github.com/forbole/callisto/v4/modules/customparams"
 	dailyrefetch "github.com/forbole/callisto/v4/modules/daily_refetch"
+	"github.com/forbole/callisto/v4/modules/dex"
 	"github.com/forbole/callisto/v4/modules/distribution"
 	"github.com/forbole/callisto/v4/modules/feegrant"
 	"github.com/forbole/callisto/v4/modules/feemodel"
@@ -72,6 +73,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		panic(err)
 	}
 
+	messagetypeModule := messagetype.NewModule(r.parser, r.cdc, db)
 	actionsModule := actions.NewModule(ctx.JunoConfig, r.cdc, sources)
 	authModule := auth.NewModule(sources.AuthSource, r.parser, r.cdc, db)
 	bankModule := bank.NewModule(r.parser, sources.BankSource, r.cdc, db, ctx.JunoConfig.Chain.Bech32Prefix)
@@ -79,7 +81,6 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 	dailyRefetchModule := dailyrefetch.NewModule(ctx.Proxy, db)
 	distrModule := distribution.NewModule(sources.DistrSource, r.cdc, db)
 	feegrantModule := feegrant.NewModule(r.cdc, db)
-	messagetypeModule := messagetype.NewModule(r.parser, r.cdc, db)
 	mintModule := mint.NewModule(sources.MintSource, r.cdc, db)
 	slashingModule := slashing.NewModule(sources.SlashingSource, r.cdc, db)
 	stakingModule := staking.NewModule(sources.StakingSource, r.cdc, db)
@@ -87,6 +88,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 	customParamsModule := customparams.NewModule(sources.CustomParamsSource, r.cdc, db)
 	assetFTModule := assetft.NewModule(sources.AssetFTSource, r.cdc, db)
 	assetNFTModule := assetnft.NewModule(sources.AssetNFTSource, r.cdc, db)
+	dexModule := dex.NewModule(sources.DEXSource, r.cdc, db)
 	govModule := gov.NewModule(
 		sources.GovSource,
 		authModule,
@@ -98,6 +100,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		customParamsModule,
 		assetFTModule,
 		assetNFTModule,
+		dexModule,
 		r.cdc,
 		db,
 	)
@@ -108,6 +111,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		telemetry.NewModule(ctx.JunoConfig),
 		pruning.NewModule(ctx.JunoConfig, db, ctx.Logger),
 
+		messagetypeModule,
 		actionsModule,
 		authModule,
 		bankModule,
@@ -117,7 +121,6 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		feegrantModule,
 		govModule,
 		mintModule,
-		messagetypeModule,
 		modules.NewModule(ctx.JunoConfig.Chain, db),
 		pricefeed.NewModule(ctx.JunoConfig, r.cdc, db),
 		slashingModule,
@@ -127,6 +130,7 @@ func (r *Registrar) BuildModules(ctx registrar.Context) jmodules.Modules {
 		customParamsModule,
 		assetFTModule,
 		assetNFTModule,
+		dexModule,
 		// This must be the last item.
 		addresses.NewModule(r.parser, r.cdc, db),
 	}

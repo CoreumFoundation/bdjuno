@@ -3,48 +3,43 @@ package utils
 import (
 	"sync"
 
-	"cosmossdk.io/x/evidence"
-	feegrantmodule "cosmossdk.io/x/feegrant/module"
-	"cosmossdk.io/x/upgrade"
-	"github.com/CosmWasm/wasmd/x/wasm"
+	evidencetypes "cosmossdk.io/x/evidence/types"
+	"cosmossdk.io/x/feegrant"
+	nft "cosmossdk.io/x/nft"
+	upgradetypes "cosmossdk.io/x/upgrade/types"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/std"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/auth/vesting"
-	authzmodule "github.com/cosmos/cosmos-sdk/x/authz/module"
-	"github.com/cosmos/cosmos-sdk/x/consensus"
-	"github.com/cosmos/cosmos-sdk/x/crisis"
-	distr "github.com/cosmos/cosmos-sdk/x/distribution"
-	"github.com/cosmos/cosmos-sdk/x/genutil"
-	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	govclient "github.com/cosmos/cosmos-sdk/x/gov/client"
-	groupmodule "github.com/cosmos/cosmos-sdk/x/group/module"
-	"github.com/cosmos/cosmos-sdk/x/mint"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	paramsclient "github.com/cosmos/cosmos-sdk/x/params/client"
-	"github.com/cosmos/cosmos-sdk/x/slashing"
-	"github.com/cosmos/cosmos-sdk/x/staking"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	vestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
+	"github.com/cosmos/cosmos-sdk/x/authz"
+	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	consensustypes "github.com/cosmos/cosmos-sdk/x/consensus/types"
+	crisistypes "github.com/cosmos/cosmos-sdk/x/crisis/types"
+	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
+	govv1types "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
+	govv1beta1types "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
+	"github.com/cosmos/cosmos-sdk/x/group"
+	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
+	paramsproposaltypes "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
+	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/cosmos/gogoproto/proto"
-	"github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v8/packetforward"
-	ibchooks "github.com/cosmos/ibc-apps/modules/ibc-hooks/v8"
-	"github.com/cosmos/ibc-go/modules/capability"
-	ica "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts"
-	ibc "github.com/cosmos/ibc-go/v8/modules/core"
+	packetforwardtypes "github.com/cosmos/ibc-apps/middleware/packet-forward-middleware/v8/packetforward/types"
+	icacontrollertypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller/types"
+	icahosttypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/host/types"
+	icatypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/types"
+	ibctransfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
+	ibctypes "github.com/cosmos/ibc-go/v8/modules/core/types"
 	ibctm "github.com/cosmos/ibc-go/v8/modules/light-clients/07-tendermint"
 
-	assetft "github.com/CoreumFoundation/coreum/v5/x/asset/ft"
-	assetnft "github.com/CoreumFoundation/coreum/v5/x/asset/nft"
-	"github.com/CoreumFoundation/coreum/v5/x/customparams"
-	"github.com/CoreumFoundation/coreum/v5/x/delay"
-	"github.com/CoreumFoundation/coreum/v5/x/dex"
-	"github.com/CoreumFoundation/coreum/v5/x/feemodel"
-	"github.com/CoreumFoundation/coreum/v5/x/wbank"
-	"github.com/CoreumFoundation/coreum/v5/x/wibctransfer"
-	"github.com/CoreumFoundation/coreum/v5/x/wnft"
+	assetfttypes "github.com/CoreumFoundation/coreum/v5/x/asset/ft/types"
+	assetnfttypes "github.com/CoreumFoundation/coreum/v5/x/asset/nft/types"
+	customparamstypes "github.com/CoreumFoundation/coreum/v5/x/customparams/types"
+	dextypes "github.com/CoreumFoundation/coreum/v5/x/dex/types"
+	feemodeltypes "github.com/CoreumFoundation/coreum/v5/x/feemodel/types"
 )
 
 var (
@@ -55,55 +50,43 @@ var (
 func GetCodec() codec.Codec {
 	once.Do(func() {
 		interfaceRegistry := codectypes.NewInterfaceRegistry()
-		getBasicManagers().RegisterInterfaces(interfaceRegistry)
+		authtypes.RegisterInterfaces(interfaceRegistry)
+		authz.RegisterInterfaces(interfaceRegistry)
+		banktypes.RegisterInterfaces(interfaceRegistry)
+		stakingtypes.RegisterInterfaces(interfaceRegistry)
+		minttypes.RegisterInterfaces(interfaceRegistry)
+		distrtypes.RegisterInterfaces(interfaceRegistry)
+		govv1types.RegisterInterfaces(interfaceRegistry)
+		govv1beta1types.RegisterInterfaces(interfaceRegistry)
+		paramsproposaltypes.RegisterInterfaces(interfaceRegistry)
+		crisistypes.RegisterInterfaces(interfaceRegistry)
+		slashingtypes.RegisterInterfaces(interfaceRegistry)
+		feegrant.RegisterInterfaces(interfaceRegistry)
+		group.RegisterInterfaces(interfaceRegistry)
+		ibctypes.RegisterInterfaces(interfaceRegistry)
+		ibctm.RegisterInterfaces(interfaceRegistry)
+		packetforwardtypes.RegisterInterfaces(interfaceRegistry)
+		icacontrollertypes.RegisterInterfaces(interfaceRegistry)
+		icahosttypes.RegisterInterfaces(interfaceRegistry)
+		icatypes.RegisterInterfaces(interfaceRegistry)
+		upgradetypes.RegisterInterfaces(interfaceRegistry)
+		evidencetypes.RegisterInterfaces(interfaceRegistry)
+		ibctransfertypes.RegisterInterfaces(interfaceRegistry)
+		vestingtypes.RegisterInterfaces(interfaceRegistry)
+		consensustypes.RegisterInterfaces(interfaceRegistry)
+		wasmtypes.RegisterInterfaces(interfaceRegistry)
+		feemodeltypes.RegisterInterfaces(interfaceRegistry)
+		nft.RegisterInterfaces(interfaceRegistry)
+		assetfttypes.RegisterInterfaces(interfaceRegistry)
+		assetnfttypes.RegisterInterfaces(interfaceRegistry)
+		customparamstypes.RegisterInterfaces(interfaceRegistry)
+		dextypes.RegisterInterfaces(interfaceRegistry)
+
 		std.RegisterInterfaces(interfaceRegistry)
+
 		cdc = codec.NewProtoCodec(interfaceRegistry)
 	})
 	return cdc
-}
-
-// getBasicManagers returns the various basic managers that are used to register the encoding to
-// support custom messages.
-// This should be edited by custom implementations if needed.
-func getBasicManagers() module.BasicManager {
-	return module.NewBasicManager(
-		auth.AppModuleBasic{},
-		authzmodule.AppModuleBasic{},
-		genutil.NewAppModuleBasic(genutiltypes.DefaultMessageValidator),
-		wbank.AppModuleBasic{},
-		capability.AppModuleBasic{},
-		staking.AppModuleBasic{},
-		mint.AppModuleBasic{},
-		distr.AppModuleBasic{},
-		gov.NewAppModuleBasic(
-			[]govclient.ProposalHandler{
-				paramsclient.ProposalHandler,
-			},
-		),
-		params.AppModuleBasic{},
-		crisis.AppModuleBasic{},
-		slashing.AppModuleBasic{},
-		feegrantmodule.AppModuleBasic{},
-		groupmodule.AppModuleBasic{},
-		ibc.AppModuleBasic{},
-		ibctm.AppModuleBasic{},
-		ibchooks.AppModuleBasic{},
-		packetforward.AppModuleBasic{},
-		ica.AppModuleBasic{},
-		upgrade.AppModuleBasic{},
-		evidence.AppModuleBasic{},
-		wibctransfer.AppModuleBasic{},
-		vesting.AppModuleBasic{},
-		consensus.AppModuleBasic{},
-		wasm.AppModuleBasic{},
-		feemodel.AppModuleBasic{},
-		wnft.AppModuleBasic{},
-		assetft.AppModuleBasic{},
-		assetnft.AppModuleBasic{},
-		customparams.AppModuleBasic{},
-		delay.AppModuleBasic{},
-		dex.AppModuleBasic{},
-	)
 }
 
 // UnpackMessage unpacks a message from a byte slice

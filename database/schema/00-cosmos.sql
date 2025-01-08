@@ -80,7 +80,7 @@ CREATE TABLE message
 (
     transaction_hash            TEXT   NOT NULL,
     index                       BIGINT NOT NULL,
-    type                        TEXT   NOT NULL REFERENCES message_type(type),
+    type                        TEXT   NOT NULL,
     value                       JSON   NOT NULL,
     involved_accounts_addresses TEXT[] NOT NULL,
 

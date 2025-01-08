@@ -399,6 +399,245 @@ enum account_constraint {
 }
 
 """
+columns and relationships of "account_denom_balance"
+"""
+type account_denom_balance {
+  address: String!
+  amount: String!
+  denom: String!
+  height: bigint!
+}
+
+"""
+aggregated selection of "account_denom_balance"
+"""
+type account_denom_balance_aggregate {
+  aggregate: account_denom_balance_aggregate_fields
+  nodes: [account_denom_balance!]!
+}
+
+"""
+aggregate fields of "account_denom_balance"
+"""
+type account_denom_balance_aggregate_fields {
+  avg: account_denom_balance_avg_fields
+  count(columns: [account_denom_balance_select_column!], distinct: Boolean): Int!
+  max: account_denom_balance_max_fields
+  min: account_denom_balance_min_fields
+  stddev: account_denom_balance_stddev_fields
+  stddev_pop: account_denom_balance_stddev_pop_fields
+  stddev_samp: account_denom_balance_stddev_samp_fields
+  sum: account_denom_balance_sum_fields
+  var_pop: account_denom_balance_var_pop_fields
+  var_samp: account_denom_balance_var_samp_fields
+  variance: account_denom_balance_variance_fields
+}
+
+"""aggregate avg on columns"""
+type account_denom_balance_avg_fields {
+  height: Float
+}
+
+"""
+Boolean expression to filter rows from the table "account_denom_balance". All fields are combined with a logical 'AND'.
+"""
+input account_denom_balance_bool_exp {
+  _and: [account_denom_balance_bool_exp!]
+  _not: account_denom_balance_bool_exp
+  _or: [account_denom_balance_bool_exp!]
+  address: String_comparison_exp
+  amount: String_comparison_exp
+  denom: String_comparison_exp
+  height: bigint_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "account_denom_balance"
+"""
+enum account_denom_balance_constraint {
+  """
+  unique or primary key constraint on columns "address", "denom"
+  """
+  account_denom_balance_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "account_denom_balance"
+"""
+input account_denom_balance_inc_input {
+  height: bigint
+}
+
+"""
+input type for inserting data into table "account_denom_balance"
+"""
+input account_denom_balance_insert_input {
+  address: String
+  amount: String
+  denom: String
+  height: bigint
+}
+
+"""aggregate max on columns"""
+type account_denom_balance_max_fields {
+  address: String
+  amount: String
+  denom: String
+  height: bigint
+}
+
+"""aggregate min on columns"""
+type account_denom_balance_min_fields {
+  address: String
+  amount: String
+  denom: String
+  height: bigint
+}
+
+"""
+response of any mutation on the table "account_denom_balance"
+"""
+type account_denom_balance_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [account_denom_balance!]!
+}
+
+"""
+on_conflict condition type for table "account_denom_balance"
+"""
+input account_denom_balance_on_conflict {
+  constraint: account_denom_balance_constraint!
+  update_columns: [account_denom_balance_update_column!]! = []
+  where: account_denom_balance_bool_exp
+}
+
+"""Ordering options when selecting data from "account_denom_balance"."""
+input account_denom_balance_order_by {
+  address: order_by
+  amount: order_by
+  denom: order_by
+  height: order_by
+}
+
+"""primary key columns input for table: account_denom_balance"""
+input account_denom_balance_pk_columns_input {
+  address: String!
+  denom: String!
+}
+
+"""
+select columns of table "account_denom_balance"
+"""
+enum account_denom_balance_select_column {
+  """column name"""
+  address
+
+  """column name"""
+  amount
+
+  """column name"""
+  denom
+
+  """column name"""
+  height
+}
+
+"""
+input type for updating data in table "account_denom_balance"
+"""
+input account_denom_balance_set_input {
+  address: String
+  amount: String
+  denom: String
+  height: bigint
+}
+
+"""aggregate stddev on columns"""
+type account_denom_balance_stddev_fields {
+  height: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type account_denom_balance_stddev_pop_fields {
+  height: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type account_denom_balance_stddev_samp_fields {
+  height: Float
+}
+
+"""
+Streaming cursor of the table "account_denom_balance"
+"""
+input account_denom_balance_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: account_denom_balance_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input account_denom_balance_stream_cursor_value_input {
+  address: String
+  amount: String
+  denom: String
+  height: bigint
+}
+
+"""aggregate sum on columns"""
+type account_denom_balance_sum_fields {
+  height: bigint
+}
+
+"""
+update columns of table "account_denom_balance"
+"""
+enum account_denom_balance_update_column {
+  """column name"""
+  address
+
+  """column name"""
+  amount
+
+  """column name"""
+  denom
+
+  """column name"""
+  height
+}
+
+input account_denom_balance_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: account_denom_balance_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: account_denom_balance_set_input
+
+  """filter the rows which have to be updated"""
+  where: account_denom_balance_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type account_denom_balance_var_pop_fields {
+  height: Float
+}
+
+"""aggregate var_samp on columns"""
+type account_denom_balance_var_samp_fields {
+  height: Float
+}
+
+"""aggregate variance on columns"""
+type account_denom_balance_variance_fields {
+  height: Float
+}
+
+"""
 input type for inserting data into table "account"
 """
 input account_insert_input {
@@ -1061,6 +1300,281 @@ type assetnft_params_var_samp_fields {
 
 """aggregate variance on columns"""
 type assetnft_params_variance_fields {
+  height: Float
+}
+
+"""
+columns and relationships of "auth_params"
+"""
+type auth_params {
+  height: bigint!
+  one_row_id: Boolean!
+  params(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+}
+
+"""
+aggregated selection of "auth_params"
+"""
+type auth_params_aggregate {
+  aggregate: auth_params_aggregate_fields
+  nodes: [auth_params!]!
+}
+
+"""
+aggregate fields of "auth_params"
+"""
+type auth_params_aggregate_fields {
+  avg: auth_params_avg_fields
+  count(columns: [auth_params_select_column!], distinct: Boolean): Int!
+  max: auth_params_max_fields
+  min: auth_params_min_fields
+  stddev: auth_params_stddev_fields
+  stddev_pop: auth_params_stddev_pop_fields
+  stddev_samp: auth_params_stddev_samp_fields
+  sum: auth_params_sum_fields
+  var_pop: auth_params_var_pop_fields
+  var_samp: auth_params_var_samp_fields
+  variance: auth_params_variance_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input auth_params_append_input {
+  params: jsonb
+}
+
+"""aggregate avg on columns"""
+type auth_params_avg_fields {
+  height: Float
+}
+
+"""
+Boolean expression to filter rows from the table "auth_params". All fields are combined with a logical 'AND'.
+"""
+input auth_params_bool_exp {
+  _and: [auth_params_bool_exp!]
+  _not: auth_params_bool_exp
+  _or: [auth_params_bool_exp!]
+  height: bigint_comparison_exp
+  one_row_id: Boolean_comparison_exp
+  params: jsonb_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "auth_params"
+"""
+enum auth_params_constraint {
+  """
+  unique or primary key constraint on columns "one_row_id"
+  """
+  auth_params_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input auth_params_delete_at_path_input {
+  params: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input auth_params_delete_elem_input {
+  params: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input auth_params_delete_key_input {
+  params: String
+}
+
+"""
+input type for incrementing numeric columns in table "auth_params"
+"""
+input auth_params_inc_input {
+  height: bigint
+}
+
+"""
+input type for inserting data into table "auth_params"
+"""
+input auth_params_insert_input {
+  height: bigint
+  one_row_id: Boolean
+  params: jsonb
+}
+
+"""aggregate max on columns"""
+type auth_params_max_fields {
+  height: bigint
+}
+
+"""aggregate min on columns"""
+type auth_params_min_fields {
+  height: bigint
+}
+
+"""
+response of any mutation on the table "auth_params"
+"""
+type auth_params_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [auth_params!]!
+}
+
+"""
+on_conflict condition type for table "auth_params"
+"""
+input auth_params_on_conflict {
+  constraint: auth_params_constraint!
+  update_columns: [auth_params_update_column!]! = []
+  where: auth_params_bool_exp
+}
+
+"""Ordering options when selecting data from "auth_params"."""
+input auth_params_order_by {
+  height: order_by
+  one_row_id: order_by
+  params: order_by
+}
+
+"""primary key columns input for table: auth_params"""
+input auth_params_pk_columns_input {
+  one_row_id: Boolean!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input auth_params_prepend_input {
+  params: jsonb
+}
+
+"""
+select columns of table "auth_params"
+"""
+enum auth_params_select_column {
+  """column name"""
+  height
+
+  """column name"""
+  one_row_id
+
+  """column name"""
+  params
+}
+
+"""
+input type for updating data in table "auth_params"
+"""
+input auth_params_set_input {
+  height: bigint
+  one_row_id: Boolean
+  params: jsonb
+}
+
+"""aggregate stddev on columns"""
+type auth_params_stddev_fields {
+  height: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type auth_params_stddev_pop_fields {
+  height: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type auth_params_stddev_samp_fields {
+  height: Float
+}
+
+"""
+Streaming cursor of the table "auth_params"
+"""
+input auth_params_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: auth_params_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input auth_params_stream_cursor_value_input {
+  height: bigint
+  one_row_id: Boolean
+  params: jsonb
+}
+
+"""aggregate sum on columns"""
+type auth_params_sum_fields {
+  height: bigint
+}
+
+"""
+update columns of table "auth_params"
+"""
+enum auth_params_update_column {
+  """column name"""
+  height
+
+  """column name"""
+  one_row_id
+
+  """column name"""
+  params
+}
+
+input auth_params_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: auth_params_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: auth_params_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: auth_params_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: auth_params_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: auth_params_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: auth_params_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: auth_params_set_input
+
+  """filter the rows which have to be updated"""
+  where: auth_params_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type auth_params_var_pop_fields {
+  height: Float
+}
+
+"""aggregate var_samp on columns"""
+type auth_params_var_samp_fields {
+  height: Float
+}
+
+"""aggregate variance on columns"""
+type auth_params_variance_fields {
   height: Float
 }
 
@@ -3200,6 +3714,281 @@ input dec_coin_array_comparison_exp {
   _lte: [dec_coin!]
   _neq: [dec_coin!]
   _nin: [[dec_coin!]!]
+}
+
+"""
+columns and relationships of "dex_params"
+"""
+type dex_params {
+  height: bigint!
+  one_row_id: Boolean!
+  params(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+}
+
+"""
+aggregated selection of "dex_params"
+"""
+type dex_params_aggregate {
+  aggregate: dex_params_aggregate_fields
+  nodes: [dex_params!]!
+}
+
+"""
+aggregate fields of "dex_params"
+"""
+type dex_params_aggregate_fields {
+  avg: dex_params_avg_fields
+  count(columns: [dex_params_select_column!], distinct: Boolean): Int!
+  max: dex_params_max_fields
+  min: dex_params_min_fields
+  stddev: dex_params_stddev_fields
+  stddev_pop: dex_params_stddev_pop_fields
+  stddev_samp: dex_params_stddev_samp_fields
+  sum: dex_params_sum_fields
+  var_pop: dex_params_var_pop_fields
+  var_samp: dex_params_var_samp_fields
+  variance: dex_params_variance_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input dex_params_append_input {
+  params: jsonb
+}
+
+"""aggregate avg on columns"""
+type dex_params_avg_fields {
+  height: Float
+}
+
+"""
+Boolean expression to filter rows from the table "dex_params". All fields are combined with a logical 'AND'.
+"""
+input dex_params_bool_exp {
+  _and: [dex_params_bool_exp!]
+  _not: dex_params_bool_exp
+  _or: [dex_params_bool_exp!]
+  height: bigint_comparison_exp
+  one_row_id: Boolean_comparison_exp
+  params: jsonb_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "dex_params"
+"""
+enum dex_params_constraint {
+  """
+  unique or primary key constraint on columns "one_row_id"
+  """
+  dex_params_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input dex_params_delete_at_path_input {
+  params: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input dex_params_delete_elem_input {
+  params: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input dex_params_delete_key_input {
+  params: String
+}
+
+"""
+input type for incrementing numeric columns in table "dex_params"
+"""
+input dex_params_inc_input {
+  height: bigint
+}
+
+"""
+input type for inserting data into table "dex_params"
+"""
+input dex_params_insert_input {
+  height: bigint
+  one_row_id: Boolean
+  params: jsonb
+}
+
+"""aggregate max on columns"""
+type dex_params_max_fields {
+  height: bigint
+}
+
+"""aggregate min on columns"""
+type dex_params_min_fields {
+  height: bigint
+}
+
+"""
+response of any mutation on the table "dex_params"
+"""
+type dex_params_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [dex_params!]!
+}
+
+"""
+on_conflict condition type for table "dex_params"
+"""
+input dex_params_on_conflict {
+  constraint: dex_params_constraint!
+  update_columns: [dex_params_update_column!]! = []
+  where: dex_params_bool_exp
+}
+
+"""Ordering options when selecting data from "dex_params"."""
+input dex_params_order_by {
+  height: order_by
+  one_row_id: order_by
+  params: order_by
+}
+
+"""primary key columns input for table: dex_params"""
+input dex_params_pk_columns_input {
+  one_row_id: Boolean!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input dex_params_prepend_input {
+  params: jsonb
+}
+
+"""
+select columns of table "dex_params"
+"""
+enum dex_params_select_column {
+  """column name"""
+  height
+
+  """column name"""
+  one_row_id
+
+  """column name"""
+  params
+}
+
+"""
+input type for updating data in table "dex_params"
+"""
+input dex_params_set_input {
+  height: bigint
+  one_row_id: Boolean
+  params: jsonb
+}
+
+"""aggregate stddev on columns"""
+type dex_params_stddev_fields {
+  height: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type dex_params_stddev_pop_fields {
+  height: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type dex_params_stddev_samp_fields {
+  height: Float
+}
+
+"""
+Streaming cursor of the table "dex_params"
+"""
+input dex_params_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: dex_params_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input dex_params_stream_cursor_value_input {
+  height: bigint
+  one_row_id: Boolean
+  params: jsonb
+}
+
+"""aggregate sum on columns"""
+type dex_params_sum_fields {
+  height: bigint
+}
+
+"""
+update columns of table "dex_params"
+"""
+enum dex_params_update_column {
+  """column name"""
+  height
+
+  """column name"""
+  one_row_id
+
+  """column name"""
+  params
+}
+
+input dex_params_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: dex_params_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: dex_params_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: dex_params_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: dex_params_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: dex_params_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: dex_params_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: dex_params_set_input
+
+  """filter the rows which have to be updated"""
+  where: dex_params_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type dex_params_var_pop_fields {
+  height: Float
+}
+
+"""aggregate var_samp on columns"""
+type dex_params_var_samp_fields {
+  height: Float
+}
+
+"""aggregate variance on columns"""
+type dex_params_variance_fields {
+  height: Float
 }
 
 """
@@ -5750,6 +6539,23 @@ type inflation_variance_fields {
   value: Float
 }
 
+scalar json
+
+"""
+Boolean expression to compare columns of type "json". All fields are combined with logical 'AND'.
+"""
+input json_comparison_exp {
+  _eq: json
+  _gt: json
+  _gte: json
+  _in: [json!]
+  _is_null: Boolean
+  _lt: json
+  _lte: json
+  _neq: json
+  _nin: [json!]
+}
+
 scalar jsonb
 
 input jsonb_cast_exp {
@@ -5803,7 +6609,7 @@ type message {
   value(
     """JSON select path"""
     path: String
-  ): jsonb!
+  ): json!
 }
 
 """
@@ -5831,11 +6637,6 @@ type message_aggregate_fields {
   variance: message_variance_fields
 }
 
-"""append existing jsonb value of filtered columns with new jsonb value"""
-input message_append_input {
-  value: jsonb
-}
-
 """aggregate avg on columns"""
 type message_avg_fields {
   height: Float
@@ -5857,7 +6658,7 @@ input message_bool_exp {
   transaction: transaction_bool_exp
   transaction_hash: String_comparison_exp
   type: String_comparison_exp
-  value: jsonb_comparison_exp
+  value: json_comparison_exp
 }
 
 """
@@ -5868,27 +6669,6 @@ enum message_constraint {
   unique or primary key constraint on columns "index", "partition_id", "transaction_hash"
   """
   unique_message_per_tx
-}
-
-"""
-delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-"""
-input message_delete_at_path_input {
-  value: [String!]
-}
-
-"""
-delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-"""
-input message_delete_elem_input {
-  value: Int
-}
-
-"""
-delete key/value pair or string element. key/value pairs are matched based on their key value
-"""
-input message_delete_key_input {
-  value: String
 }
 
 """
@@ -5911,7 +6691,7 @@ input message_insert_input {
   transaction: transaction_obj_rel_insert_input
   transaction_hash: String
   type: String
-  value: jsonb
+  value: json
 }
 
 """aggregate max on columns"""
@@ -5966,11 +6746,6 @@ input message_order_by {
   value: order_by
 }
 
-"""prepend existing jsonb value of filtered columns with new jsonb value"""
-input message_prepend_input {
-  value: jsonb
-}
-
 """
 select columns of table "message"
 """
@@ -6007,7 +6782,7 @@ input message_set_input {
   partition_id: bigint
   transaction_hash: String
   type: String
-  value: jsonb
+  value: json
 }
 
 """aggregate stddev on columns"""
@@ -6050,7 +6825,7 @@ input message_stream_cursor_value_input {
   partition_id: bigint
   transaction_hash: String
   type: String
-  value: jsonb
+  value: json
 }
 
 """aggregate sum on columns"""
@@ -6087,29 +6862,8 @@ enum message_update_column {
 }
 
 input message_updates {
-  """append existing jsonb value of filtered columns with new jsonb value"""
-  _append: message_append_input
-
-  """
-  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-  """
-  _delete_at_path: message_delete_at_path_input
-
-  """
-  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-  """
-  _delete_elem: message_delete_elem_input
-
-  """
-  delete key/value pair or string element. key/value pairs are matched based on their key value
-  """
-  _delete_key: message_delete_key_input
-
   """increments the numeric columns with given value of the filtered values"""
   _inc: message_inc_input
-
-  """prepend existing jsonb value of filtered columns with new jsonb value"""
-  _prepend: message_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
   _set: message_set_input
@@ -6575,6 +7329,19 @@ type mutation_root {
   delete_account_by_pk(address: String!): account
 
   """
+  delete data from the table: "account_denom_balance"
+  """
+  delete_account_denom_balance(
+    """filter the rows which have to be deleted"""
+    where: account_denom_balance_bool_exp!
+  ): account_denom_balance_mutation_response
+
+  """
+  delete single row from the table: "account_denom_balance"
+  """
+  delete_account_denom_balance_by_pk(address: String!, denom: String!): account_denom_balance
+
+  """
   delete data from the table: "assetft_params"
   """
   delete_assetft_params(
@@ -6599,6 +7366,19 @@ type mutation_root {
   delete single row from the table: "assetnft_params"
   """
   delete_assetnft_params_by_pk(one_row_id: Boolean!): assetnft_params
+
+  """
+  delete data from the table: "auth_params"
+  """
+  delete_auth_params(
+    """filter the rows which have to be deleted"""
+    where: auth_params_bool_exp!
+  ): auth_params_mutation_response
+
+  """
+  delete single row from the table: "auth_params"
+  """
+  delete_auth_params_by_pk(one_row_id: Boolean!): auth_params
 
   """
   delete data from the table: "average_block_time_from_genesis"
@@ -6690,6 +7470,19 @@ type mutation_root {
   delete single row from the table: "customparams_params"
   """
   delete_customparams_params_by_pk(one_row_id: Boolean!): customparams_params
+
+  """
+  delete data from the table: "dex_params"
+  """
+  delete_dex_params(
+    """filter the rows which have to be deleted"""
+    where: dex_params_bool_exp!
+  ): dex_params_mutation_response
+
+  """
+  delete single row from the table: "dex_params"
+  """
+  delete_dex_params_by_pk(one_row_id: Boolean!): dex_params
 
   """
   delete data from the table: "distribution_params"
@@ -7134,6 +7927,28 @@ type mutation_root {
   ): account_mutation_response
 
   """
+  insert data into the table: "account_denom_balance"
+  """
+  insert_account_denom_balance(
+    """the rows to be inserted"""
+    objects: [account_denom_balance_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: account_denom_balance_on_conflict
+  ): account_denom_balance_mutation_response
+
+  """
+  insert a single row into the table: "account_denom_balance"
+  """
+  insert_account_denom_balance_one(
+    """the row to be inserted"""
+    object: account_denom_balance_insert_input!
+
+    """upsert condition"""
+    on_conflict: account_denom_balance_on_conflict
+  ): account_denom_balance
+
+  """
   insert a single row into the table: "account"
   """
   insert_account_one(
@@ -7187,6 +8002,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: assetnft_params_on_conflict
   ): assetnft_params
+
+  """
+  insert data into the table: "auth_params"
+  """
+  insert_auth_params(
+    """the rows to be inserted"""
+    objects: [auth_params_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: auth_params_on_conflict
+  ): auth_params_mutation_response
+
+  """
+  insert a single row into the table: "auth_params"
+  """
+  insert_auth_params_one(
+    """the row to be inserted"""
+    object: auth_params_insert_input!
+
+    """upsert condition"""
+    on_conflict: auth_params_on_conflict
+  ): auth_params
 
   """
   insert data into the table: "average_block_time_from_genesis"
@@ -7341,6 +8178,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: customparams_params_on_conflict
   ): customparams_params
+
+  """
+  insert data into the table: "dex_params"
+  """
+  insert_dex_params(
+    """the rows to be inserted"""
+    objects: [dex_params_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: dex_params_on_conflict
+  ): dex_params_mutation_response
+
+  """
+  insert a single row into the table: "dex_params"
+  """
+  insert_dex_params_one(
+    """the row to be inserted"""
+    object: dex_params_insert_input!
+
+    """upsert condition"""
+    on_conflict: dex_params_on_conflict
+  ): dex_params
 
   """
   insert data into the table: "distribution_params"
@@ -8165,6 +9024,40 @@ type mutation_root {
   ): account
 
   """
+  update data of the table: "account_denom_balance"
+  """
+  update_account_denom_balance(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: account_denom_balance_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: account_denom_balance_set_input
+
+    """filter the rows which have to be updated"""
+    where: account_denom_balance_bool_exp!
+  ): account_denom_balance_mutation_response
+
+  """
+  update single row of the table: "account_denom_balance"
+  """
+  update_account_denom_balance_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: account_denom_balance_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: account_denom_balance_set_input
+    pk_columns: account_denom_balance_pk_columns_input!
+  ): account_denom_balance
+
+  """
+  update multiples rows of table: "account_denom_balance"
+  """
+  update_account_denom_balance_many(
+    """updates to execute, in order"""
+    updates: [account_denom_balance_updates!]!
+  ): [account_denom_balance_mutation_response]
+
+  """
   update multiples rows of table: "account"
   """
   update_account_many(
@@ -8323,6 +9216,82 @@ type mutation_root {
     """updates to execute, in order"""
     updates: [assetnft_params_updates!]!
   ): [assetnft_params_mutation_response]
+
+  """
+  update data of the table: "auth_params"
+  """
+  update_auth_params(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: auth_params_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: auth_params_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: auth_params_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: auth_params_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: auth_params_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: auth_params_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: auth_params_set_input
+
+    """filter the rows which have to be updated"""
+    where: auth_params_bool_exp!
+  ): auth_params_mutation_response
+
+  """
+  update single row of the table: "auth_params"
+  """
+  update_auth_params_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: auth_params_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: auth_params_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: auth_params_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: auth_params_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: auth_params_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: auth_params_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: auth_params_set_input
+    pk_columns: auth_params_pk_columns_input!
+  ): auth_params
+
+  """
+  update multiples rows of table: "auth_params"
+  """
+  update_auth_params_many(
+    """updates to execute, in order"""
+    updates: [auth_params_updates!]!
+  ): [auth_params_mutation_response]
 
   """
   update data of the table: "average_block_time_from_genesis"
@@ -8603,6 +9572,82 @@ type mutation_root {
     """updates to execute, in order"""
     updates: [customparams_params_updates!]!
   ): [customparams_params_mutation_response]
+
+  """
+  update data of the table: "dex_params"
+  """
+  update_dex_params(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: dex_params_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: dex_params_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: dex_params_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: dex_params_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dex_params_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: dex_params_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dex_params_set_input
+
+    """filter the rows which have to be updated"""
+    where: dex_params_bool_exp!
+  ): dex_params_mutation_response
+
+  """
+  update single row of the table: "dex_params"
+  """
+  update_dex_params_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: dex_params_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: dex_params_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: dex_params_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: dex_params_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: dex_params_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: dex_params_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: dex_params_set_input
+    pk_columns: dex_params_pk_columns_input!
+  ): dex_params
+
+  """
+  update multiples rows of table: "dex_params"
+  """
+  update_dex_params_many(
+    """updates to execute, in order"""
+    updates: [dex_params_updates!]!
+  ): [dex_params_mutation_response]
 
   """
   update data of the table: "distribution_params"
@@ -9036,29 +10081,8 @@ type mutation_root {
   update data of the table: "message"
   """
   update_message(
-    """append existing jsonb value of filtered columns with new jsonb value"""
-    _append: message_append_input
-
-    """
-    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-    """
-    _delete_at_path: message_delete_at_path_input
-
-    """
-    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-    """
-    _delete_elem: message_delete_elem_input
-
-    """
-    delete key/value pair or string element. key/value pairs are matched based on their key value
-    """
-    _delete_key: message_delete_key_input
-
     """increments the numeric columns with given value of the filtered values"""
     _inc: message_inc_input
-
-    """prepend existing jsonb value of filtered columns with new jsonb value"""
-    _prepend: message_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: message_set_input
@@ -13329,6 +14353,51 @@ type query_root {
 
   """fetch data from the table: "account" using primary key columns"""
   account_by_pk(address: String!): account
+
+  """
+  fetch data from the table: "account_denom_balance"
+  """
+  account_denom_balance(
+    """distinct select on columns"""
+    distinct_on: [account_denom_balance_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [account_denom_balance_order_by!]
+
+    """filter the rows returned"""
+    where: account_denom_balance_bool_exp
+  ): [account_denom_balance!]!
+
+  """
+  fetch aggregated fields from the table: "account_denom_balance"
+  """
+  account_denom_balance_aggregate(
+    """distinct select on columns"""
+    distinct_on: [account_denom_balance_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [account_denom_balance_order_by!]
+
+    """filter the rows returned"""
+    where: account_denom_balance_bool_exp
+  ): account_denom_balance_aggregate!
+
+  """
+  fetch data from the table: "account_denom_balance" using primary key columns
+  """
+  account_denom_balance_by_pk(address: String!, denom: String!): account_denom_balance
   action_account_balance(address: String!, height: Int): ActionBalance
   action_delegation(address: String!, count_total: Boolean, height: Int, limit: Int, offset: Int): ActionDelegationResponse
   action_delegation_reward(address: String!, height: Int): [ActionDelegationReward]
@@ -13427,6 +14496,49 @@ type query_root {
 
   """fetch data from the table: "assetnft_params" using primary key columns"""
   assetnft_params_by_pk(one_row_id: Boolean!): assetnft_params
+
+  """
+  fetch data from the table: "auth_params"
+  """
+  auth_params(
+    """distinct select on columns"""
+    distinct_on: [auth_params_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [auth_params_order_by!]
+
+    """filter the rows returned"""
+    where: auth_params_bool_exp
+  ): [auth_params!]!
+
+  """
+  fetch aggregated fields from the table: "auth_params"
+  """
+  auth_params_aggregate(
+    """distinct select on columns"""
+    distinct_on: [auth_params_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [auth_params_order_by!]
+
+    """filter the rows returned"""
+    where: auth_params_bool_exp
+  ): auth_params_aggregate!
+
+  """fetch data from the table: "auth_params" using primary key columns"""
+  auth_params_by_pk(one_row_id: Boolean!): auth_params
 
   """
   fetch data from the table: "average_block_time_from_genesis"
@@ -13738,6 +14850,49 @@ type query_root {
   fetch data from the table: "customparams_params" using primary key columns
   """
   customparams_params_by_pk(one_row_id: Boolean!): customparams_params
+
+  """
+  fetch data from the table: "dex_params"
+  """
+  dex_params(
+    """distinct select on columns"""
+    distinct_on: [dex_params_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dex_params_order_by!]
+
+    """filter the rows returned"""
+    where: dex_params_bool_exp
+  ): [dex_params!]!
+
+  """
+  fetch aggregated fields from the table: "dex_params"
+  """
+  dex_params_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dex_params_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dex_params_order_by!]
+
+    """filter the rows returned"""
+    where: dex_params_bool_exp
+  ): dex_params_aggregate!
+
+  """fetch data from the table: "dex_params" using primary key columns"""
+  dex_params_by_pk(one_row_id: Boolean!): dex_params
 
   """
   fetch data from the table: "distribution_params"
@@ -14811,6 +15966,46 @@ type query_root {
     """filter the rows returned"""
     where: token_bool_exp
   ): token_aggregate!
+
+  """
+  fetch data from the table: "token_holder_count"
+  """
+  token_holder_count(
+    """distinct select on columns"""
+    distinct_on: [token_holder_count_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_holder_count_order_by!]
+
+    """filter the rows returned"""
+    where: token_holder_count_bool_exp
+  ): [token_holder_count!]!
+
+  """
+  fetch aggregated fields from the table: "token_holder_count"
+  """
+  token_holder_count_aggregate(
+    """distinct select on columns"""
+    distinct_on: [token_holder_count_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_holder_count_order_by!]
+
+    """filter the rows returned"""
+    where: token_holder_count_bool_exp
+  ): token_holder_count_aggregate!
 
   """
   fetch data from the table: "token_price"
@@ -16522,6 +17717,65 @@ type subscription_root {
   account_by_pk(address: String!): account
 
   """
+  fetch data from the table: "account_denom_balance"
+  """
+  account_denom_balance(
+    """distinct select on columns"""
+    distinct_on: [account_denom_balance_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [account_denom_balance_order_by!]
+
+    """filter the rows returned"""
+    where: account_denom_balance_bool_exp
+  ): [account_denom_balance!]!
+
+  """
+  fetch aggregated fields from the table: "account_denom_balance"
+  """
+  account_denom_balance_aggregate(
+    """distinct select on columns"""
+    distinct_on: [account_denom_balance_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [account_denom_balance_order_by!]
+
+    """filter the rows returned"""
+    where: account_denom_balance_bool_exp
+  ): account_denom_balance_aggregate!
+
+  """
+  fetch data from the table: "account_denom_balance" using primary key columns
+  """
+  account_denom_balance_by_pk(address: String!, denom: String!): account_denom_balance
+
+  """
+  fetch data from the table in a streaming manner: "account_denom_balance"
+  """
+  account_denom_balance_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [account_denom_balance_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: account_denom_balance_bool_exp
+  ): [account_denom_balance!]!
+
+  """
   fetch data from the table in a streaming manner: "account"
   """
   account_stream(
@@ -16648,6 +17902,63 @@ type subscription_root {
     """filter the rows returned"""
     where: assetnft_params_bool_exp
   ): [assetnft_params!]!
+
+  """
+  fetch data from the table: "auth_params"
+  """
+  auth_params(
+    """distinct select on columns"""
+    distinct_on: [auth_params_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [auth_params_order_by!]
+
+    """filter the rows returned"""
+    where: auth_params_bool_exp
+  ): [auth_params!]!
+
+  """
+  fetch aggregated fields from the table: "auth_params"
+  """
+  auth_params_aggregate(
+    """distinct select on columns"""
+    distinct_on: [auth_params_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [auth_params_order_by!]
+
+    """filter the rows returned"""
+    where: auth_params_bool_exp
+  ): auth_params_aggregate!
+
+  """fetch data from the table: "auth_params" using primary key columns"""
+  auth_params_by_pk(one_row_id: Boolean!): auth_params
+
+  """
+  fetch data from the table in a streaming manner: "auth_params"
+  """
+  auth_params_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [auth_params_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: auth_params_bool_exp
+  ): [auth_params!]!
 
   """
   fetch data from the table: "average_block_time_from_genesis"
@@ -17057,6 +18368,63 @@ type subscription_root {
     """filter the rows returned"""
     where: customparams_params_bool_exp
   ): [customparams_params!]!
+
+  """
+  fetch data from the table: "dex_params"
+  """
+  dex_params(
+    """distinct select on columns"""
+    distinct_on: [dex_params_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dex_params_order_by!]
+
+    """filter the rows returned"""
+    where: dex_params_bool_exp
+  ): [dex_params!]!
+
+  """
+  fetch aggregated fields from the table: "dex_params"
+  """
+  dex_params_aggregate(
+    """distinct select on columns"""
+    distinct_on: [dex_params_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [dex_params_order_by!]
+
+    """filter the rows returned"""
+    where: dex_params_bool_exp
+  ): dex_params_aggregate!
+
+  """fetch data from the table: "dex_params" using primary key columns"""
+  dex_params_by_pk(one_row_id: Boolean!): dex_params
+
+  """
+  fetch data from the table in a streaming manner: "dex_params"
+  """
+  dex_params_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [dex_params_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: dex_params_bool_exp
+  ): [dex_params!]!
 
   """
   fetch data from the table: "distribution_params"
@@ -18454,6 +19822,60 @@ type subscription_root {
   ): token_aggregate!
 
   """
+  fetch data from the table: "token_holder_count"
+  """
+  token_holder_count(
+    """distinct select on columns"""
+    distinct_on: [token_holder_count_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_holder_count_order_by!]
+
+    """filter the rows returned"""
+    where: token_holder_count_bool_exp
+  ): [token_holder_count!]!
+
+  """
+  fetch aggregated fields from the table: "token_holder_count"
+  """
+  token_holder_count_aggregate(
+    """distinct select on columns"""
+    distinct_on: [token_holder_count_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [token_holder_count_order_by!]
+
+    """filter the rows returned"""
+    where: token_holder_count_bool_exp
+  ): token_holder_count_aggregate!
+
+  """
+  fetch data from the table in a streaming manner: "token_holder_count"
+  """
+  token_holder_count_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [token_holder_count_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: token_holder_count_bool_exp
+  ): [token_holder_count!]!
+
+  """
   fetch data from the table: "token_price"
   """
   token_price(
@@ -19531,6 +20953,136 @@ enum token_constraint {
   unique or primary key constraint on columns "name"
   """
   token_name_key
+}
+
+"""
+columns and relationships of "token_holder_count"
+"""
+type token_holder_count {
+  denom: String
+  holders: bigint
+}
+
+"""
+aggregated selection of "token_holder_count"
+"""
+type token_holder_count_aggregate {
+  aggregate: token_holder_count_aggregate_fields
+  nodes: [token_holder_count!]!
+}
+
+"""
+aggregate fields of "token_holder_count"
+"""
+type token_holder_count_aggregate_fields {
+  avg: token_holder_count_avg_fields
+  count(columns: [token_holder_count_select_column!], distinct: Boolean): Int!
+  max: token_holder_count_max_fields
+  min: token_holder_count_min_fields
+  stddev: token_holder_count_stddev_fields
+  stddev_pop: token_holder_count_stddev_pop_fields
+  stddev_samp: token_holder_count_stddev_samp_fields
+  sum: token_holder_count_sum_fields
+  var_pop: token_holder_count_var_pop_fields
+  var_samp: token_holder_count_var_samp_fields
+  variance: token_holder_count_variance_fields
+}
+
+"""aggregate avg on columns"""
+type token_holder_count_avg_fields {
+  holders: Float
+}
+
+"""
+Boolean expression to filter rows from the table "token_holder_count". All fields are combined with a logical 'AND'.
+"""
+input token_holder_count_bool_exp {
+  _and: [token_holder_count_bool_exp!]
+  _not: token_holder_count_bool_exp
+  _or: [token_holder_count_bool_exp!]
+  denom: String_comparison_exp
+  holders: bigint_comparison_exp
+}
+
+"""aggregate max on columns"""
+type token_holder_count_max_fields {
+  denom: String
+  holders: bigint
+}
+
+"""aggregate min on columns"""
+type token_holder_count_min_fields {
+  denom: String
+  holders: bigint
+}
+
+"""Ordering options when selecting data from "token_holder_count"."""
+input token_holder_count_order_by {
+  denom: order_by
+  holders: order_by
+}
+
+"""
+select columns of table "token_holder_count"
+"""
+enum token_holder_count_select_column {
+  """column name"""
+  denom
+
+  """column name"""
+  holders
+}
+
+"""aggregate stddev on columns"""
+type token_holder_count_stddev_fields {
+  holders: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type token_holder_count_stddev_pop_fields {
+  holders: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type token_holder_count_stddev_samp_fields {
+  holders: Float
+}
+
+"""
+Streaming cursor of the table "token_holder_count"
+"""
+input token_holder_count_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: token_holder_count_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input token_holder_count_stream_cursor_value_input {
+  denom: String
+  holders: bigint
+}
+
+"""aggregate sum on columns"""
+type token_holder_count_sum_fields {
+  holders: bigint
+}
+
+"""aggregate var_pop on columns"""
+type token_holder_count_var_pop_fields {
+  holders: Float
+}
+
+"""aggregate var_samp on columns"""
+type token_holder_count_var_samp_fields {
+  holders: Float
+}
+
+"""aggregate variance on columns"""
+type token_holder_count_variance_fields {
+  holders: Float
 }
 
 """
@@ -20957,7 +22509,7 @@ type transaction {
   messages(
     """JSON select path"""
     path: String
-  ): jsonb!
+  ): json!
   partition_id: bigint!
   raw_log: String
   signatures: [String!]!
@@ -21041,7 +22593,6 @@ input transaction_aggregate_order_by {
 input transaction_append_input {
   fee: jsonb
   logs: jsonb
-  messages: jsonb
   signer_infos: jsonb
 }
 
@@ -21088,7 +22639,7 @@ input transaction_bool_exp {
   height: bigint_comparison_exp
   logs: jsonb_comparison_exp
   memo: String_comparison_exp
-  messages: jsonb_comparison_exp
+  messages: json_comparison_exp
   partition_id: bigint_comparison_exp
   raw_log: String_comparison_exp
   signatures: String_array_comparison_exp
@@ -21112,7 +22663,6 @@ delete the field or element with specified path (for JSON arrays, negative integ
 input transaction_delete_at_path_input {
   fee: [String!]
   logs: [String!]
-  messages: [String!]
   signer_infos: [String!]
 }
 
@@ -21122,7 +22672,6 @@ delete the array element with specified index (negative integers count from the 
 input transaction_delete_elem_input {
   fee: Int
   logs: Int
-  messages: Int
   signer_infos: Int
 }
 
@@ -21132,7 +22681,6 @@ delete key/value pair or string element. key/value pairs are matched based on th
 input transaction_delete_key_input {
   fee: String
   logs: String
-  messages: String
   signer_infos: String
 }
 
@@ -21158,7 +22706,7 @@ input transaction_insert_input {
   height: bigint
   logs: jsonb
   memo: String
-  messages: jsonb
+  messages: json
   partition_id: bigint
   raw_log: String
   signatures: [String!]
@@ -21270,7 +22818,6 @@ input transaction_order_by {
 input transaction_prepend_input {
   fee: jsonb
   logs: jsonb
-  messages: jsonb
   signer_infos: jsonb
 }
 
@@ -21345,7 +22892,7 @@ input transaction_set_input {
   height: bigint
   logs: jsonb
   memo: String
-  messages: jsonb
+  messages: json
   partition_id: bigint
   raw_log: String
   signatures: [String!]
@@ -21427,7 +22974,7 @@ input transaction_stream_cursor_value_input {
   height: bigint
   logs: jsonb
   memo: String
-  messages: jsonb
+  messages: json
   partition_id: bigint
   raw_log: String
   signatures: [String!]
@@ -24267,8 +25814,8 @@ columns and relationships of "validator_voting_power"
 """
 type validator_voting_power {
   """An object relationship"""
-  block: block!
-  height: bigint!
+  block: block
+  height: bigint
 
   """An object relationship"""
   validator: validator!

@@ -9,6 +9,7 @@ chain:
     - consensus
     - customparams
     - daily refetch
+    - dex
     - distribution
     - feegrant
     - feemodel
@@ -17,7 +18,9 @@ chain:
     - pricefeed
     - slashing
     - staking
+    - telemetry
     - upgrade
+
 node:
   type: remote
   config:

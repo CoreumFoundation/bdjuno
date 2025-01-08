@@ -23,6 +23,7 @@ import (
 	assetfttypes "github.com/CoreumFoundation/coreum/v5/x/asset/ft/types"
 	assetnfttypes "github.com/CoreumFoundation/coreum/v5/x/asset/nft/types"
 	customparamstypes "github.com/CoreumFoundation/coreum/v5/x/customparams/types"
+	dextypes "github.com/CoreumFoundation/coreum/v5/x/dex/types"
 	feemodeltypes "github.com/CoreumFoundation/coreum/v5/x/feemodel/types"
 )
 
@@ -180,6 +181,11 @@ func (m *Module) handleParamChangeProposal(height int64, moduleName string) (err
 		if err != nil {
 			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", assetnfttypes.ModuleName, err)
 		}
+	case dextypes.ModuleName:
+		err = m.dexModule.UpdateParams(height)
+		if err != nil {
+			return fmt.Errorf("error while updating ParamChangeProposal %s params : %s", dextypes.ModuleName, err)
+		}
 	}
 
 	return nil
@@ -304,6 +310,8 @@ func getParamChangeSubspace(msg sdk.Msg) (string, bool) {
 		return slashingtypes.ModuleName, true
 	case *stakingtypes.MsgUpdateParams:
 		return stakingtypes.ModuleName, true
+	case *dextypes.MsgUpdateParams:
+		return dextypes.ModuleName, true
 
 	default:
 		return "", false

@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - chains/coreum-v0.50.x
+  pull_request:
+    branches:
+      - chains/coreum-v0.50.x
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Go version used to build builder
+        run: go version
+      - name: Checkout callisto
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Run test
+        run: make test
