@@ -44,6 +44,10 @@ func buildDockerImage(ctx context.Context, deps types.DepsFunc, push bool) error
 	return docker.BuildImage(ctx, docker.BuildImageConfig{
 		ContextDir: ".",
 		ImageName:  config.DockerHubUsername + "/" + binaryName,
+		TargetPlatforms: []tools.TargetPlatform{
+			tools.TargetPlatformLinuxAMD64InDocker,
+			tools.TargetPlatformLinuxARM64InDocker,
+		},
 		Dockerfile: dockerfile,
 		Action:     action,
 		Versions: []string{
