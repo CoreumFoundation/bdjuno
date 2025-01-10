@@ -6,6 +6,7 @@ import (
 
 	"github.com/CoreumFoundation/crust/build/config"
 	"github.com/CoreumFoundation/crust/build/docker"
+	"github.com/CoreumFoundation/crust/build/tools"
 	"github.com/CoreumFoundation/crust/build/types"
 )
 
@@ -32,6 +33,10 @@ func buildDockerImage(ctx context.Context, push bool) error {
 	return docker.BuildImage(ctx, docker.BuildImageConfig{
 		ContextDir: ".", // TODO (wojciech): Later on, move `hasura` dir here
 		ImageName:  config.DockerHubUsername + "/hasura",
+		TargetPlatforms: []tools.TargetPlatform{
+			tools.TargetPlatformLinuxAMD64InDocker,
+			tools.TargetPlatformLinuxARM64InDocker,
+		},
 		Dockerfile: dockerfile,
 		Action:     action,
 		Versions: []string{
