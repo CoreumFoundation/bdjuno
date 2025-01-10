@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - chains/coreum-v0.50.x
-  pull_request:
-    branches:
-      - chains/coreum-v0.50.x # FIXME remove
 
 jobs:
   build-publish-docker:
