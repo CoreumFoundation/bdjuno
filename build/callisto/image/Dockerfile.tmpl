@@ -1,9 +1,13 @@
 FROM {{ .From }}
 
-# TODO: This is needed because we use psql to load schema. If we do it in go we will be able to use basic image.
+# This is needed because we use psql to load schema.
 RUN apk update && apk add postgresql
 
 ARG TARGETARCH
-COPY {{ .Binary }} /{{ .Binary }}
+WORKDIR /callisto
+COPY {{ .BinaryPath }} /usr/bin/{{ .BinaryName }}
+COPY {{ .DBSchemaPath }} /var/lib/postgresql/schema
+RUN chmod a+rx /var/lib/postgresql && \
+    chmod a+rx /var/lib/postgresql/schema
 
-ENTRYPOINT ["/{{ .Binary }}"]
+CMD [ "{{ .BinaryName }}", "start" ]

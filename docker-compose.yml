@@ -21,7 +21,7 @@ services:
       - "5432:5432"
 
   hasura:
-    image: hasura:znet
+    image: coreumfoundation/hasura:latest
     ports:
       - "8080:8080"
     restart: always
@@ -43,9 +43,9 @@ services:
       ACTION_BASE_URL: http://callisto:3000
 
   callisto:
-    image: callisto:znet
+    image: coreumfoundation/callisto:latest
     restart: always
-    command: callisto parse --home /callisto/.callisto
+    command: callisto start --home /callisto/.callisto
     volumes:
       ## Modify first path to match configuration file.
-      - /callisto/.callisto:/callisto/.callisto
+      - .callisto:/callisto/.callisto
