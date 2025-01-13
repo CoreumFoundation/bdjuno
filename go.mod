@@ -15,6 +15,8 @@ replace (
 	// dgrijalva/jwt-go is deprecated and doesn't receive security updates.
 	// TODO(v5): remove it: https://github.com/cosmos/cosmos-sdk/issues/13134
 	github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.2
+	// Coreum verison of the juno
+	github.com/forbole/juno/v6 => github.com/CoreumFoundation/juno/v6 v6.0.0-20241216105105-8b46c0519796
 	// Fix upstream GHSA-h395-qcrw-5vmq vulnerability.
 	// TODO(v5) Remove it: https://github.com/cosmos/cosmos-sdk/issues/10409
 	github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.9.1
