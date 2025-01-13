@@ -21,8 +21,10 @@ var Commands = map[string]types.Command{
 		deps(callisto.BuildDockerImage, hasura.BuildDockerImage)
 		return nil
 	}, Description: "Builds callisto and hasura docker images"},
-	"images/callisto": {Fn: callisto.BuildDockerImage, Description: "Builds callisto image"},
-	"images/hasura":   {Fn: hasura.BuildDockerImage, Description: "Builds hasura docker image"},
-	"test":            {Fn: golang.Test, Description: "Runs unit tests"},
-	"tidy":            {Fn: golang.Tidy, Description: "Runs go mod tidy"},
+	"release/images": {Fn: func(ctx context.Context, deps types.DepsFunc) error {
+		deps(callisto.ReleaseDockerImage, hasura.ReleaseDockerImage)
+		return nil
+	}, Description: "Builds callisto and hasura docker images and releases them"},
+	"test": {Fn: golang.Test, Description: "Runs unit tests"},
+	"tidy": {Fn: golang.Tidy, Description: "Runs go mod tidy"},
 }

@@ -30,3 +30,7 @@ build/amd64:
 .PHONY: images
 images:
 	$(BUILDER) images
+
+.PHONY: release-images
+release-images:
+	$(BUILDER) release/images

@@ -12,7 +12,6 @@ import (
 const (
 	repoPath   = "."
 	binaryName = "callisto"
-	binaryPath = "bin/" + binaryName
 )
 
 // Build builds callisto in docker.

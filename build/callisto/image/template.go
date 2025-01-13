@@ -17,8 +17,14 @@ type Data struct {
 	// From is the tag of the base image
 	From string
 
+	// Binary is the path to the binary file
+	BinaryPath string
+
 	// Binary is the name of faucet binary file to copy from build context
-	Binary string
+	BinaryName string
+
+	// DBSchemaPath is the path to the database schema
+	DBSchemaPath string
 }
 
 // Execute executes dockerfile template and returns complete dockerfile.
