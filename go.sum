@@ -96,8 +96,8 @@ github.com/BurntSushi/toml v1.2.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbi
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/CoreumFoundation/coreum/v5 v5.0.0-20241218110558-764cbf9da77f h1:VvjluQ/VwZZcmkaecn3R79CFJBz6Z2/KNTKsqyhgoak=
 github.com/CoreumFoundation/coreum/v5 v5.0.0-20241218110558-764cbf9da77f/go.mod h1:zCEOLCDyZGbkwqIfvfHD8U46xlSwaktweHaY22Ac2rM=
-github.com/CoreumFoundation/juno/v6 v6.0.0-20241216105105-8b46c0519796 h1:5yENI7YHgxQQpcGSIppOTAXfjqjQEQG9qljqchGTgdo=
-github.com/CoreumFoundation/juno/v6 v6.0.0-20241216105105-8b46c0519796/go.mod h1:O3o+73CiNjsIuPNWBOH3Wv59vvI5zeGfYIZBjsNj4/I=
+github.com/CoreumFoundation/juno/v6 v6.0.0-20250114085506-751e5a09005b h1:dqe7QC2MQucPK7EicD5Y/TK8+pt04T8kfGNjpy2rzNQ=
+github.com/CoreumFoundation/juno/v6 v6.0.0-20250114085506-751e5a09005b/go.mod h1:O3o+73CiNjsIuPNWBOH3Wv59vvI5zeGfYIZBjsNj4/I=
 github.com/CosmWasm/wasmd v0.53.0 h1:kdaoAi20bIb4VCsxw9pRaT2g5PpIp82Wqrr9DRVN9ao=
 github.com/CosmWasm/wasmd v0.53.0/go.mod h1:FJl/aWjdpGof3usAMFQpDe07Rkx77PUzp0cygFMOvtw=
 github.com/CosmWasm/wasmvm/v2 v2.1.2 h1:GkJ5bAsRlLHfIQVg/FY1VHwLyBwlCjAhDea0B8L+e20=
